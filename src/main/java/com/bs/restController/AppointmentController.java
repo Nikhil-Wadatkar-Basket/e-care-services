@@ -1,6 +1,5 @@
 package com.bs.restController;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,11 @@ public class AppointmentController {
 	@Autowired
 	private AppointmentService appointmentServices;
 
-	@GetMapping("/get")
+	@GetMapping("/getAppointmentDetails")
 	public AppointmentDetails get() {
-		return new AppointmentDetails(12, 12, 12, new Date(2023, 2, 2), "patient name", "student name");
+		AppointmentDetails appointmentDetails = new AppointmentDetails();
+		appointmentDetails.setAppTimeStatue("free");
+		return appointmentDetails;
 	}
 
 	@PostMapping("/createAppointmentDetails")

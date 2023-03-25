@@ -27,56 +27,30 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Appointments</h3>
+		<h3>Medicines</h3>
 
-		<!-- <div class="table-responsive"> -->
-			<table class="table table-hover">
+		<div class="table-responsive">
+			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Doctor Name</th>
-						<th>Patient Name</th>
-						<th>Date</th>
-						<th>Time</th>
-						<th>Time Status</th>
-						<th>Meeting type</th>
-						<th>Fees</th>
-						<th>City</th>
-						<th>Blood group</th>
-						<th>Age</th>
-						<th>Height</th>
-						<th>Weight</th>
-						<th>BP</th>
-						<th>Sugar</th>
-						<th>Contact</th>
+						<th>Medicine Name</th>
+						<th>Stock</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="emp" items="${empList}">
 						<tr>
-							<td>${emp.appID}</td>
-							<td>${emp.doctorName}</td>
-							<td>${emp.patientName}</td>
-							<td>${emp.appDate}</td>
-							<td>${emp.appTime}</td>
-							<td>${emp.appTimeStatue}</td>
-							<td>${emp.meetingType}</td>
-							<td>${emp.fees}</td>
-							<td>${emp.city}</td>
-							<td>${emp.bloodGroup}</td>
-							<td>${emp.age}</td>
-							<td>${emp.height}</td>
-							<td>${emp.weight}</td>
-							<td>${emp.bp}</td>
-							<td>${emp.sugar}</td>
-							<td>${emp.contact}</td>
-							<td><a href="getAppointmentByTime/${emp.appTime}">Edit</a></td>
-							<td><a href="deleteAppointmentByTime/${emp.appTime}">Delete</a></td>
+							<td>${emp.medicineID}</td>
+							<td>${emp.medicineName}</td>
+							<td>${emp.stock}</td>
+							<td><a href="getMedicineByID/${emp.medicineID}">Edit</a></td>
+							<td><a href="deleteMedicine/${emp.medicineID}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-		<!-- </div> -->
+		</div>
 	</div>
 	</div>
 

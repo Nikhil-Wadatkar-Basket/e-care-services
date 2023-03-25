@@ -10,59 +10,55 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "AppointmentDetails")
-public class AppointmentDetails {
+public class AppointmentReq {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer appID;
+	private Integer userID;
 	private Integer doctorID;
 
+	private Date appDate;
 	private String patientName;
 	private String doctorName;
-
-	private String appTimeStatue;
-	private String meetingType;
 	private String appTime;
-	private Integer fees;
-	private Date appDate;
-	private Integer userID;
+	private String appTimeStatue;
 	private String city;
 	private String bloodGroup;
+	private String meetingType;
 	private Integer age;
+	private Integer fees;
 	private Integer weight;
 	private Integer height;
 	private Integer bp;
 	private Integer sugar;
-	private String contact;
+	private Integer contact;
 	private String patientType;
+	
 
-	public AppointmentDetails() {
+	public AppointmentReq() {
 		// TODO Auto-generated constructor stub
 	}
 
 	
 
-
-
-
-	public AppointmentDetails(Integer appID, Integer doctorID, String patientName, String doctorName,
-			String appTimeStatue, String meetingType, String appTime, Integer fees, Date appDate, Integer userID,
-			String city, String bloodGroup, Integer age, Integer weight, Integer height, Integer bp, Integer sugar,
-			String contact,String patientType) {
+	public AppointmentReq(Integer appID, Integer userID, Integer doctorID, Date appDate, String patientName,
+			String doctorName, String appTime, String appTimeStatue, String city, String bloodGroup, String meetingType,
+			Integer age, Integer fees, Integer weight, Integer height, Integer bp, Integer sugar, Integer contact,String patientType) {
 		super();
 		this.appID = appID;
+		this.userID = userID;
 		this.doctorID = doctorID;
+		this.appDate = appDate;
 		this.patientName = patientName;
 		this.doctorName = doctorName;
-		this.appTimeStatue = appTimeStatue;
-		this.meetingType = meetingType;
 		this.appTime = appTime;
-		this.fees = fees;
-		this.appDate = appDate;
-		this.userID = userID;
+		this.appTimeStatue = appTimeStatue;
 		this.city = city;
 		this.bloodGroup = bloodGroup;
+		this.meetingType = meetingType;
 		this.age = age;
+		this.fees = fees;
 		this.weight = weight;
 		this.height = height;
 		this.bp = bp;
@@ -71,7 +67,6 @@ public class AppointmentDetails {
 		this.patientType=patientType;
 	}
 
-
 	public String getPatientType() {
 		return patientType;
 	}
@@ -79,6 +74,8 @@ public class AppointmentDetails {
 	public void setPatientType(String patientType) {
 		this.patientType = patientType;
 	}
+
+
 
 
 	public Integer getWeight() {
@@ -129,13 +126,13 @@ public class AppointmentDetails {
 
 
 
-	public String getContact() {
+	public Integer getContact() {
 		return contact;
 	}
 
 
 
-	public void setContact(String contact) {
+	public void setContact(Integer contact) {
 		this.contact = contact;
 	}
 
@@ -247,11 +244,10 @@ public class AppointmentDetails {
 
 	@Override
 	public String toString() {
-		return "AppointmentDetails [appID=" + appID + ", doctorID=" + doctorID + ", patientName=" + patientName
-				+ ", doctorName=" + doctorName + ", appTimeStatue=" + appTimeStatue + ", meetingType=" + meetingType
-				+ ", appTime=" + appTime + ", fees=" + fees + ", appDate=" + appDate + ", userID=" + userID + ", city="
-				+ city + ", bloodGroup=" + bloodGroup + ", age=" + age + ", weight=" + weight + ", height=" + height
-				+ ", bp=" + bp + ", sugar=" + sugar + ", contact=" + contact + "]";
+		return "AppointmentDetails [appID=" + appID + ", userID=" + userID + ", doctorID=" + doctorID + ", appDate="
+				+ appDate + ", patientName=" + patientName + ", doctorName=" + doctorName + ", appTime=" + appTime
+				+ ", appTimeStatue=" + appTimeStatue + ", city=" + city + ", bloodGroup=" + bloodGroup
+				+ ", meetingType=" + meetingType + ", age=" + age + ", fees=" + fees + "]";
 	}
 
 }

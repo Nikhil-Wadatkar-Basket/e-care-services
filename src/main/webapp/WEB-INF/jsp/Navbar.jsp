@@ -57,6 +57,32 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#">Separated link</a>
 				</div></li>
+				
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">PATIENTS</a>
+				<div class="dropdown-menu">
+
+					<a class="dropdown-item" href="/loadNewPatientPage">New Patient</a> 
+					<a class="dropdown-item" href="/showPatients">All
+						Patients</a> <a class="dropdown-item"
+						href="/DeletePatientPage">Delete Patient</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Separated link</a>
+				</div></li>
+				
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
+				role="button" aria-haspopup="true" aria-expanded="false">MEDICINES</a>
+				<div class="dropdown-menu">
+
+					<a class="dropdown-item" href="/loadNewMedicinePage">New Medicine</a> 
+					<a class="dropdown-item" href="/showMedicines">All
+						Medicines</a> <a class="dropdown-item"
+						href="/DeleteMedicinePage">Delete Medicine</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">Separated link</a>
+				</div></li>
 			
 			<li class="nav-item"><a class="nav-link" href="/showDoctors">Doctors</a></li>
 			<li class="nav-item"><a class="nav-link disabled" href="#">Disabled</a>

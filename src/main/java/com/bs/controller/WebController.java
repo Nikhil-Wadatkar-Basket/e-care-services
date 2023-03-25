@@ -2,6 +2,7 @@ package com.bs.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.AppointmentDetails;
 import com.bs.beans.DoctorDetails;
+import com.bs.beans.MedicineDetails;
+import com.bs.beans.PatientDetails;
+import com.bs.helper.HelperService;
 import com.bs.service.AppointmentService;
 import com.bs.service.DoctorService;
+import com.bs.service.MedicineService;
+import com.bs.service.PatientService;
 
 @Controller
 public class WebController {
@@ -24,6 +30,14 @@ public class WebController {
 
 	@Autowired
 	private DoctorService docServices;
+
+	@Autowired
+	private PatientService patientServices;
+
+	@Autowired
+	private MedicineService medicineService;
+	@Autowired
+	private HelperService helperService;
 
 	@GetMapping("/demo")
 	public String demo() {
@@ -37,27 +51,34 @@ public class WebController {
 		return mav;
 	}
 
-	@GetMapping("/getAppointmentByID/{id}")
-	public ModelAndView getAppointmentByID(@PathVariable("id") Integer id) {
+	@GetMapping("/getAppointmentByTime/{time}")
+	public ModelAndView getAppointmentByID(@PathVariable("time") String id) {
 		ModelAndView mav = new ModelAndView("AppointmentsList");
 
-		AppointmentDetails appointmentDetailsByID = appointmentServices.getAppointmentDetailsByID(id);
+		AppointmentDetails appointmentDetailsByID = appointmentServices.getAppointmentDetailsByAppTime(id);
 		mav.addObject("app", appointmentDetailsByID);
-
+		mav.addObject("doctorList", getAvailableDoctors());
+		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		mav.addObject("freeTimeSlots", freeTimeSlots);
+		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
 		mav.setViewName("UpdateAppointment");
 		return mav;
 	}
 
-	@GetMapping("/deleteAppointment/{id}")
-	public ModelAndView deleteAppointment(@PathVariable("id") Integer id) {
-		ModelAndView mav = new ModelAndView("AppointmentsList");
-		String message = appointmentServices.deleteAppointmentDetailsByID(id);
+	private List<String> getAvailableDoctors() {
+		return docServices.getAllDoctorDetails().stream().map(doc -> doc.getDocName()).collect(Collectors.toList());
+	}
 
+	@GetMapping("/deleteAppointmentByTime/{time}")
+	public ModelAndView deleteAppointment(@PathVariable("time") String id) {
+		ModelAndView mav = new ModelAndView("AppointmentsList");
+		String message = appointmentServices.deleteAppointmentDetailsByAppTime(id);
+		
 		if (message.equalsIgnoreCase("Not found"))
 			mav.setViewName("FailureMessage");
-		else if (message.equalsIgnoreCase("deleted"))
-			mav.setViewName("SuccessMessage");
-//		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		else if (message.equalsIgnoreCase("deleted")) {
+			mav.setViewName("AppointmentsList");
+		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());}
 		return mav;
 	}
 
@@ -73,15 +94,20 @@ public class WebController {
 	public ModelAndView loadNewAppointmentPage() {
 		ModelAndView mav = new ModelAndView("NewAppointment");
 		mav.addObject("app", new AppointmentDetails());
-		mav.addObject("doctorList", Arrays.asList("Dr. Pathak", "Dr. Kedar"));
+
+		mav.addObject("doctorList", getAvailableDoctors());
+		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		mav.addObject("freeTimeSlots", freeTimeSlots);
+		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
+
 		return mav;
 	}
 
 	@PostMapping("/createNewAppointment")
 	public ModelAndView createNewAppointment(@ModelAttribute("app") AppointmentDetails userDetails) {
 		// call patient service to fill other patient details
-
-		appointmentServices.createAppointmentDetails(userDetails);
+		helperService.addPatientDetailsFromAppointment(userDetails);
+//		appointmentServices.createAppointmentDetails(userDetails);
 		ModelAndView mav = new ModelAndView("AppointmentsList");
 		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
 		return mav;
@@ -90,11 +116,12 @@ public class WebController {
 	@GetMapping("/DeleteAppointmentsPage")
 	public ModelAndView deleteAppointmentsPage() {
 		ModelAndView mav = new ModelAndView("DeleteAppointmentsPage");
-		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		mav.addObject("empList", appointmentServices.getAllAppointmentDetails().stream()
+				.filter(ss -> ss.getAppTimeStatue().equalsIgnoreCase("booked")).collect(Collectors.toList()));
 		return mav;
 	}
 
-	// -----------------------doctor
+	// -----------------------doctor------------------------------------------------------
 	@GetMapping("/showDoctors")
 	public ModelAndView showDoctors() {
 		ModelAndView mav = new ModelAndView("DoctorList");
@@ -151,7 +178,7 @@ public class WebController {
 		if (message.equalsIgnoreCase("Not found"))
 			mav.setViewName("FailureMessage");
 		else if (message.equalsIgnoreCase("deleted"))
-			mav.setViewName("SuccessMessage");
+			mav.setViewName("DoctorList");
 //		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
 		return mav;
 	}
@@ -166,4 +193,141 @@ public class WebController {
 		mav.setViewName("UpdateDoctor");
 		return mav;
 	}
+
+	// ----------------------patient---------------------------
+	@GetMapping("/showPatients")
+	public ModelAndView showPatients() {
+		ModelAndView mav = new ModelAndView("PatientsList");
+		mav.addObject("empList", patientServices.getAllPatientDetails());
+		return mav;
+	}
+
+	@GetMapping("/loadNewPatientPage")
+	public ModelAndView loadNewPatientPage() {
+		ModelAndView mav = new ModelAndView("NewPatient");
+
+		mav.addObject("patient", new PatientDetails());
+		mav.addObject("doctorList", getAvailableDoctors());
+		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		mav.addObject("freeTimeSlots", freeTimeSlots);
+		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
+		return mav;
+	}
+
+	@PostMapping("/createPatient")
+	public ModelAndView createPatient(@ModelAttribute("patient") PatientDetails doctor) {
+		PatientDetails patientID = patientServices.createPatientDetails(doctor);
+		
+		
+		helperService.createAppointmentforPatient(patientID);
+		ModelAndView mav = new ModelAndView("PatientsList");
+		mav.addObject("empList", patientServices.getAllPatientDetails());
+		return mav;
+	}
+
+	@PostMapping("/updatePatient")
+	public ModelAndView updatePatient(@ModelAttribute("patient") PatientDetails doctor) {
+		patientServices.updatePatientDetails(doctor);
+
+		ModelAndView mav = new ModelAndView("PatientsList");
+		mav.addObject("empList", patientServices.getAllPatientDetails());
+		return mav;
+	}
+
+	@GetMapping("/getPatientByID/{id}")
+	public ModelAndView getPatientByID(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("PatientsList");
+		PatientDetails patientrDetailsByID = patientServices.getPatientDetailsByID(id);
+		mav.addObject("patient", patientrDetailsByID);
+		mav.addObject("doctorList", getAvailableDoctors());
+		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		mav.addObject("freeTimeSlots", freeTimeSlots);
+		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
+		mav.setViewName("UpdatePatient");
+		return mav;
+	}
+
+	@GetMapping("/DeletePatientPage")
+	public ModelAndView DeletePatientPage() {
+		ModelAndView mav = new ModelAndView("DeletePatientsPage");
+		mav.addObject("empList", patientServices.getAllPatientDetails());
+		return mav;
+	}
+
+	@GetMapping("/deletePatient/{id}")
+	public ModelAndView deletePatient(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("PatientsList");
+		helperService.deletePatientsFromAppointment(id);
+		String message = patientServices.deletePatientDetailsByID(id);
+		if (message.equalsIgnoreCase("Not found"))
+			mav.setViewName("FailureMessage");
+		else if (message.equalsIgnoreCase("deleted")) {
+			mav.setViewName("PatientsList");
+			mav.addObject("empList", patientServices.getAllPatientDetails());
+		}
+		return mav;
+	}
+//------------medicine---------------------
+
+	@GetMapping("/showMedicines")
+	public ModelAndView showMedicines() {
+		ModelAndView mav = new ModelAndView("MedicinesList");
+		mav.addObject("empList", medicineService.getAllMedicineDetails());
+		return mav;
+	}
+
+	@GetMapping("/loadNewMedicinePage")
+	public ModelAndView loadNewMedicinePage() {
+		ModelAndView mav = new ModelAndView("NewMedicine");
+		mav.addObject("medicine", new MedicineDetails());
+//				mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
+		return mav;
+	}
+
+	@PostMapping("/createMedicine")
+	public ModelAndView createMedicine(@ModelAttribute("medicine") MedicineDetails doctor) {
+		medicineService.createMedicineDetails(doctor);
+		ModelAndView mav = new ModelAndView("MedicinesList");
+		mav.addObject("empList", medicineService.getAllMedicineDetails());
+		return mav;
+	}
+
+	@PostMapping("/updateMedicine")
+	public ModelAndView updateMedicine(@ModelAttribute("medicine") MedicineDetails doctor) {
+		medicineService.updateMedicineDetails(doctor);
+
+		ModelAndView mav = new ModelAndView("MedicinesList");
+		mav.addObject("empList", medicineService.getAllMedicineDetails());
+		return mav;
+	}
+
+	@GetMapping("/getMedicineByID/{id}")
+	public ModelAndView getMedicineByID(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("MedicinesList");
+		MedicineDetails medicinerDetailsByID = medicineService.getMedicineDetailsByID(id);
+		mav.addObject("medicine", medicinerDetailsByID);
+		mav.setViewName("UpdateMedicine");
+		return mav;
+	}
+
+	@GetMapping("/DeleteMedicinePage")
+	public ModelAndView DeleteMedicinePage() {
+		ModelAndView mav = new ModelAndView("DeleteMedicinesPage");
+		mav.addObject("empList", medicineService.getAllMedicineDetails());
+		return mav;
+	}
+
+	@GetMapping("/deleteMedicine/{id}")
+	public ModelAndView deleteMedicine(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("MedicineList");
+		String message = medicineService.deleteMedicineDetailsByID(id);
+
+		if (message.equalsIgnoreCase("Not found"))
+			mav.setViewName("FailureMessage");
+		else if (message.equalsIgnoreCase("deleted"))
+			mav.setViewName("MedicinesList");
+//				mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		return mav;
+	}
+
 }

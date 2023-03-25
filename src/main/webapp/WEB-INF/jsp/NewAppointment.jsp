@@ -62,6 +62,14 @@
 					<td><form:input path="patientName" /></td>
 				</tr>
 				<tr>
+					<td>City:</td>
+					<td><form:input path="city" /></td>
+				</tr>
+				<tr>
+					<td>Age :</td>
+					<td><form:input path="age" /></td>
+				</tr>
+				<tr>
 					<%-- <td><form:label path="doctorName">Doctor Name : </form:label></td> --%>
 					<td>Doctor Name :</td>
 					<td><form:select path="doctorName">
@@ -75,10 +83,75 @@
 					<td><form:input type="date" path="appDate" /></td>
 				</tr>
 
-
+				<tr>
+					<td><form:label path="meetingType">Meeting Type</form:label></td>
+					<td><form:radiobutton path="meetingType" value="New"
+							label="New" /> <form:radiobutton path="meetingType" value="Old"
+							label="Old" /></td>
+				</tr>
+				
+				<tr>
+					<td><form:label path="patientType">Patient Type</form:label></td>
+					<td>
+					<form:radiobutton path="patientType" value="OPD"
+							label="OPD" /> 
+							<form:radiobutton path="patientType" value="IPD"
+							label="IPD" />
+							<form:radiobutton path="patientType" value="ICU"
+							label="ICU" />
+							</td>
+				</tr>
+				<%-- <tr>
+					<td><form:label path="appTime">Time</form:label>
+					</td>
+					<td><form:radiobuttons path="appTime"
+							items="${freeTimeSlots}" /></td>
+				</tr> --%>
+				<tr>
+					<td><form:label path="appTime">Time</form:label>
+					</td>
+					<td>
+                        <form:select path = "appTime">
+                            <form:option value = "NONE" label = "Select"/>
+                            <form:options items = "${freeTimeSlots}" />
+                        </form:select>
+                    </td>
+				</tr>
+				<tr>
+                    <td>
+                        <form:label path = "bloodGroup">Blood Group</form:label>
+                    </td>
+                    <td>
+                        <form:select path = "bloodGroup">
+                            <form:option value = "NONE" label = "Select"/>
+                            <form:options items = "${bloodGroups}" />
+                        </form:select>
+                    </td>
+                    
+                </tr>
+                <tr>
+					<td>Weight :</td>
+					<td><form:input path="weight" /></td>
+				</tr>
+				<tr>
+					<td>Height :</td>
+					<td><form:input path="height" /></td>
+				</tr>
+				<tr>
+					<td>BP:</td>
+					<td><form:input path="bp" /></td>
+				</tr>
+				<tr>
+					<td>Sugar:</td>
+					<td><form:input path="sugar" /></td>
+				</tr>
+				<tr>
+					<td>Contact :</td>
+					<td><form:input path="contact" /></td>
+				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Edit Save" /></td>
+					<td><input type="submit" value="Create An Appointment" /></td>
 				</tr>
 			</table>
 		</form:form>

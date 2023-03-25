@@ -2,19 +2,23 @@ package com.bs.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bs.beans.AppointmentDetails;
+import com.bs.helper.HelperService;
 import com.bs.repo.AppointmentRepo;
-import com.bs.repo.UserRepo;
 
 @Service
 public class AppointmentService {
 
 	@Autowired
 	private AppointmentRepo appRepo;
+	
+	@Autowired
+	private PatientService patientService;
 
 	public AppointmentDetails createAppointmentDetails(AppointmentDetails appointmentDetails) {
 		return appRepo.save(appointmentDetails);
@@ -22,12 +26,33 @@ public class AppointmentService {
 
 	public AppointmentDetails updateAppointmentDetails(AppointmentDetails appointmentDetails) {
 		AppointmentDetails updated = null;
-		Optional<AppointmentDetails> existedAppointmentDetails = appRepo.findById(appointmentDetails.getAppID());
-		if (existedAppointmentDetails.isPresent()) {
-			AppointmentDetails userDetails2 = existedAppointmentDetails.get();
-			updated = appRepo.save(appointmentDetails);
-		}
-		return updated;
+		AppointmentDetails existedAppointmentDetails = appRepo
+				.findAppointmentDetailsByAppTime(appointmentDetails.getAppTime());
+		existedAppointmentDetails.setDoctorID(appointmentDetails.getDoctorID());
+		existedAppointmentDetails.setPatientName(appointmentDetails.getPatientName());
+		existedAppointmentDetails.setDoctorName(appointmentDetails.getDoctorName());
+		existedAppointmentDetails.setAppTimeStatue("Booked");
+		existedAppointmentDetails.setMeetingType(appointmentDetails.getMeetingType());
+		existedAppointmentDetails.setAppTime(appointmentDetails.getAppTime());
+		existedAppointmentDetails.setFees(appointmentDetails.getFees());
+		existedAppointmentDetails.setAppDate(appointmentDetails.getAppDate());
+		existedAppointmentDetails.setUserID(appointmentDetails.getUserID());
+		existedAppointmentDetails.setCity(appointmentDetails.getCity());
+		existedAppointmentDetails.setBloodGroup(appointmentDetails.getBloodGroup());
+		existedAppointmentDetails.setAge(appointmentDetails.getAge());
+		existedAppointmentDetails.setWeight(appointmentDetails.getWeight());
+		existedAppointmentDetails.setHeight(appointmentDetails.getHeight());
+		existedAppointmentDetails.setBp(appointmentDetails.getBp());
+		existedAppointmentDetails.setSugar(appointmentDetails.getSugar());
+		existedAppointmentDetails.setContact(appointmentDetails.getContact());
+
+		if (appointmentDetails.getMeetingType().equalsIgnoreCase("New"))
+			existedAppointmentDetails.setFees(200);
+		else
+			existedAppointmentDetails.setFees(100);
+		// delete
+//		dele
+		return appRepo.save(existedAppointmentDetails);
 	}
 
 	public AppointmentDetails getAppointmentDetailsByID(Integer id) {
@@ -42,15 +67,53 @@ public class AppointmentService {
 		return appRepo.findAll();
 	}
 
-	public String deleteAppointmentDetailsByID(Integer id) {
-		Optional<AppointmentDetails> findById = appRepo.findById(id);
+	public String deleteAppointmentDetailsByAppTime(String time) {
+		AppointmentDetails findAppointmentDetailsByAppTime = appRepo.findAppointmentDetailsByAppTime(time);
+		
+		Integer patientID=findAppointmentDetailsByAppTime.getUserID();
+		//delete patient while deleting his appointment
+		patientService.deletePatientDetailsByID(patientID);
+		
+		AppointmentDetails appointmentDetails = new AppointmentDetails();
+		appointmentDetails.setAppTimeStatue("Free");
+		appointmentDetails.setAppID(findAppointmentDetailsByAppTime.getAppID());
+		appointmentDetails.setAppTime(findAppointmentDetailsByAppTime.getAppTime());
+
+		AppointmentDetails findById = appRepo.save(appointmentDetails);
 		String message = "Not found";
-		if (findById.isPresent()) {
-			appRepo.deleteById(id);
+		if (findById.getAppTimeStatue().equalsIgnoreCase("free")) {
 			message = "Deleted";
 		} else
 			message = "Not found";
 		return message;
 	}
 
+	public List<String> getFreeTimesSlotes() {
+		return getAllAppointmentDetails().stream().filter(ap -> ap.getAppTimeStatue().equalsIgnoreCase("free"))
+				.map(ap -> ap.getAppTime()).collect(Collectors.toList());
+	}
+
+	public AppointmentDetails getAppointmentDetailsByAppTime(String time) {
+		return appRepo.findAppointmentDetailsByAppTime(time);
+	}
+
+	public AppointmentDetails getAppointmentByPatientID(Integer id) {
+		return appRepo.findAppointmentDetailsByUserID(id);
+	}
+
+	public String deleteAppointmentDetailsByID(Integer appID) {
+		String message = "";
+		Optional<AppointmentDetails> findAppointmentDetailsByAppTime = appRepo.findById(appID);
+
+		if (findAppointmentDetailsByAppTime.isPresent()) {
+			appRepo.deleteById(findAppointmentDetailsByAppTime.get().getAppID());
+			message = "Deleted";
+		}
+		message = "Not found";
+		return message;
+	}
+	
+	public AppointmentDetails fetchAppointmentDetailsByAppTime(String time) {
+		return appRepo.findAppointmentDetailsByAppTime(time);
+	}
 }
