@@ -61,6 +61,14 @@
 					<td>Stock:</td>
 					<td><form:input path="stock" /></td>
 				</tr>
+				<tr>
+					<td>Price:</td>
+					<td><form:input path="price" /></td>
+				</tr>
+				<tr>
+					<td>Exp. Date :</td>
+					<td><form:input type="date" path="expDate" /></td>
+				</tr>
 				<%-- <tr>
 					<td>Designation:</td>
 					<td><form:select path="designation">

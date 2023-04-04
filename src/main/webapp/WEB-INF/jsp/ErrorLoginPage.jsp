@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,51 +35,32 @@
 
 <body>
 
-	<jsp:include page="Navbar.jsp" />
-
 	<div class="container">
-		<h3>Patients</h3>
 
-		<c:choose>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-5">  </div>
+			<div class="col"></div>
+		</div>
+	</div>
+<br></br><br></br><br></br>
+	<div class="container">
 
-			<c:when test="${fn:length(empList) eq 0}">
-				<div class="well well-lg"><h1>No Patients registered</h1></div>
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-5">
+				<div class="alert alert-danger">
+					<strong>Sorry!</strong> <br></br>Invalid Credentials. Please click below to login again<br></br>
 				
-				
-			</c:when>
-			<c:otherwise>
-			<div class="table-responsive">
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Contact</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="emp" items="${empList}">
-							<tr>
-								<td>${emp.patientID}</td>
-								<td>${emp.patientName}</td>
-								<td>${emp.patientAge}</td>
-								<td>${emp.contact}</td>
-								<td><a href="getPatientByID/${emp.patientID}">Edit</a></td>
-								<td><a href="deletePatient/${emp.patientID}">Delete</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+					<a href="/login" class="btn btn-info btn-light" role="button">Login Again</a>
+				</div>
+			</div>
+			<div class="col"></div>
+		</div>
 	</div>
 
-	</c:otherwise>
-	</c:choose>
 
 
-	</div>
-	</div>
 
 </body>
-
 </html>

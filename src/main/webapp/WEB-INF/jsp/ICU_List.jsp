@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,45 +38,46 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Patients</h3>
-
-		<c:choose>
-
-			<c:when test="${fn:length(empList) eq 0}">
-				<div class="well well-lg"><h1>No Patients registered</h1></div>
-				
-				
-			</c:when>
-			<c:otherwise>
-			<div class="table-responsive">
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Contact</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="emp" items="${empList}">
-							<tr>
-								<td>${emp.patientID}</td>
-								<td>${emp.patientName}</td>
-								<td>${emp.patientAge}</td>
-								<td>${emp.contact}</td>
-								<td><a href="getPatientByID/${emp.patientID}">Edit</a></td>
-								<td><a href="deletePatient/${emp.patientID}">Delete</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-	</div>
-
-	</c:otherwise>
-	</c:choose>
+		<h3>ICU Details</h3>
 
 
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Doctor Name</th>
+					<th>Patient Name</th>
+					<th>Date</th>
+					<th>Bed Number</th>
+					<th>Bed Status</th>
+					<th>Discharge type</th>
+					<th>Fees</th>
+					<th>City</th>
+					
+					<th>Contact</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="emp" items="${empList}">
+					<tr>
+						<td>${emp.icuID}</td>
+						<td>${emp.doctorName}</td>
+						<td>${emp.patientName}</td>
+						<td>${emp.appDate}</td>
+						<td>${emp.bedNumber}</td>
+						<td>${emp.icuBedStatus}</td>
+						<td>${emp.dischargeStatus}</td>
+						<td>${emp.fees}</td>
+						<td>${emp.city}</td>
+						
+						<td>${emp.contact}</td>
+						<td><a href="/freeBed/${emp.bedNumber}">Free It</a></td>
+						<td><a href="/upddateByBedNumber/${emp.bedNumber}">Update Info</a></td>
+						<td><a href="/dischargeByBedNumber/${emp.bedNumber}">Discharge a patient</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 	</div>
 

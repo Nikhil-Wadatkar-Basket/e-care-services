@@ -43,86 +43,167 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>New Patient</h3>
+		
 
 		<form:form method="POST" action="/createPatient"
 			modelAttribute="patient">
-			<table>
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4"></div>
+					<div class="col-md-4">
+						<h3>New Patient</h3>
+
+						<div class="form-group">
+							<label for="exampleFormControlInput1">Patient Name:</label>
+							<form:input class="form-control" path="patientName" />
+						</div>
+						<div class="form-group">
+							<label>Age:</label>
+							<form:input class="form-control" path="patientAge" />
+						</div>
+						<div class="form-group">
+							<label>Contact:</label>
+							<form:input class="form-control" path="contact" />
+						</div>
+						<div class="form-group">
+							<label>city:</label>
+							<form:input class="form-control" path="city" />
+						</div>
+						<div class="form-group">
+							<label>Date:</label>
+							<form:input class="form-control" type="date"
+							path="appDate" />
+						</div>
+						<div class="form-group">
+							<label>Weight:</label>
+							<form:input class="form-control" path="weight" />
+						</div>
+						<div class="form-group">
+							<label>Height:</label>
+							<form:input class="form-control" path="height" />
+						</div>
+						<div class="form-group">
+							<label>Bp:</label>
+							<form:input class="form-control" path="bp" />
+						</div>
+						<div class="form-group">
+							<label>Sugar:</label>
+							<form:input class="form-control" path="sugar" />
+						</div>
+						
+						<div class="form-group ">
+							<form:label  path="patientType">Patient Type</form:label>
+							<form:radiobutton path="patientType"
+							value="OPD" label="OPD" /> <form:radiobutton path="patientType"
+							value="IPD" label="IPD" /> <form:radiobutton path="patientType"
+							value="ICU" label="ICU" />
+							
+							
+						</div>
+						
+						<div class="form-group">
+							<label>Blood Group:</label>
+							<form:select class="form-control" path="bloodGroup">
+							<form:option value="NONE" label="Select" />
+							<form:options items="${bloodGroups}" />
+						</form:select>
+						</div>
+						
+						<div class="form-group">
+							<label>Time:</label>
+							<form:select class="form-control" path="appTime">
+							<form:option value="NONE" label="Select" />
+							<form:options items="${freeTimeSlots}" />
+						</form:select>
+						</div>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+			</div>
+
+
+			<%-- <table>
 				<tr>
 					<td></td>
 					<td><form:hidden path="patientID" /></td>
 				</tr>
 
 				<tr>
-					<td>Patient Name:</td>
-					<td><form:input path="patientName" /></td>
+					<td><label>Patient Name:</label></td>
+					<td><form:input class="form-control" path="patientName" /></td>
 				</tr>
 				<tr>
-					<td>Age:</td>
-					<td><form:input path="patientAge" /></td>
+					<td><label>Age:</label></td>
+					<td><form:input class="form-control" path="patientAge" /></td>
 				</tr>
 				<tr>
-					<td>Contact :</td>
-					<td><form:input path="contact" /></td>
+					<td><label>Contact :</td>
+					<td><form:input class="form-control" path="contact" /></td>
 				</tr>
 				<tr>
-					<td>City:</td>
-					<td><form:input path="city" /></td>
+					<td><label>City:</td>
+					<td><form:input class="form-control" path="city" /></td>
 				</tr>
 				<tr>
-					<td>Doctor Name :</td>
-					<td><form:select path="doctorName">
-							<%-- <form:option value="NONE" label="Select" /> --%>
+					<td><label>Doctor Name :</td>
+					<td><form:select class="form-control" path="doctorName">
+							<form:option value="NONE" label="Select" />
 							<form:options items="${doctorList}" />
 						</form:select></td>
 				</tr>
 				<tr>
-					<td>Date :</td>
-					<td><form:input type="date" path="appDate" /></td>
+					<td><label>Date :</td>
+					<td><form:input class="form-control" type="date"
+							path="appDate" /></td>
 				</tr>
 				<tr>
 					<td><form:label path="patientType">Patient Type</form:label></td>
-					<td><form:radiobutton path="patientType" value="OPD"
-							label="OPD" /> <form:radiobutton path="patientType" value="IPD"
-							label="IPD" /> <form:radiobutton path="patientType" value="ICU"
-							label="ICU" /></td>
+					<td><form:radiobutton class="form-control" path="patientType"
+							value="OPD" label="OPD" /> <form:radiobutton path="patientType"
+							value="IPD" label="IPD" /> <form:radiobutton path="patientType"
+							value="ICU" label="ICU" /></td>
 				</tr>
 				<tr>
-					<td><form:label path="appTime">Time</form:label></td>
-					<td><form:select path="appTime">
+					<td><form:label path="appTime">
+							<label>Time</label>
+						</form:label></td>
+					<td><form:select class="form-control" path="appTime">
 							<form:option value="NONE" label="Select" />
 							<form:options items="${freeTimeSlots}" />
 						</form:select></td>
 				</tr>
 				<tr>
-					<td><form:label path="bloodGroup">Blood Group</form:label></td>
-					<td><form:select path="bloodGroup">
+					<td><form:label path="bloodGroup">
+							<label><label>Blood Group</label>
+						</form:label></td>
+					<td><form:select class="form-control" path="bloodGroup">
 							<form:option value="NONE" label="Select" />
 							<form:options items="${bloodGroups}" />
 						</form:select></td>
 
 				</tr>
 				<tr>
-					<td>Weight :</td>
-					<td><form:input path="weight" /></td>
+					<td><label>Weight :</label></td>
+					<td><form:input class="form-control" path="weight" /></td>
 				</tr>
 				<tr>
-					<td>Height :</td>
-					<td><form:input path="height" /></td>
+					<td><label>Height :</label></td>
+					<td><form:input class="form-control" path="height" /></td>
 				</tr>
 				<tr>
-					<td>BP:</td>
-					<td><form:input path="bp" /></td>
+					<td><label>BP:</label></td>
+					<td><form:input class="form-control" path="bp" /></td>
 				</tr>
 				<tr>
-					<td>Sugar:</td>
-					<td><form:input path="sugar" /></td>
+					<td><label>Sugar:</label></td>
+					<td><form:input class="form-control" path="sugar" /></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td><input type="submit" value="Create New Patient" /></td>
 				</tr>
-			</table>
+			</table> --%>
 		</form:form>
 	</div>
 

@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,52 +34,55 @@
 </head>
 
 <body>
-
-	<jsp:include page="Navbar.jsp" />
+	<jsp:include page="JumboTrane.jsp" />
 
 	<div class="container">
-		<h3>Patients</h3>
+		<div class="row">
+			<div class="col-8">
 
-		<c:choose>
-
-			<c:when test="${fn:length(empList) eq 0}">
-				<div class="well well-lg"><h1>No Patients registered</h1></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3"></div>
+						<div class="card text-white bg-primary mb-3"
+							style="max-width: 18rem;">
+							<div class="card-header">
+								<h5>Register Yourself.</h5>
+							</div>
+							<div class="card-body">
+								<p class="card-text">If you are facing any issues while
+									login. Please register yourself.</p>
+								<br> <a href="#link" class="btn btn-info btn-light"
+									role="button">Register Here</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-4 border border-primary">
+				<br></br>
+				<h4 class="text-center">Login</h4>
 				
-				
-			</c:when>
-			<c:otherwise>
-			<div class="table-responsive">
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Contact</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="emp" items="${empList}">
-							<tr>
-								<td>${emp.patientID}</td>
-								<td>${emp.patientName}</td>
-								<td>${emp.patientAge}</td>
-								<td>${emp.contact}</td>
-								<td><a href="getPatientByID/${emp.patientID}">Edit</a></td>
-								<td><a href="deletePatient/${emp.patientID}">Delete</a></td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-	</div>
-
-	</c:otherwise>
-	</c:choose>
-
+				<form:form action="/authenticate" method="post" modelAttribute="userDetails">
+					<div class="form-group ">
+						<label for="exampleInputEmail1">Username:</label>
+						<form:input path="userName" class="form-control"
+							aria-describedby="emailHelp" placeholder="Enter username" />
+						<small id="emailHelp" class="form-text text-muted">We'll
+							never share your email with anyone else.</small>
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Password</label>
+						<form:input path="password" class="form-control" placeholder="Password" />
+					</div>
+					
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</form:form>
+				<br></br>
+			</div>
+		</div>
 
 	</div>
-	</div>
 
+	<jsp:include page="FooterPage.jsp" />
 </body>
-
 </html>

@@ -1,16 +1,23 @@
-package com.bs.controller;
+package com.bs.webController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.AppointmentDetails;
@@ -18,6 +25,7 @@ import com.bs.beans.DoctorDetails;
 import com.bs.beans.MedicineDetails;
 import com.bs.beans.PatientDetails;
 import com.bs.helper.HelperService;
+import com.bs.repo.UserRepo;
 import com.bs.service.AppointmentService;
 import com.bs.service.DoctorService;
 import com.bs.service.MedicineService;
@@ -33,7 +41,8 @@ public class WebController {
 
 	@Autowired
 	private PatientService patientServices;
-
+	@Autowired
+	private UserRepo userRepo;
 	@Autowired
 	private MedicineService medicineService;
 	@Autowired
@@ -73,12 +82,13 @@ public class WebController {
 	public ModelAndView deleteAppointment(@PathVariable("time") String id) {
 		ModelAndView mav = new ModelAndView("AppointmentsList");
 		String message = appointmentServices.deleteAppointmentDetailsByAppTime(id);
-		
+
 		if (message.equalsIgnoreCase("Not found"))
 			mav.setViewName("FailureMessage");
 		else if (message.equalsIgnoreCase("deleted")) {
 			mav.setViewName("AppointmentsList");
-		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());}
+			mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		}
 		return mav;
 	}
 
@@ -217,8 +227,7 @@ public class WebController {
 	@PostMapping("/createPatient")
 	public ModelAndView createPatient(@ModelAttribute("patient") PatientDetails doctor) {
 		PatientDetails patientID = patientServices.createPatientDetails(doctor);
-		
-		
+
 		helperService.createAppointmentforPatient(patientID);
 		ModelAndView mav = new ModelAndView("PatientsList");
 		mav.addObject("empList", patientServices.getAllPatientDetails());
@@ -329,5 +338,32 @@ public class WebController {
 //				mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
 		return mav;
 	}
+
+	//----------------patient medicine --------------------
+	@GetMapping("/dd")
+	public ModelAndView getmm(ModelMap mp) {
+		ModelAndView mav = new ModelAndView("Navbar");
+//		MedicineMapper obj = new MedicineMapper();
+//		List<MedcineInfo> medicineInfo = new LinkedList<MedcineInfo>();
+//		medicineInfo.addAll(Arrays.asList(
+//
+//				new MedcineInfo(1, "Med1", 0, "date1"), new MedcineInfo(2, "Med2", 0, "date2"),
+//				new MedcineInfo(3, "Med3", 0, "date3"), new MedcineInfo(4, "Med4", 0, "date4"),
+//				new MedcineInfo(5, "Med5", 0, "date5")));
+////		obj.setMedicines(new MyInfo("Ankur", "Morshi"));
+//		obj.setDoctorName("KEDAR");
+//
+//		mav.addObject("MedicineMapper", obj);
+////		mav.addObject("list", obj.getMedicines());
+////		mm.addAttribute("patientsList", patientServices.getAllPatientDetails().stream().map(dd -> dd.getPatientName())
+////				.collect(Collectors.toList()));
+//		mav.addObject("empList", Arrays.asList("NAna", "Kaka", "Mama"));
+//		mp.addAttribute("empList", Arrays.asList("NAna", "Kaka", "Mama"));
+
+		return mav;
+	}
+
+	
+
 
 }

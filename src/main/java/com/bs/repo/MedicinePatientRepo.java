@@ -7,6 +7,6 @@ import com.bs.beans.MedicineDetails;
 import com.bs.beans.MedicinePatient;
 
 @Repository
-public interface MedicineRepo extends JpaRepository<MedicineDetails, Integer> {
+public interface MedicinePatientRepo extends JpaRepository<MedicinePatient, Integer> {
 
 }

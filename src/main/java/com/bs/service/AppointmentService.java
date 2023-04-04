@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bs.beans.AppointmentDetails;
-import com.bs.helper.HelperService;
-import com.bs.repo.AppointmentRepo;
 
 @Service
 public class AppointmentService {
@@ -98,7 +96,7 @@ public class AppointmentService {
 	}
 
 	public AppointmentDetails getAppointmentByPatientID(Integer id) {
-		return appRepo.findAppointmentDetailsByUserID(id);
+		return appRepo.findAppointmentDetailsByAppTime(id);
 	}
 
 	public String deleteAppointmentDetailsByID(Integer appID) {

@@ -34,76 +34,45 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Doctors' Club</h3>
-		<c:choose>
+		<h3>Donated Medicines</h3>
+<c:choose>
 
 			<c:when test="${fn:length(empList) eq 0}">
 				<div class="well well-lg">
-					<h1>Sorry!!! No Doctors registered</h1>
+					<h1>No Medicine registered</h1>
 				</div>
 
 
 			</c:when>
 			<c:otherwise>
-
-				<div class="table-responsive">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Name</th>
-								<th>Desg.</th>
-								<th>Contact</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="emp" items="${empList}">
-								<tr>
-									<td>${emp.docID}</td>
-									<td>${emp.docName}</td>
-									<td>${emp.designation}</td>
-									<td>${emp.docContact}</td>
-									<td><a href="getDoctor/${emp.docID}">Edit</a></td>
-									<td><a href="deleteDoctor/${emp.docID}">Delete</a></td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-			</c:otherwise>
-		</c:choose>
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Contact</th>
+						<th>Date</th>
+						<th>City</th>
+						<th>Total Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="emp" items="${empList}">
+						<tr>
+							<td>${emp.patrientName}</td>
+							<td>${emp.contact}</td>
+							<td>${emp.receiptDate}</td>
+							<td>${emp.city}</td>
+							<td>${emp.totalPrice}</td>
+							<%-- <td><a href="getDoctor/${emp.docID}">Edit</a></td>
+							<td><a href="deleteDoctor/${emp.docID}">Delete</a></td> --%>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div></c:otherwise></c:choose>
 	</div>
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
 	</div>
-	
-	
-
-	
-	<script>
-	$(document).ready(function() {
-		
-	});
-	</script>
 
 </body>
 

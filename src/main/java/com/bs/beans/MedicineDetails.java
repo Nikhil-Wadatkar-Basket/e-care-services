@@ -1,5 +1,7 @@
 package com.bs.beans;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +15,21 @@ public class MedicineDetails {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer medicineID;
 	private String medicineName;
-	private String stock;
+	private Date expDate;
+	private Integer stock;
+	private Integer price;
 
 	public MedicineDetails() {
 
 	}
 
-	public MedicineDetails(Integer medicineID, String medicineName, String stock) {
+	public MedicineDetails(Integer medicineID, String medicineName, Date expDate, Integer stock, Integer price) {
 		super();
 		this.medicineID = medicineID;
 		this.medicineName = medicineName;
+		this.expDate = expDate;
 		this.stock = stock;
+		this.price = price;
 	}
 
 	public Integer getMedicineID() {
@@ -42,18 +48,34 @@ public class MedicineDetails {
 		this.medicineName = medicineName;
 	}
 
-	public String getStock() {
+	public Date getExpDate() {
+		return expDate;
+	}
+
+	public void setExpDate(Date expDate) {
+		this.expDate = expDate;
+	}
+
+	public Integer getStock() {
 		return stock;
 	}
 
-	public void setStock(String stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
+	}
+
+	public Integer getPrice() {
+		return price;
+	}
+
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "MedicineDetails [medicineID=" + medicineID + ", medicineName=" + medicineName + ", stock=" + stock
-				+ "]";
+		return "MedicineDetails [medicineID=" + medicineID + ", medicineName=" + medicineName + ", expDate=" + expDate
+				+ ", stock=" + stock + ", price=" + price + "]";
 	}
 
 }
