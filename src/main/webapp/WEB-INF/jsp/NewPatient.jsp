@@ -43,7 +43,7 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		
+
 
 		<form:form method="POST" action="/createPatient"
 			modelAttribute="patient">
@@ -72,8 +72,7 @@
 						</div>
 						<div class="form-group">
 							<label>Date:</label>
-							<form:input class="form-control" type="date"
-							path="appDate" />
+							<form:input class="form-control" type="date" path="appDate" />
 						</div>
 						<div class="form-group">
 							<label>Weight:</label>
@@ -91,31 +90,43 @@
 							<label>Sugar:</label>
 							<form:input class="form-control" path="sugar" />
 						</div>
-						
+
 						<div class="form-group ">
-							<form:label  path="patientType">Patient Type</form:label>
-							<form:radiobutton path="patientType"
-							value="OPD" label="OPD" /> <form:radiobutton path="patientType"
-							value="IPD" label="IPD" /> <form:radiobutton path="patientType"
-							value="ICU" label="ICU" />
-							
-							
+							<form:label path="patientType">Patient Type</form:label>
+							<form:radiobutton path="patientType" value="OPD" label="OPD" />
+							<form:radiobutton path="patientType" value="IPD" label="IPD" />
+							<form:radiobutton path="patientType" value="ICU" label="ICU" />
+
+
 						</div>
-						
+
 						<div class="form-group">
 							<label>Blood Group:</label>
 							<form:select class="form-control" path="bloodGroup">
-							<form:option value="NONE" label="Select" />
-							<form:options items="${bloodGroups}" />
-						</form:select>
+								<form:option value="NONE" label="Select" />
+								<form:options items="${bloodGroups}" />
+							</form:select>
 						</div>
-						
+
 						<div class="form-group">
 							<label>Time:</label>
 							<form:select class="form-control" path="appTime">
-							<form:option value="NONE" label="Select" />
-							<form:options items="${freeTimeSlots}" />
-						</form:select>
+								<form:option value="NONE" label="Select" />
+								<form:options items="${freeTimeSlots}" />
+							</form:select>
+						</div>
+
+						<div class="form-group">
+							<label>Doctor:</label>
+							<form:select class="form-control" path="doctorName">
+								<form:option value="NONE" label="Select" />
+								<form:options items="${doctorList}" />
+							</form:select>
+						</div>
+
+						<div class="form-group">
+							<label><input type="submit" value="Create New Patient" /></label>
+
 						</div>
 					</div>
 					<div class="col-md-4"></div>
@@ -206,7 +217,7 @@
 			</table> --%>
 		</form:form>
 	</div>
-
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

@@ -62,7 +62,7 @@
 		</div>
 	</div>
 	</div>
-
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

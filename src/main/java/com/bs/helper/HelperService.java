@@ -36,6 +36,8 @@ public class HelperService {
 		patientDetails.setBp(appointmentDetails.getBp());
 		patientDetails.setSugar(appointmentDetails.getSugar());
 		patientDetails.setPatientType(appointmentDetails.getPatientType());
+		patientDetails.setAppDate(appointmentDetails.getAppDate());
+		patientDetails.setAppTime(appointmentDetails.getAppTime());
 
 		// save patient
 		PatientDetails savedPatient = patientService.createPatientDetails(patientDetails);
@@ -84,8 +86,10 @@ public class HelperService {
 
 	public String deletePatientsFromAppointment(Integer patientID) {
 		String message = "";
-		AppointmentDetails appointmentByPatientID = appointmentService.getAppointmentByPatientID(patientID);
-		message = appointmentService.deleteAppointmentDetailsByID(appointmentByPatientID.getAppID());
+		PatientDetails details=patientService.getPatientDetailsByID(patientID);
+//		AppointmentDetails appointmentByPatientID = appointmentService.getAppointmentByPatientID(Integer.valueOf(details.getAppTime()));
+		AppointmentDetails appointmentByPatientID = appointmentService.getAppointmentDetailsByAppTime(details.getAppTime());
+		message = appointmentService.deleteAppointmentDetailsByAppTime(appointmentByPatientID.getAppTime());
 		return message;
 	}
 

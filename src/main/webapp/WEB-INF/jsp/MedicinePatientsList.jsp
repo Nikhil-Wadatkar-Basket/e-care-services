@@ -34,46 +34,92 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Donated Medicines</h3>
-<c:choose>
+
+		<c:choose>
 
 			<c:when test="${fn:length(empList) eq 0}">
-				<div class="well well-lg">
-					<h1>No Medicine registered</h1>
+					<div class="well well-lg">
+					<div class="alert alert-danger" role="alert">
+						<h4 class="alert-heading">Sorry!!! No Medicine Sold!</h4>
+						<p>We dont'have any medicine sold yet. Please click on
+							below to sale a medicine</p>
+						<hr>
+						<p class="mb-0">
+							<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
+							<a class="btn btn-info btn-light" href="/donateMedicine">Add
+								Medicine</a>
+						</p>
+					</div>
 				</div>
+				
+					
+
+				<script>
+					$(document).ready(function() {
+						$("#exampleModalCenter").modal();
+					});
+				</script>
 
 
 			</c:when>
 			<c:otherwise>
-		<div class="table-responsive">
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Contact</th>
-						<th>Date</th>
-						<th>City</th>
-						<th>Total Price</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="emp" items="${empList}">
-						<tr>
-							<td>${emp.patrientName}</td>
-							<td>${emp.contact}</td>
-							<td>${emp.receiptDate}</td>
-							<td>${emp.city}</td>
-							<td>${emp.totalPrice}</td>
-							<%-- <td><a href="getDoctor/${emp.docID}">Edit</a></td>
+				<h3>Donated Medicines</h3>
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Contact</th>
+								<th>Date</th>
+								<th>City</th>
+								<th>Total Price</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="emp" items="${empList}">
+								<tr>
+									<td>${emp.patrientName}</td>
+									<td>${emp.contact}</td>
+									<td>${emp.receiptDate}</td>
+									<td>${emp.city}</td>
+									<td>${emp.totalPrice}</td>
+									<%-- <td><a href="getDoctor/${emp.docID}">Edit</a></td>
 							<td><a href="deleteDoctor/${emp.docID}">Delete</a></td> --%>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-		</div></c:otherwise></c:choose>
-	</div>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
+<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true" style="display: none">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Medicines List</h3></h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">We dont'have any records. Please click on below to donate a medicine</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
+					<a class="btn btn-info btn-light" href="/donateMedicine">Donate
+Medicine</a>
+					<!-- <button type="button" class="btn-primary">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

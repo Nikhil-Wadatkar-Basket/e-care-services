@@ -1,5 +1,6 @@
 package com.bs.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,7 +15,7 @@ public class AppointmentService {
 
 	@Autowired
 	private AppointmentRepo appRepo;
-	
+
 	@Autowired
 	private PatientService patientService;
 
@@ -49,7 +50,6 @@ public class AppointmentService {
 		else
 			existedAppointmentDetails.setFees(100);
 		// delete
-//		dele
 		return appRepo.save(existedAppointmentDetails);
 	}
 
@@ -62,16 +62,17 @@ public class AppointmentService {
 	}
 
 	public List<AppointmentDetails> getAllAppointmentDetails() {
-		return appRepo.findAll();
+		return appRepo.findAll().stream().sorted(Comparator.comparing(AppointmentDetails::getAppID))
+				.collect(Collectors.toList());
 	}
 
 	public String deleteAppointmentDetailsByAppTime(String time) {
 		AppointmentDetails findAppointmentDetailsByAppTime = appRepo.findAppointmentDetailsByAppTime(time);
-		
-		Integer patientID=findAppointmentDetailsByAppTime.getUserID();
-		//delete patient while deleting his appointment
+
+		Integer patientID = findAppointmentDetailsByAppTime.getUserID();
+		// delete patient while deleting his appointment
 		patientService.deletePatientDetailsByID(patientID);
-		
+
 		AppointmentDetails appointmentDetails = new AppointmentDetails();
 		appointmentDetails.setAppTimeStatue("Free");
 		appointmentDetails.setAppID(findAppointmentDetailsByAppTime.getAppID());
@@ -92,12 +93,20 @@ public class AppointmentService {
 	}
 
 	public AppointmentDetails getAppointmentDetailsByAppTime(String time) {
-		return appRepo.findAppointmentDetailsByAppTime(time);
+		AppointmentDetails appointmentDetails = new AppointmentDetails();
+		List<AppointmentDetails> allAppointmentDetails = getAllAppointmentDetails();
+		for (AppointmentDetails obj : allAppointmentDetails) {
+			if (obj.getAppTime().equalsIgnoreCase(time)) {
+				appointmentDetails = obj;
+			}
+
+		}
+		return appointmentDetails;
 	}
 
-	public AppointmentDetails getAppointmentByPatientID(Integer id) {
-		return appRepo.findAppointmentDetailsByAppTime(id);
-	}
+//	public AppointmentDetails getAppointmentByPatientID(Integer id) {
+//		return appRepo.findAppointmentDetailsByAppTime(id);
+//	}
 
 	public String deleteAppointmentDetailsByID(Integer appID) {
 		String message = "";
@@ -110,7 +119,7 @@ public class AppointmentService {
 		message = "Not found";
 		return message;
 	}
-	
+
 	public AppointmentDetails fetchAppointmentDetailsByAppTime(String time) {
 		return appRepo.findAppointmentDetailsByAppTime(time);
 	}

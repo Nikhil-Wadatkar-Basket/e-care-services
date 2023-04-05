@@ -43,9 +43,9 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>New Patient</h3>
+		<h3>Update Patient</h3>
 
-		<form:form method="POST" action="/createPatient"
+		<form:form method="POST" action="/updatePatient"
 			modelAttribute="patient">
 			<table>
 				<tr>
@@ -120,12 +120,12 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><input type="submit" value="Create New Patient" /></td>
+					<td><input type="submit" value="Update Patient" /></td>
 				</tr>
 			</table>
 		</form:form>
 	</div>
-
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

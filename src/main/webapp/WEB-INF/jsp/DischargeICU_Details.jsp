@@ -165,5 +165,5 @@
 	</div>
 
 </body>
-
+<jsp:include page="FooterPage.jsp" />
 </html>

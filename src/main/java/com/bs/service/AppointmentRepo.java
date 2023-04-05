@@ -10,6 +10,6 @@ public interface AppointmentRepo extends JpaRepository<AppointmentDetails, Integ
 
 	AppointmentDetails findAppointmentDetailsByAppTime(String appTime);
 
-	AppointmentDetails findAppointmentDetailsByAppTime(Integer id);
+//	AppointmentDetails findAppointmentDetailsByAppTime(Integer id);
 
 }

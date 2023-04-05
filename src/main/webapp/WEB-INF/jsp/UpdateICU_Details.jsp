@@ -163,7 +163,7 @@
 			</table>
 		</form:form>
 	</div>
-
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

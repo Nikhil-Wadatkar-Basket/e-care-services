@@ -70,10 +70,8 @@
 					<td><form:input path="age" /></td>
 				</tr>
 				<tr>
-					<%-- <td><form:label path="doctorName">Doctor Name : </form:label></td> --%>
 					<td>Doctor Name :</td>
 					<td><form:select path="doctorName">
-							<%-- <form:option value="NONE" label="Select" /> --%>
 							<form:options items="${doctorList}" />
 						</form:select></td>
 
@@ -89,18 +87,12 @@
 							label="New" /> <form:radiobutton path="meetingType" value="Old"
 							label="Old" /></td>
 				</tr>
-				<%-- <tr>
-					<td><form:label path="appTime">Time</form:label>
-					</td>
-					<td><form:radiobuttons path="appTime"
-							items="${freeTimeSlots}" /></td>
-				</tr> --%>
 				<tr>
 					<td><form:label path="appTime">Time</form:label>
 					</td>
 					<td>
                         <form:select path = "appTime">
-                            <form:option value = "NONE" label = "Select"/>
+                           <%--  <form:option value = "NONE" label = "Select"/> --%>
                             <form:options items = "${freeTimeSlots}" />
                         </form:select>
                     </td>
@@ -144,7 +136,7 @@
 			</table>
 		</form:form>
 	</div>
-
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

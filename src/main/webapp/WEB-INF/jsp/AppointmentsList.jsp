@@ -70,8 +70,8 @@
 							<td>${emp.bp}</td>
 							<td>${emp.sugar}</td>
 							<td>${emp.contact}</td>
-							<td><a href="getAppointmentByTime/${emp.appTime}">Edit</a></td>
-							<td><a href="deleteAppointmentByTime/${emp.appTime}">Delete</a></td>
+							<td><a href="/getAppointmentByTime/${emp.appTime}">Edit</a></td>
+							<td><a href="/deleteAppointmentByTime/${emp.appTime}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -80,6 +80,7 @@
 	</div>
 	</div>
 
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>

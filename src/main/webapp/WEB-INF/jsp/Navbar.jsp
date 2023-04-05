@@ -32,8 +32,6 @@
 						Appointments</a> <a class="dropdown-item" href="/getAppointmentsList">All
 						Appointments</a> <a class="dropdown-item"
 						href="/DeleteAppointmentsPage">Delete Appointment</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
 				</div></li>
 
 			<li class="nav-item dropdown"><a
@@ -55,8 +53,6 @@
 					<a class="dropdown-item" href="/loadNewDoctorPage">New Doctor</a> <a
 						class="dropdown-item" href="/showDoctors">All Doctors</a> <a
 						class="dropdown-item" href="/DeleteDoctorPage">Delete Doctor</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
 				</div></li>
 				
 				<li class="nav-item dropdown"><a
@@ -67,8 +63,6 @@
 					<a class="dropdown-item" href="/getICUList">Load Free Beds</a> <a
 						class="dropdown-item" href="/loadICUPage">Book a Bed</a> <a
 						class="dropdown-item" href="/DeleteDoctorPage">Delete Doctor</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
 				</div></li>
 
 			<li class="nav-item dropdown"><a
@@ -79,8 +73,6 @@
 					<a class="dropdown-item" href="/loadNewPatientPage">New Patient</a>
 					<a class="dropdown-item" href="/showPatients">All Patients</a> <a
 						class="dropdown-item" href="/DeletePatientPage">Delete Patient</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Separated link</a>
 				</div></li>
 
 			<li class="nav-item dropdown"><a

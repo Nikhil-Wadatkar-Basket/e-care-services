@@ -34,15 +34,35 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Doctors' Club</h3>
+		
 		<c:choose>
 
 			<c:when test="${fn:length(empList) eq 0}">
+
+
+
 				<div class="well well-lg">
-					<h1>Sorry!!! No Doctors registered</h1>
+					<div class="alert alert-danger" role="alert">
+						<h4 class="alert-heading">Sorry!!! No Doctors registered!</h4>
+						<p>We dont'have any doctors registered yet. Please click on
+							below to register a doctor</p>
+						<hr>
+						<p class="mb-0">
+							<button type="button" class="btn btn-secondary"
+						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
+							<a class="btn btn-info btn-light" href="/loadNewDoctorPage">Add
+								Doctor</a>
+						</p>
+					</div>
 				</div>
+				
+					
 
-
+				<script>
+					$(document).ready(function() {
+						$("#exampleModalCenter").modal();
+					});
+				</script>
 			</c:when>
 			<c:otherwise>
 
@@ -76,35 +96,34 @@
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
+		aria-hidden="true" style="display: none">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Doctors' Club</h3></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">...</div>
+				<div class="modal-body">We dont'have any doctors registered
+					yet. Please click on below to register a doctor</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
+					<a class="btn btn-info btn-light" href="/loadNewDoctorPage">Add
+						Doctor</a>
+					<!-- <button type="button" class="btn-primary">Save changes</button> -->
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	
 
-	
-	<script>
-	$(document).ready(function() {
-		
-	});
-	</script>
 
+
+
+
+<jsp:include page="FooterPage.jsp" />
 </body>
 
 </html>
