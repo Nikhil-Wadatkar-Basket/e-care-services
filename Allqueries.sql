@@ -1,6 +1,11 @@
 use mysql;
 
 select * from Patient_Details;
+delete from Patient_Details where patientid=24;
+
+
+delete from Patient_Details;
+
 select * from doctor_Details;
 select * from  user_Details;
 select * from Appointment_Details;
@@ -8,6 +13,11 @@ select * from Medicine_Details;
 
 select * from Medicine_Patient;
 select * from Medicine_Counter;
+
+select * from visiting_doctor_Details;
+delete from visiting_doctor_Details;
+
+desc visiting_doctor_Details;
 
 delete from Medicine_Patient;
 delete from Medicine_Counter;
@@ -56,8 +66,13 @@ INSERT INTO ICUDetails VALUES (12,NULL,NULL,12,NULL,NULL,NULL,NULL,NULL,NULL,NUL
 INSERT INTO ICUDetails VALUES (13,NULL,NULL,13,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'FREE',NULL,NULL,NULL);
 INSERT INTO ICUDetails VALUES (14,NULL,NULL,14,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'FREE',NULL,NULL,NULL);
 INSERT INTO ICUDetails VALUES (15,NULL,NULL,15,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'FREE',NULL,NULL,NULL);
-INSERT INTO doctor_Details VALUES (1,NULL,'MBBS','1','Rathi');
+
+INSERT INTO doctor_Details (`docid`,`appid`,`designation`,`doc_contact`,`doc_name`) VALUES (4,NULL,'MD','1234567890','Dr. Agrawal');
+INSERT INTO doctor_Details VALUES (5,NULL,'MBBS','9876543211','Dr. Pathak');
+INSERT INTO doctor_Details VALUES (6,NULL,'MS','9898767654','Dr. Rathi');
 INSERT INTO doctor_Details VALUES (2,NULL,'MD','33','Agarwal');
+INSERT INTO doctor_Details VALUES (1,NULL,'MBBS','1','Rathi');
+
 INSERT INTO Medicine_Details  VALUES (1,'2023-05-06','Nise',100,100);
 INSERT INTO Medicine_Details VALUES (2,'2023-07-26','Combiflame',20,20);
 commit;

@@ -68,6 +68,16 @@
 	</div>
 	<br></br>
 	<br></br>
+		<div class="container">
+		<div class="card-deck">
+			<div class="card-body"></div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onClick="location.href='/Dashboard'">Go to Dashboard</button>
+			</div>
+			<div class="card-body"></div>
+		</div>
+	</div>
 
 
 

@@ -45,8 +45,8 @@
 							<td>${emp.patientID}</td>
 							<td>${emp.patientName}</td>
 							<td>${emp.patientAge}</td>
-							<td>${emp.patientContact}</td>
-							<td><a href="deletePatient/${emp.patientID}">Delete</a></td>
+							<td>${emp.contact}</td>
+							<td><a href="/deletePatient/${emp.patientID}">Delete</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>

@@ -46,7 +46,7 @@
 					<h5 class="card-title">Patients List</h5>
 					<p class="card-text">Click below to see All Patients</p>
 					<a class="btn btn-info btn-light" href="/showPatients">All
-						Appointments</a>
+						Patients</a>
 				</div>
 			</div>
 			<div class="card text-center">
@@ -69,6 +69,16 @@
 	</div>
 	<br></br>
 	<br></br>
+		<div class="container">
+		<div class="card-deck">
+			<div class="card-body"></div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onClick="location.href='/Dashboard'">Go to Dashboard</button>
+			</div>
+			<div class="card-body"></div>
+		</div>
+	</div>
 
 
 

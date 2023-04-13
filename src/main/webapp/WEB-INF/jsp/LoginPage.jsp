@@ -51,7 +51,7 @@
 							<div class="card-body">
 								<p class="card-text">If you are facing any issues while
 									login. Please register yourself.</p>
-								<br> <a href="#link" class="btn btn-info btn-light"
+								<br> <a href="/loadNewUserPage" class="btn btn-info btn-light"
 									role="button">Register Here</a>
 							</div>
 						</div>

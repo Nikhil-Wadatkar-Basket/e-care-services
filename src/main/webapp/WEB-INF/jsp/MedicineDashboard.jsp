@@ -65,10 +65,27 @@
 						Medicine</a>
 				</div>
 			</div>
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">Medical Service</h5>
+					<p class="card-text">Click below to add new medicines for Patients</p>
+					<a class="btn btn-info btn-light" href="/donateMedicine">Add medicines</a>
+				</div>
+			</div>
 		</div>
 	</div>
 	<br></br>
 	<br></br>
+		<div class="container">
+		<div class="card-deck">
+			<div class="card-body"></div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onClick="location.href='/Dashboard'">Go to Dashboard</button>
+			</div>
+			<div class="card-body"></div>
+		</div>
+	</div>
 
 
 

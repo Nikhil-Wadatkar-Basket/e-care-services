@@ -107,12 +107,7 @@
 						<p>
 							<a href="#!" class="text-reset">About Us</a>
 						</p>
-						<p>
-							<a href="#!" class="text-reset">Orders</a>
-						</p>
-						<p>
-							<a href="#!" class="text-reset">Help</a>
-						</p>
+						
 					</div>
 					<!-- Grid column -->
 
@@ -121,18 +116,16 @@
 						<!-- Links -->
 						<h6 class="text-uppercase fw-bold mb-4">Contact</h6>
 						<p>
-							<i class="fas fa-home me-3 text-secondary"></i> New York, NY
-							10012, US
-						</p>
+							<i class="fas fa-home me-3 text-secondary"></i> Badnera, Amrawati</p>
 						<p>
 							<i class="fas fa-envelope me-3 text-secondary"></i>
-							info@example.com
+							info@ecareapp.com
 						</p>
 						<p>
-							<i class="fas fa-phone me-3 text-secondary"></i> + 01 234 567 88
+							<i class="fas fa-phone me-3 text-secondary"></i> +91 9876543210
 						</p>
 						<p>
-							<i class="fas fa-print me-3 text-secondary"></i> + 01 234 567 89
+							<i class="fas fa-print me-3 text-secondary"></i> +91 9876543213
 						</p>
 					</div>
 					<!-- Grid column -->
@@ -145,8 +138,8 @@
 		<!-- Copyright -->
 		<div class="text-center p-4"
 			style="background-color: rgba(0, 0, 0, 0.025);">
-			© 2021 Copyright: <a class="text-reset fw-bold"
-				href="https://mdbootstrap.com/">MDBootstrap.com</a>
+			© 2023 Copyright: <a class="text-reset fw-bold"
+				href="#">e-careApplication.com</a>
 		</div>
 		<!-- Copyright -->
 	</footer>

@@ -32,7 +32,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2 className="text-center"> Doctors DASHBOARD</h2>
+				<h2 className="text-center"> Visiting Doctors DASHBOARD</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -44,16 +44,16 @@
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Doctors List</h5>
-					<p class="card-text">Click below to see All Doctors</p>
-					<a class="btn btn-info btn-light" href="/showDoctors">All
+					<p class="card-text">Click below to see All Visiting Doctors</p>
+					<a class="btn btn-info btn-light" href="/visitngDoctorList">All
 							Doctors</a>
 				</div>
 			</div>
 			<div class="card text-center">
 				<div class="card-body">
-					<h5 class="card-title">Add New Doctors</h5>
+					<h5 class="card-title">Add New Visiting Doctors</h5>
 					<p class="card-text">Click below to add new Doctors</p>
-					<a class="btn btn-info btn-light" href="/loadNewDoctorPage">Create
+					<a class="btn btn-info btn-light" href="/loadNewVisitingDoctorPage">Create
 							Doctors</a>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 				<div class="card-body">
 					<h5 class="card-title">Delete/Cancel Doctors</h5>
 					<p class="card-text">Click below to delete Doctors</p>
-					<a class="btn btn-info btn-light" href="/DeleteDoctorPage">Delete
+					<a class="btn btn-info btn-light" href="/DeleteVisitingDoctorPage">Delete
 							Doctors</a>
 				</div>
 			</div>

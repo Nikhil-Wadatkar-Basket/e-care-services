@@ -32,7 +32,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2 className="text-center">DASHBOARD</h2>
+				<h2 className="text-center">Appointment Dashboard</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -46,7 +46,7 @@
 					<h5 class="card-title">Appointments List</h5>
 					<p class="card-text">Click below to see All Appointments</p>
 					<a class="btn btn-info btn-light" href="/getAppointmentsList">All
-							Appointments</a>
+						Appointments</a>
 				</div>
 			</div>
 			<div class="card text-center">
@@ -54,7 +54,7 @@
 					<h5 class="card-title">Add New Appointment</h5>
 					<p class="card-text">Click below to add new appointments</p>
 					<a class="btn btn-info btn-light" href="/loadNewAppointmentPage">Create
-							Appointments</a>
+						Appointments</a>
 				</div>
 			</div>
 			<div class="card text-center">
@@ -62,11 +62,34 @@
 					<h5 class="card-title">Delete/Cancel Appointment</h5>
 					<p class="card-text">Click below to delete appointments</p>
 					<a class="btn btn-info btn-light" href="/DeleteAppointmentsPage">Delete
-							Appointments</a>
+						Appointments</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<br></br>
+	<div class="container">
+		<div class="card-deck">
+			<div class="card-body"></div>
+			<div class="card-body">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					onClick="location.href='/Dashboard'">Go to Dashboard</button>
+			</div>
+			<div class="card-body"></div>
+		</div>
+	</div>
+	<br></br>
+
+
+
+	<!-- <div class="row">
+		<div class="col-6 col-md-4"></div>
+		<div class="col-6 col-md-4">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal"
+				onClick="location.href='/Dashboard'">Go to Dashboard</button>
+		</div>
+		<div class="col-6 col-md-4"></div>
+	</div> -->
 	<br></br>
 	<br></br>
 

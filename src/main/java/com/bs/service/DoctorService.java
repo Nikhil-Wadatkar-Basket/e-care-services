@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bs.beans.AppointmentDetails;
 import com.bs.beans.DoctorDetails;
 import com.bs.repo.DoctorRepo;
 

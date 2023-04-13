@@ -9,18 +9,6 @@
 <title>E-Care App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
-
-
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 	crossorigin="anonymous"></script>
@@ -32,6 +20,13 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+
+
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ -->
 </head>
 
 <body>
@@ -40,94 +35,101 @@
 
 	<div class="container">
 		
-
 		<c:choose>
 
 			<c:when test="${fn:length(empList) eq 0}">
-					<div class="well well-lg">
+
+
+
+				<div class="well well-lg">
 					<div class="alert alert-danger" role="alert">
-						<h4 class="alert-heading">Sorry!!! No Patients registered!</h4>
-						<p>We dont'have any Patients registered yet. Please click on
-							below to register a doctor</p>
+						<h4 class="alert-heading">Sorry!!! No Users registered!</h4>
+						<p>We dont'have any users registered yet. Please click on
+							below to register yourself</p>
 						<hr>
 						<p class="mb-0">
 							<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
-							<a class="btn btn-info btn-light" href="/loadNewPatientPage">Add
-								Patient</a>
+							<a class="btn btn-info btn-light" href="/loadNewUserPage">Add
+								User</a>
 						</p>
 					</div>
 				</div>
 				
 					
 
-				<script>
+				<!-- <script>
 					$(document).ready(function() {
 						$("#exampleModalCenter").modal();
 					});
-				</script>
-				
-				
+				</script> -->
 			</c:when>
 			<c:otherwise>
-			
-			<h3>Patients</h3>
-			<div class="table-responsive">
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Contact</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="emp" items="${empList}">
+
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
 							<tr>
-								<td>${emp.patientID}</td>
-								<td>${emp.patientName}</td>
-								<td>${emp.patientAge}</td>
-								<td>${emp.contact}</td>
-								<td><a href="/getPatientByID/${emp.patientID}">Edit</a></td>
-								<td><a href="/deletePatient/${emp.patientID}">Delete</a></td>
+								<th>ID</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>City</th>
+								<th>Username</th>
+								<th>Role</th>
+								<th>Status</th>
+								
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="emp" items="${empList}">
+								<tr>
+									<td>${emp.userID}</td>
+									<td>${emp.name}</td>
+									<td>${emp.email}</td>
+									<td>${emp.city}</td>
+									<td>${emp.userName}</td>
+									<td>${emp.role}</td>
+									<td>${emp.status}</td>
+									<td><a href="getUser/${emp.userID}">Edit</a></td>
+									<td><a href="deleteUser/${emp.userID}">Delete</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
-
-	</c:otherwise>
-	</c:choose>
-
-
-	</div>
-	</div>
-		<!-- Modal -->
+	<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true" style="display: none">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Patients' List</h3></h5>
+					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Doctors' Club</h3></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">We dont'have any Patients registered
-					yet. Please click on below to register a doctor</div>
+				<div class="modal-body">We dont'have any users registered
+					yet. Please click on below to register yourself.</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
-					<a class="btn btn-info btn-light" href="/loadNewPatientPage">Add
-						Patient</a>
+					<a class="btn btn-info btn-light" href="/loadNewUserPage">Add
+						User</a>
 					<!-- <button type="button" class="btn-primary">Save changes</button> -->
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+
+
+
 <jsp:include page="FooterPage.jsp" />
 </body>
 

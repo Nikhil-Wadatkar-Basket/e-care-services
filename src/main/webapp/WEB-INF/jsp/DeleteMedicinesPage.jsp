@@ -39,22 +39,21 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		
-
+		<h3>Medicines</h3>
 		<c:choose>
 
 			<c:when test="${fn:length(empList) eq 0}">
 					<div class="well well-lg">
 					<div class="alert alert-danger" role="alert">
-						<h4 class="alert-heading">Sorry!!! No Patients registered!</h4>
-						<p>We dont'have any Patients registered yet. Please click on
-							below to register a doctor</p>
+						<h4 class="alert-heading">Sorry!!! No Medicine in records!</h4>
+						<p>We dont'have any medicine in our records. Please click on
+							below to add a medicine</p>
 						<hr>
 						<p class="mb-0">
 							<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
-							<a class="btn btn-info btn-light" href="/loadNewPatientPage">Add
-								Patient</a>
+							<a class="btn btn-info btn-light" href="/loadNewMedicinePage">Add
+								Medicine</a>
 						</p>
 					</div>
 				</div>
@@ -66,63 +65,56 @@
 						$("#exampleModalCenter").modal();
 					});
 				</script>
-				
-				
+
+
 			</c:when>
 			<c:otherwise>
-			
-			<h3>Patients</h3>
-			<div class="table-responsive">
-			<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Name</th>
-							<th>Age</th>
-							<th>Contact</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="emp" items="${empList}">
+				<div class="table-responsive">
+					<table class="table table-bordered">
+						<thead>
 							<tr>
-								<td>${emp.patientID}</td>
-								<td>${emp.patientName}</td>
-								<td>${emp.patientAge}</td>
-								<td>${emp.contact}</td>
-								<td><a href="/getPatientByID/${emp.patientID}">Edit</a></td>
-								<td><a href="/deletePatient/${emp.patientID}">Delete</a></td>
+								<th>ID</th>
+								<th>Medicine Name</th>
+								<th>Stock</th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach var="emp" items="${empList}">
+								<tr>
+									<td>${emp.medicineID}</td>
+									<td>${emp.medicineName}</td>
+									<td>${emp.stock}</td>
+									<td><a href="getMedicineByID/${emp.medicineID}">Edit</a></td>
+									<td><a href="deleteMedicine/${emp.medicineID}">Delete</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 
-	</c:otherwise>
-	</c:choose>
-
-
-	</div>
-	</div>
-		<!-- Modal -->
+<!-- Modal -->
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true" style="display: none">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Patients' List</h3></h5>
+					<h5 class="modal-title" id="exampleModalLongTitle"><h3>Medicines List</h3></h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<div class="modal-body">We dont'have any Patients registered
-					yet. Please click on below to register a doctor</div>
+				<div class="modal-body">We dont'have any Medicine registered
+					yet. Please click on below to register a mediciner</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal" onClick="location.href='/Dashboard'">Close</button>
-					<a class="btn btn-info btn-light" href="/loadNewPatientPage">Add
-						Patient</a>
+					<a class="btn btn-info btn-light" href="/loadNewMedicinePage">Add
+						Medicine</a>
 					<!-- <button type="button" class="btn-primary">Save changes</button> -->
 				</div>
 			</div>

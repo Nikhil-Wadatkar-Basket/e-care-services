@@ -17,7 +17,7 @@
 	<div class="jumbotron jumbotron-fluid">
 		<div class="container text-center">
 			<h1>E-Care Application</h1>
-			<p>This application avails you to register and</p>
+			<p>With the E-Care Application, you can get the health and wellness treatments you want and need today, for you, your family and your pets</p>
 		</div>
 	</div>
 </body>

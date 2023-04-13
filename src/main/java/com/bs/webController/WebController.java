@@ -2,34 +2,31 @@ package com.bs.webController;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.AppointmentDetails;
 import com.bs.beans.DoctorDetails;
 import com.bs.beans.MedicineDetails;
 import com.bs.beans.PatientDetails;
+import com.bs.beans.UserDetails;
+import com.bs.beans.VisitingDoctorDetails;
 import com.bs.helper.HelperService;
 import com.bs.repo.UserRepo;
+import com.bs.repo.VisitingDoctorRepo;
 import com.bs.service.AppointmentService;
 import com.bs.service.DoctorService;
 import com.bs.service.MedicineService;
 import com.bs.service.PatientService;
+import com.bs.service.VisitingDoctorService;
 
 @Controller
 public class WebController {
@@ -38,6 +35,8 @@ public class WebController {
 
 	@Autowired
 	private DoctorService docServices;
+	@Autowired
+	private VisitingDoctorService visitingDocServices;
 
 	@Autowired
 	private PatientService patientServices;
@@ -47,10 +46,15 @@ public class WebController {
 	private MedicineService medicineService;
 	@Autowired
 	private HelperService helperService;
+	@Autowired
+	private VisitingDoctorRepo visitingDoctorRepo;
 
 	@GetMapping("/demo")
-	public String demo() {
-		return "SuccessMessage";
+	public ModelAndView demo() {
+		ModelAndView modelAndView = new ModelAndView("LoginPage");
+
+		modelAndView.addObject("userDetails", new UserDetails());
+		return modelAndView;
 	}
 
 	@GetMapping("/getAppointmentsList")
@@ -339,7 +343,7 @@ public class WebController {
 		return mav;
 	}
 
-	//----------------patient medicine --------------------
+	// ----------------patient medicine --------------------
 	@GetMapping("/dd")
 	public ModelAndView getmm(ModelMap mp) {
 		ModelAndView mav = new ModelAndView("Navbar");
@@ -363,7 +367,77 @@ public class WebController {
 		return mav;
 	}
 
-	
+//------------------visiting doctor page-----------------------------
+	@GetMapping("/loadNewVisitingDoctorPage")
+	public ModelAndView loadNewVisitingDoctorPage() {
+		ModelAndView mav = new ModelAndView("NewVisitingDoctor");
+		mav.addObject("doc", new VisitingDoctorDetails());
+		mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
+		return mav;
+	}
 
+	@GetMapping("/visitngDoctorList")
+	public ModelAndView visitngDoctorList() {
+		ModelAndView modelAndView = new ModelAndView("VisitingDoctorList");
+		modelAndView.addObject("empList", visitingDoctorRepo.findAll());
+		return modelAndView;
+	}
+
+	@PostMapping("/createVisitingDoctor")
+	public ModelAndView createVisitingDoctor(@ModelAttribute("doc") VisitingDoctorDetails doctor) {
+		visitingDocServices.createVisitingDoctorDetails(doctor);
+		ModelAndView mav = new ModelAndView("VisitingDoctorList");
+		mav.addObject("empList", visitingDoctorRepo.findAll());
+		return mav;
+	}
+
+	@PostMapping("/updateVisitingDoctor")
+	public ModelAndView updateVisitingDoctor(@ModelAttribute("doc") VisitingDoctorDetails doctor) {
+		visitingDocServices.updateVisitingDoctorDetails(doctor);
+		ModelAndView mav = new ModelAndView("VisitingDoctorList");
+		mav.addObject("empList", visitingDoctorRepo.findAll());
+		return mav;
+	}
+
+	@GetMapping("/getVisitingDoctor/{id}")
+	public ModelAndView getVisitingDoctor(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("VisitingDoctorList");
+		VisitingDoctorDetails doctorDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
+		mav.addObject("doc", doctorDetailsByID);
+		mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
+		mav.setViewName("UpdateVisitingDoctor");
+		return mav;
+	}
+
+	@GetMapping("/DeleteVisitingDoctorPage")
+	public ModelAndView DeleteVisitingDoctorPage() {
+		ModelAndView mav = new ModelAndView("DeleteDoctorPage");
+		mav.addObject("empList", visitingDoctorRepo.findAll());
+		return mav;
+	}
+
+	@GetMapping("/deleteVisitingDoctor/{id}")
+	public ModelAndView deleteVisitingDoctor(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("VisitingDoctorList");
+		String message = visitingDocServices.deleteVisitingDoctorDetailsByID(id);
+
+		if (message.equalsIgnoreCase("Not found"))
+			mav.setViewName("FailureMessage");
+		else if (message.equalsIgnoreCase("deleted"))
+			mav.setViewName("VisitingDoctorList");
+		mav.addObject("empList", visitingDoctorRepo.findAll());
+		return mav;
+	}
+
+	@GetMapping("/getVisitingDoctorByID/{id}")
+	public ModelAndView getVisitingDoctorByID(@PathVariable("id") Integer id) {
+		ModelAndView mav = new ModelAndView("DoctorList");
+
+		VisitingDoctorDetails appointmentDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
+		mav.addObject("app", appointmentDetailsByID);
+
+		mav.setViewName("UpdateVisitingDoctor");
+		return mav;
+	}
 
 }

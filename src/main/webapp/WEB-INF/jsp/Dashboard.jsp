@@ -107,8 +107,9 @@
 				<div class="card bg-light mb-3" style="max-width: 18rem;">
 					<div class="card-header">Header</div>
 					<div class="card-body">
-						<h5 class="card-title">Feedback</h5>
-						<p class="card-text">Please give your valuable feedback.</p>
+						<h5 class="card-title">Show Feedbacks</h5>
+						<p>Click here to see all provided feedbacks</p>
+						<a class="btn btn-info btn-light" href="/feedbacks">Show Feedbacks</a>
 					</div>
 				</div>
 			</div>
@@ -119,7 +120,7 @@
 					<div class="card-body">
 						<h5 class="card-title">Visiting Doctor's Club</h5>
 						<p>Click here to see visiting doctors info</p>
-						<a class="btn btn-info btn-light" href="/MedicineCounterDashboard">Medicine Counter</a>
+						<a class="btn btn-info btn-light" href="/VisitorsDoctorDashboard">Click to see</a>
 					</div>				</div>
 			</div>
 			<div class="col-md-3">
@@ -129,7 +130,7 @@
 					<div class="card-body">
 						<h5 class="card-title">FEEDBACK</h5>
 						<p>Click here to provide your valuable feedback.</p>
-						<a class="btn btn-info btn-light" href="/MedicineCounterDashboard">Medicine Counter</a>
+						<a class="btn btn-info btn-light" href="/newFeedbackPage">Give Feedback</a>
 					</div>
 				</div>
 			</div>
