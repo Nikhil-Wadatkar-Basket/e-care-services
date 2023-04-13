@@ -15,10 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.AppointmentDetails;
 import com.bs.beans.DoctorDetails;
+import com.bs.beans.ErrorInfo;
 import com.bs.beans.MedicineDetails;
 import com.bs.beans.PatientDetails;
 import com.bs.beans.UserDetails;
 import com.bs.beans.VisitingDoctorDetails;
+import com.bs.exception.MyRuntimeException;
 import com.bs.helper.HelperService;
 import com.bs.repo.UserRepo;
 import com.bs.repo.VisitingDoctorRepo;
@@ -51,9 +53,36 @@ public class WebController {
 
 	@GetMapping("/demo")
 	public ModelAndView demo() {
+		int vad = 1;
 		ModelAndView modelAndView = new ModelAndView("LoginPage");
 
+		String className = this.getClass().getName();
+		System.out.println("className: " + className);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+		System.out.println("========================");
+		System.out.println("Line number: " + stackTrace[1].getLineNumber());
+		System.out.println("Class name: " + stackTrace[1].getClassName());
+		System.out.println("File name: " + stackTrace[1].getFileName());
+		System.out.println("Method Name: " + stackTrace[1].getMethodName());
+		System.out.println("========================");
+
 		modelAndView.addObject("userDetails", new UserDetails());
+		if (vad > 0) {
+
+			ErrorInfo errorInfo = new ErrorInfo();
+			errorInfo.setClassName(stackTrace[1].getClassName());
+			errorInfo.setMethodName(stackTrace[1].getMethodName());
+			errorInfo.setLineNUmber(stackTrace[1].getLineNumber());
+			errorInfo.setExceptionMessage("Exception meeage");
+			errorInfo.setFileName(stackTrace[1].getFileName());
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + ": Exception";
+
+			throw new MyRuntimeException(message);
+
+		}
+
 		return modelAndView;
 	}
 
@@ -335,11 +364,9 @@ public class WebController {
 		ModelAndView mav = new ModelAndView("MedicineList");
 		String message = medicineService.deleteMedicineDetailsByID(id);
 
-		if (message.equalsIgnoreCase("Not found"))
-			mav.setViewName("FailureMessage");
-		else if (message.equalsIgnoreCase("deleted"))
+	
 			mav.setViewName("MedicinesList");
-//				mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+				mav.addObject("empList", medicineService.getAllMedicineDetails());
 		return mav;
 	}
 
