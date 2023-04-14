@@ -87,7 +87,7 @@
 				</div>
 			</div>
 		</div>
-	</c:if>
+
 	<br></br>
 	<br></br>
 

@@ -42,17 +42,14 @@
 	<div class="container">
 		<div class="card-deck">
 
-show flag= ${app_show_flag }
-			<c:if test="${app_show_flag eq 'Y'}">
-				<div class="card text-center">
-					<div class="card-body">
-						<h5 class="card-title">Appointments List</h5>
-						<p class="card-text">Click below to see All Appointments</p>
-						<a class="btn btn-info btn-light" href="/getAppointmentsList">All
-							Appointments</a>
-					</div>
+			<div class="card text-center">
+				<div class="card-body">
+					<h5 class="card-title">Appointments List</h5>
+					<p class="card-text">Click below to see All Appointments</p>
+					<a class="btn btn-info btn-light" href="/getAppointmentsList">All
+						Appointments</a>
 				</div>
-			</c:if>
+			</div>
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Add New Appointment</h5>
