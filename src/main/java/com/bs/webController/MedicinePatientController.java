@@ -1,12 +1,8 @@
 package com.bs.webController;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -15,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.bs.beans.MedicineCounter;
 import com.bs.beans.MedicineDetails;
 import com.bs.beans.MedicinePatient;
@@ -36,6 +31,7 @@ public class MedicinePatientController {
 
 	@GetMapping("/donateMedicine")
 	public ModelAndView donateMedicine() {
+
 		ModelAndView modelAndView = new ModelAndView("MedicinesCounter");
 		modelAndView.addObject("empList",
 				medicineRepo.findAll().stream().map(med -> med.getMedicineName()).collect(Collectors.toList()));
@@ -43,8 +39,9 @@ public class MedicinePatientController {
 	}
 
 	@RequestMapping(value = "/addMemedicine", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-
 	public String addMedicineByPatientID(@RequestParam MultiValueMap<String, String> medicineMap) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
 		List<String> medicineList = medicineMap.get("name");
 		List<String> quantityList = medicineMap.get("quantity");
 

@@ -21,6 +21,7 @@ import com.bs.beans.PatientDetails;
 import com.bs.beans.UserDetails;
 import com.bs.beans.VisitingDoctorDetails;
 import com.bs.exception.MyRuntimeException;
+import com.bs.helper.AttributesCollector;
 import com.bs.helper.HelperService;
 import com.bs.repo.UserRepo;
 import com.bs.repo.VisitingDoctorRepo;
@@ -34,12 +35,10 @@ import com.bs.service.VisitingDoctorService;
 public class WebController {
 	@Autowired
 	private AppointmentService appointmentServices;
-
 	@Autowired
 	private DoctorService docServices;
 	@Autowired
 	private VisitingDoctorService visitingDocServices;
-
 	@Autowired
 	private PatientService patientServices;
 	@Autowired
@@ -51,6 +50,9 @@ public class WebController {
 	@Autowired
 	private VisitingDoctorRepo visitingDoctorRepo;
 
+	@Autowired
+	private AttributesCollector attributesCollector;
+
 	@GetMapping("/demo")
 	public ModelAndView demo() {
 		int vad = 1;
@@ -59,13 +61,6 @@ public class WebController {
 		String className = this.getClass().getName();
 		System.out.println("className: " + className);
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
-		System.out.println("========================");
-		System.out.println("Line number: " + stackTrace[1].getLineNumber());
-		System.out.println("Class name: " + stackTrace[1].getClassName());
-		System.out.println("File name: " + stackTrace[1].getFileName());
-		System.out.println("Method Name: " + stackTrace[1].getMethodName());
-		System.out.println("========================");
 
 		modelAndView.addObject("userDetails", new UserDetails());
 		if (vad > 0) {
@@ -77,10 +72,9 @@ public class WebController {
 			errorInfo.setExceptionMessage("Exception meeage");
 			errorInfo.setFileName(stackTrace[1].getFileName());
 			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + ": Exception";
+					+ stackTrace[1].getLineNumber() + "_" + "Exception";
 
 			throw new MyRuntimeException(message);
-
 		}
 
 		return modelAndView;
@@ -89,18 +83,32 @@ public class WebController {
 	@GetMapping("/getAppointmentsList")
 	public ModelAndView getAppointmentsList() {
 		ModelAndView mav = new ModelAndView("AppointmentsList");
-		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 		return mav;
 	}
 
 	@GetMapping("/getAppointmentByTime/{time}")
 	public ModelAndView getAppointmentByID(@PathVariable("time") String id) {
 		ModelAndView mav = new ModelAndView("AppointmentsList");
-
-		AppointmentDetails appointmentDetailsByID = appointmentServices.getAppointmentDetailsByAppTime(id);
-		mav.addObject("app", appointmentDetailsByID);
-		mav.addObject("doctorList", getAvailableDoctors());
-		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		List<String> freeTimeSlots;
+		try {
+			AppointmentDetails appointmentDetailsByID = appointmentServices.getAppointmentDetailsByAppTime(id);
+			mav.addObject("app", appointmentDetailsByID);
+			mav.addObject("doctorList", getAvailableDoctors());
+			freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 		mav.addObject("freeTimeSlots", freeTimeSlots);
 		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
 		mav.setViewName("UpdateAppointment");
@@ -113,8 +121,16 @@ public class WebController {
 
 	@GetMapping("/deleteAppointmentByTime/{time}")
 	public ModelAndView deleteAppointment(@PathVariable("time") String id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("AppointmentsList");
-		String message = appointmentServices.deleteAppointmentDetailsByAppTime(id);
+		String message = "";
+		try {
+			message = appointmentServices.deleteAppointmentDetailsByAppTime(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
 		if (message.equalsIgnoreCase("Not found"))
 			mav.setViewName("FailureMessage");
@@ -127,7 +143,14 @@ public class WebController {
 
 	@PostMapping("/updateAppointment")
 	public ModelAndView updateAppointmentDetails(@ModelAttribute("app") AppointmentDetails userDetails) {
-		appointmentServices.updateAppointmentDetails(userDetails);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			appointmentServices.updateAppointmentDetails(userDetails);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		ModelAndView mav = new ModelAndView("AppointmentsList");
 		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
 		return mav;
@@ -135,6 +158,7 @@ public class WebController {
 
 	@GetMapping("/loadNewAppointmentPage")
 	public ModelAndView loadNewAppointmentPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("NewAppointment");
 		mav.addObject("app", new AppointmentDetails());
 
@@ -148,8 +172,15 @@ public class WebController {
 
 	@PostMapping("/createNewAppointment")
 	public ModelAndView createNewAppointment(@ModelAttribute("app") AppointmentDetails userDetails) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		// call patient service to fill other patient details
-		helperService.addPatientDetailsFromAppointment(userDetails);
+		try {
+			helperService.addPatientDetailsFromAppointment(userDetails);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 //		appointmentServices.createAppointmentDetails(userDetails);
 		ModelAndView mav = new ModelAndView("AppointmentsList");
 		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
@@ -158,6 +189,7 @@ public class WebController {
 
 	@GetMapping("/DeleteAppointmentsPage")
 	public ModelAndView deleteAppointmentsPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DeleteAppointmentsPage");
 		mav.addObject("empList", appointmentServices.getAllAppointmentDetails().stream()
 				.filter(ss -> ss.getAppTimeStatue().equalsIgnoreCase("booked")).collect(Collectors.toList()));
@@ -167,6 +199,7 @@ public class WebController {
 	// -----------------------doctor------------------------------------------------------
 	@GetMapping("/showDoctors")
 	public ModelAndView showDoctors() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DoctorList");
 		mav.addObject("empList", docServices.getAllDoctorDetails());
 		return mav;
@@ -174,6 +207,7 @@ public class WebController {
 
 	@GetMapping("/loadNewDoctorPage")
 	public ModelAndView loadNewDoctorPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("NewDoctor");
 		mav.addObject("doc", new DoctorDetails());
 		mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
@@ -182,7 +216,14 @@ public class WebController {
 
 	@PostMapping("/createDoctor")
 	public ModelAndView createDoctor(@ModelAttribute("doc") DoctorDetails doctor) {
-		docServices.createDoctorDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			docServices.createDoctorDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		ModelAndView mav = new ModelAndView("DoctorList");
 		mav.addObject("empList", docServices.getAllDoctorDetails());
 		return mav;
@@ -190,7 +231,14 @@ public class WebController {
 
 	@PostMapping("/updateDoctor")
 	public ModelAndView updateDoctor(@ModelAttribute("doc") DoctorDetails doctor) {
-		docServices.updateDoctorDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			docServices.updateDoctorDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
 		ModelAndView mav = new ModelAndView("DeleteDoctorPage");
 		mav.addObject("empList", docServices.getAllDoctorDetails());
@@ -199,8 +247,16 @@ public class WebController {
 
 	@GetMapping("/getDoctor/{id}")
 	public ModelAndView getDoctor(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DoctorList");
-		DoctorDetails doctorDetailsByID = docServices.getDoctorDetailsByID(id);
+		DoctorDetails doctorDetailsByID = null;
+		try {
+			doctorDetailsByID = docServices.getDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		mav.addObject("doc", doctorDetailsByID);
 		mav.setViewName("UpdateDoctor");
 		return mav;
@@ -208,6 +264,7 @@ public class WebController {
 
 	@GetMapping("/DeleteDoctorPage")
 	public ModelAndView DeleteDoctorPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DeleteDoctorPage");
 		mav.addObject("empList", docServices.getAllDoctorDetails());
 		return mav;
@@ -215,22 +272,33 @@ public class WebController {
 
 	@GetMapping("/deleteDoctor/{id}")
 	public ModelAndView deleteDoctor(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DoctorList");
-		String message = docServices.deleteDoctorDetailsByID(id);
-
-		if (message.equalsIgnoreCase("Not found"))
-			mav.setViewName("FailureMessage");
-		else if (message.equalsIgnoreCase("deleted"))
-			mav.setViewName("DoctorList");
-//		mav.addObject("empList", appointmentServices.getAllAppointmentDetails());
+		String message = null;
+		try {
+			message = docServices.deleteDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
+		mav.addObject("empList", docServices.getAllDoctorDetails());
 		return mav;
 	}
 
 	@GetMapping("/getDoctorByID/{id}")
 	public ModelAndView getDoctorByID(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DoctorList");
 
-		DoctorDetails appointmentDetailsByID = docServices.getDoctorDetailsByID(id);
+		DoctorDetails appointmentDetailsByID = null;
+		try {
+			appointmentDetailsByID = docServices.getDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		mav.addObject("app", appointmentDetailsByID);
 
 		mav.setViewName("UpdateDoctor");
@@ -240,6 +308,7 @@ public class WebController {
 	// ----------------------patient---------------------------
 	@GetMapping("/showPatients")
 	public ModelAndView showPatients() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("PatientsList");
 		mav.addObject("empList", patientServices.getAllPatientDetails());
 		return mav;
@@ -247,6 +316,7 @@ public class WebController {
 
 	@GetMapping("/loadNewPatientPage")
 	public ModelAndView loadNewPatientPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("NewPatient");
 
 		mav.addObject("patient", new PatientDetails());
@@ -259,9 +329,16 @@ public class WebController {
 
 	@PostMapping("/createPatient")
 	public ModelAndView createPatient(@ModelAttribute("patient") PatientDetails doctor) {
-		PatientDetails patientID = patientServices.createPatientDetails(doctor);
-
-		helperService.createAppointmentforPatient(patientID);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		PatientDetails patientID = null;
+		try {
+			patientID = patientServices.createPatientDetails(doctor);
+			helperService.createAppointmentforPatient(patientID);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		ModelAndView mav = new ModelAndView("PatientsList");
 		mav.addObject("empList", patientServices.getAllPatientDetails());
 		return mav;
@@ -269,7 +346,14 @@ public class WebController {
 
 	@PostMapping("/updatePatient")
 	public ModelAndView updatePatient(@ModelAttribute("patient") PatientDetails doctor) {
-		patientServices.updatePatientDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			patientServices.updatePatientDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
 		ModelAndView mav = new ModelAndView("PatientsList");
 		mav.addObject("empList", patientServices.getAllPatientDetails());
@@ -278,11 +362,22 @@ public class WebController {
 
 	@GetMapping("/getPatientByID/{id}")
 	public ModelAndView getPatientByID(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("PatientsList");
-		PatientDetails patientrDetailsByID = patientServices.getPatientDetailsByID(id);
+		PatientDetails patientrDetailsByID = null;
+		List<String> freeTimeSlots = null;
+
+		try {
+			patientrDetailsByID = patientServices.getPatientDetailsByID(id);
+			freeTimeSlots = appointmentServices.getFreeTimesSlotes();
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
+
 		mav.addObject("patient", patientrDetailsByID);
 		mav.addObject("doctorList", getAvailableDoctors());
-		List<String> freeTimeSlots = appointmentServices.getFreeTimesSlotes();
 		mav.addObject("freeTimeSlots", freeTimeSlots);
 		mav.addObject("bloodGroups", Arrays.asList("O +ve", "O -ve", "A +ve", "A -ve", "B -ve", "B +ve"));
 		mav.setViewName("UpdatePatient");
@@ -291,6 +386,7 @@ public class WebController {
 
 	@GetMapping("/DeletePatientPage")
 	public ModelAndView DeletePatientPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DeletePatientsPage");
 		mav.addObject("empList", patientServices.getAllPatientDetails());
 		return mav;
@@ -298,21 +394,25 @@ public class WebController {
 
 	@GetMapping("/deletePatient/{id}")
 	public ModelAndView deletePatient(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("PatientsList");
-		helperService.deletePatientsFromAppointment(id);
-		String message = patientServices.deletePatientDetailsByID(id);
-		if (message.equalsIgnoreCase("Not found"))
-			mav.setViewName("FailureMessage");
-		else if (message.equalsIgnoreCase("deleted")) {
-			mav.setViewName("PatientsList");
-			mav.addObject("empList", patientServices.getAllPatientDetails());
+		try {
+			helperService.deletePatientsFromAppointment(id);
+			patientServices.deletePatientDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
 		}
+		mav.setViewName("PatientsList");
+		mav.addObject("empList", patientServices.getAllPatientDetails());
 		return mav;
 	}
 //------------medicine---------------------
 
 	@GetMapping("/showMedicines")
 	public ModelAndView showMedicines() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("MedicinesList");
 		mav.addObject("empList", medicineService.getAllMedicineDetails());
 		return mav;
@@ -320,6 +420,7 @@ public class WebController {
 
 	@GetMapping("/loadNewMedicinePage")
 	public ModelAndView loadNewMedicinePage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("NewMedicine");
 		mav.addObject("medicine", new MedicineDetails());
 //				mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
@@ -328,15 +429,32 @@ public class WebController {
 
 	@PostMapping("/createMedicine")
 	public ModelAndView createMedicine(@ModelAttribute("medicine") MedicineDetails doctor) {
-		medicineService.createMedicineDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("MedicinesList");
+
+		try {
+			medicineService = null;
+			medicineService.createMedicineDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		mav.addObject("empList", medicineService.getAllMedicineDetails());
 		return mav;
 	}
 
 	@PostMapping("/updateMedicine")
 	public ModelAndView updateMedicine(@ModelAttribute("medicine") MedicineDetails doctor) {
-		medicineService.updateMedicineDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+
+		try {
+			medicineService.updateMedicineDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
 		ModelAndView mav = new ModelAndView("MedicinesList");
 		mav.addObject("empList", medicineService.getAllMedicineDetails());
@@ -345,8 +463,18 @@ public class WebController {
 
 	@GetMapping("/getMedicineByID/{id}")
 	public ModelAndView getMedicineByID(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("MedicinesList");
-		MedicineDetails medicinerDetailsByID = medicineService.getMedicineDetailsByID(id);
+		MedicineDetails medicinerDetailsByID = null;
+
+		try {
+			medicinerDetailsByID = medicineService.getMedicineDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
+
 		mav.addObject("medicine", medicinerDetailsByID);
 		mav.setViewName("UpdateMedicine");
 		return mav;
@@ -354,6 +482,7 @@ public class WebController {
 
 	@GetMapping("/DeleteMedicinePage")
 	public ModelAndView DeleteMedicinePage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DeleteMedicinesPage");
 		mav.addObject("empList", medicineService.getAllMedicineDetails());
 		return mav;
@@ -361,18 +490,27 @@ public class WebController {
 
 	@GetMapping("/deleteMedicine/{id}")
 	public ModelAndView deleteMedicine(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("MedicineList");
-		String message = medicineService.deleteMedicineDetailsByID(id);
+		String message = null;
 
-	
-			mav.setViewName("MedicinesList");
-				mav.addObject("empList", medicineService.getAllMedicineDetails());
+		try {
+			message = medicineService.deleteMedicineDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
+
+		mav.setViewName("MedicinesList");
+		mav.addObject("empList", medicineService.getAllMedicineDetails());
 		return mav;
 	}
 
 	// ----------------patient medicine --------------------
 	@GetMapping("/dd")
 	public ModelAndView getmm(ModelMap mp) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("Navbar");
 //		MedicineMapper obj = new MedicineMapper();
 //		List<MedcineInfo> medicineInfo = new LinkedList<MedcineInfo>();
@@ -397,6 +535,7 @@ public class WebController {
 //------------------visiting doctor page-----------------------------
 	@GetMapping("/loadNewVisitingDoctorPage")
 	public ModelAndView loadNewVisitingDoctorPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("NewVisitingDoctor");
 		mav.addObject("doc", new VisitingDoctorDetails());
 		mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
@@ -405,6 +544,7 @@ public class WebController {
 
 	@GetMapping("/visitngDoctorList")
 	public ModelAndView visitngDoctorList() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView modelAndView = new ModelAndView("VisitingDoctorList");
 		modelAndView.addObject("empList", visitingDoctorRepo.findAll());
 		return modelAndView;
@@ -412,7 +552,14 @@ public class WebController {
 
 	@PostMapping("/createVisitingDoctor")
 	public ModelAndView createVisitingDoctor(@ModelAttribute("doc") VisitingDoctorDetails doctor) {
-		visitingDocServices.createVisitingDoctorDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			visitingDocServices.createVisitingDoctorDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		ModelAndView mav = new ModelAndView("VisitingDoctorList");
 		mav.addObject("empList", visitingDoctorRepo.findAll());
 		return mav;
@@ -420,7 +567,14 @@ public class WebController {
 
 	@PostMapping("/updateVisitingDoctor")
 	public ModelAndView updateVisitingDoctor(@ModelAttribute("doc") VisitingDoctorDetails doctor) {
-		visitingDocServices.updateVisitingDoctorDetails(doctor);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			visitingDocServices.updateVisitingDoctorDetails(doctor);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		ModelAndView mav = new ModelAndView("VisitingDoctorList");
 		mav.addObject("empList", visitingDoctorRepo.findAll());
 		return mav;
@@ -428,8 +582,17 @@ public class WebController {
 
 	@GetMapping("/getVisitingDoctor/{id}")
 	public ModelAndView getVisitingDoctor(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("VisitingDoctorList");
-		VisitingDoctorDetails doctorDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
+		VisitingDoctorDetails doctorDetailsByID = null;
+
+		try {
+			doctorDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 		mav.addObject("doc", doctorDetailsByID);
 		mav.addObject("designationList", Arrays.asList("MD", "MBBS", "MS"));
 		mav.setViewName("UpdateVisitingDoctor");
@@ -438,6 +601,7 @@ public class WebController {
 
 	@GetMapping("/DeleteVisitingDoctorPage")
 	public ModelAndView DeleteVisitingDoctorPage() {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DeleteDoctorPage");
 		mav.addObject("empList", visitingDoctorRepo.findAll());
 		return mav;
@@ -445,8 +609,17 @@ public class WebController {
 
 	@GetMapping("/deleteVisitingDoctor/{id}")
 	public ModelAndView deleteVisitingDoctor(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("VisitingDoctorList");
-		String message = visitingDocServices.deleteVisitingDoctorDetailsByID(id);
+		String message = null;
+
+		try {
+			message = visitingDocServices.deleteVisitingDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
 		if (message.equalsIgnoreCase("Not found"))
 			mav.setViewName("FailureMessage");
@@ -458,11 +631,19 @@ public class WebController {
 
 	@GetMapping("/getVisitingDoctorByID/{id}")
 	public ModelAndView getVisitingDoctorByID(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("DoctorList");
 
-		VisitingDoctorDetails appointmentDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
-		mav.addObject("app", appointmentDetailsByID);
+		VisitingDoctorDetails appointmentDetailsByID = null;
+		try {
+			appointmentDetailsByID = visitingDocServices.getVisitingDoctorDetailsByID(id);
+		} catch (Exception e) {
+			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message1);
+		}
 
+		mav.addObject("app", appointmentDetailsByID);
 		mav.setViewName("UpdateVisitingDoctor");
 		return mav;
 	}

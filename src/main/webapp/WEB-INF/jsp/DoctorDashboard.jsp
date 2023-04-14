@@ -32,7 +32,11 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2 className="text-center"> Doctors DASHBOARD</h2>
+				<h2 className="text-center">Doctors DASHBOARD</h2>
+
+				<c:if test="${MY_ROLE eq 'ADMIN'}">
+				hii
+				</c:if>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -46,7 +50,7 @@
 					<h5 class="card-title">Doctors List</h5>
 					<p class="card-text">Click below to see All Doctors</p>
 					<a class="btn btn-info btn-light" href="/showDoctors">All
-							Doctors</a>
+						Doctors</a>
 				</div>
 			</div>
 			<div class="card text-center">
@@ -54,7 +58,7 @@
 					<h5 class="card-title">Add New Doctors</h5>
 					<p class="card-text">Click below to add new Doctors</p>
 					<a class="btn btn-info btn-light" href="/loadNewDoctorPage">Create
-							Doctors</a>
+						Doctors</a>
 				</div>
 			</div>
 			<div class="card text-center">
@@ -62,7 +66,7 @@
 					<h5 class="card-title">Delete/Cancel Doctors</h5>
 					<p class="card-text">Click below to delete Doctors</p>
 					<a class="btn btn-info btn-light" href="/DeleteDoctorPage">Delete
-							Doctors</a>
+						Doctors</a>
 				</div>
 			</div>
 		</div>

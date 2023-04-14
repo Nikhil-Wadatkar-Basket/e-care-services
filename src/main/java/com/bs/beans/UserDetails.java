@@ -1,5 +1,6 @@
 package com.bs.beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,15 +20,19 @@ public class UserDetails {
 	private String email;
 	private String city;
 	private String status;
+	@Column(name = "access_code")
+	private String accessCode;
+	private String app_create_flag;
+	private String app_delete_flag;
+	private String app_update_flag;
+	private String app_show_flag;
 
 	public UserDetails() {
 		// TODO Auto-generated constructor stub
 	}
 
-
-
 	public UserDetails(Integer userID, String userName, String password, String role, String name, String email,
-			String city, String status) {
+			String city, String status, String accessCode) {
 		super();
 		this.userID = userID;
 		this.userName = userName;
@@ -37,21 +42,16 @@ public class UserDetails {
 		this.email = email;
 		this.city = city;
 		this.status = status;
+		this.accessCode = accessCode;
 	}
-
-
 
 	public String getStatus() {
 		return status;
 	}
 
-
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-
 
 	public String getName() {
 		return name;
@@ -109,10 +109,52 @@ public class UserDetails {
 		this.role = role;
 	}
 
+	public String getAccessCode() {
+		return accessCode;
+	}
+
+	public void setAccessCode(String accessCode) {
+		this.accessCode = accessCode;
+	}
+
+	public String getApp_create_flag() {
+		return app_create_flag;
+	}
+
+	public void setApp_create_flag(String app_create_flag) {
+		this.app_create_flag = app_create_flag;
+	}
+
+	public String getApp_delete_flag() {
+		return app_delete_flag;
+	}
+
+	public void setApp_delete_flag(String app_delete_flag) {
+		this.app_delete_flag = app_delete_flag;
+	}
+
+	public String getApp_update_flag() {
+		return app_update_flag;
+	}
+
+	public void setApp_update_flag(String app_update_flag) {
+		this.app_update_flag = app_update_flag;
+	}
+
+	public String getApp_show_flag() {
+		return app_show_flag;
+	}
+
+	public void setApp_show_flag(String app_show_flag) {
+		this.app_show_flag = app_show_flag;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDetails [userID=" + userID + ", userName=" + userName + ", password=" + password + ", role=" + role
-				+ ", name=" + name + ", email=" + email + ", city=" + city + "]";
+				+ ", name=" + name + ", email=" + email + ", city=" + city + ", status=" + status + ", accessCode="
+				+ accessCode + ", app_create_flag=" + app_create_flag + ", app_delete_flag=" + app_delete_flag
+				+ ", app_update_flag=" + app_update_flag + ", app_show_flag=" + app_show_flag + "]";
 	}
 
 }

@@ -31,7 +31,7 @@
 
 <body>
 
-		<jsp:include page="JumboTrane.jsp" /> 
+	<jsp:include page="JumboTrane.jsp" />
 
 	<div class="container">
 
@@ -41,12 +41,16 @@
 			<div class="well well-lg">
 				<div class="alert alert-danger" role="alert">
 					<h4 class="alert-heading">Sorry!!! We got some Exception!</h4>
-					<p>Exception details:</p>
-					<br></br>
+					<p><b>Exception details:</b></p>
+					
+					<p>Class Name: ${className}</p>
+					<p>Method Name: ${methodName}</p>
+					<p>Line Number: ${lineNumber}</p>
+					<p>Exception Message: ${exceptionMessage}</p>
 					<hr>
 					<p class="mb-0">
-						<button type="button" class="btn btn-light"
-							data-dismiss="modal" onClick="location.href='/Dashboard'">Go to Dashbard</button>
+						<button type="button" class="btn btn-light" data-dismiss="modal"
+							onClick="location.href='/Dashboard'">Go to Dashbard</button>
 					</p>
 				</div>
 			</div>

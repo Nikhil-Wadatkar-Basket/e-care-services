@@ -84,8 +84,8 @@
 									<td>${emp.receiptDate}</td>
 									<td>${emp.city}</td>
 									<td>${emp.totalPrice}</td>
-									<%-- <td><a href="getDoctor/${emp.docID}">Edit</a></td>
-							<td><a href="deleteDoctor/${emp.docID}">Delete</a></td> --%>
+									<%-- <td><a href="/getDoctor/${emp.docID}">Edit</a></td>
+							<td><a href="/deleteDoctor/${emp.docID}">Delete</a></td> --%>
 								</tr>
 							</c:forEach>
 						</tbody>

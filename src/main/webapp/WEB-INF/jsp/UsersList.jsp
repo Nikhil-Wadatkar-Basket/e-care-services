@@ -90,8 +90,8 @@
 									<td>${emp.userName}</td>
 									<td>${emp.role}</td>
 									<td>${emp.status}</td>
-									<td><a href="getUser/${emp.userID}">Edit</a></td>
-									<td><a href="deleteUser/${emp.userID}">Delete</a></td>
+									<td><a href="/getUser/${emp.userID}">Edit</a></td>
+									<td><a href="/deleteUser/${emp.userID}">Delete</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>

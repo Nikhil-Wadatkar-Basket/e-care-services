@@ -1,24 +1,30 @@
 package com.bs.webController;
 
 import java.util.Arrays;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.FeedbackDetails;
 import com.bs.beans.UserDetails;
+import com.bs.exception.MyRuntimeException;
+import com.bs.helper.AttributesCollector;
 import com.bs.repo.FeedbackRepo;
 import com.bs.repo.MedicinePatientRepo;
 import com.bs.repo.MedicineRepo;
 import com.bs.repo.UserRepo;
 import com.bs.repo.VisitingDoctorRepo;
 
-@RestController
+@Controller
 public class UserController {
 
 	@Autowired
@@ -27,7 +33,8 @@ public class UserController {
 	private MedicineRepo medicineRepo;
 	@Autowired
 	private FeedbackRepo feedbackRepo;
-
+	@Autowired
+	private AttributesCollector attributesCollector;
 	@Autowired
 	private MedicinePatientRepo medicinePatientRepo;
 	@Autowired
@@ -40,22 +47,73 @@ public class UserController {
 		return modelAndView;
 	}
 
+	@PostMapping("/logout")
+	public String destroySession(HttpServletRequest request, Model model) {
+		request.getSession().invalidate();
+		return "redirect:/login";
+	}
+
 	@PostMapping("/authenticate")
-	public ModelAndView authenticate(@ModelAttribute("userDetails") UserDetails userDetails) {
-		userDetails.setRole("User");
+	public ModelAndView authenticate(@ModelAttribute("userDetails") UserDetails userDetails,
+			HttpServletRequest request) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+//		userDetails.setRole("User");
 		ModelAndView modelAndView = new ModelAndView();
 		System.out.println(userDetails);
-		UserDetails findByUserNameAndPassword = userRepo.findUserDetailsByUserNameAndPassword(userDetails.getUserName(),
-				userDetails.getPassword());
+		LoginResponse findByUserNameAndPassword = null;
 
-		System.out.println("Result:" + findByUserNameAndPassword);
-		if (null != findByUserNameAndPassword && findByUserNameAndPassword.getUserName() != null
-				&& findByUserNameAndPassword.getPassword() != null)
+		try {
+			findByUserNameAndPassword = checkCredentials(userDetails);
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
+
+		// code
+		String messages = (String) request.getSession().getAttribute("MY_ROLE");
+		if (messages == null) {
+			messages = "";
+			request.getSession().setAttribute("MY_ROLE", messages);
+			request.getSession().setAttribute("app_create_flag", "N");
+			request.getSession().setAttribute("app_show_flag", "N");
+			request.getSession().setAttribute("app_update_flag", "N");
+			request.getSession().setAttribute("app_delete_flag", "N");
+			request.getSession().setAttribute("access_code", "");
+			request.getSession().setAttribute("user_id", findByUserNameAndPassword.getUserId());
+			request.getSession().setAttribute("MY_ROLE", messages);
+		}
+		messages = findByUserNameAndPassword.getRole();
+	
+
+		if (true == findByUserNameAndPassword.isFlag())
 			modelAndView.setViewName("Dashboard");
 		else
 			modelAndView.setViewName("ErrorLoginPage");
 
 		return modelAndView;
+	}
+
+	private LoginResponse checkCredentials(UserDetails userDetails) {
+		boolean flag = false;
+		LoginResponse existedDetails = new LoginResponse();
+		List<UserDetails> findAll = userRepo.findAll();
+
+		for (UserDetails details : findAll) {
+			if (details.getPassword().equals(userDetails.getPassword())
+					&& details.getUserName().equals(userDetails.getUserName())
+					&& details.getStatus().equalsIgnoreCase("Active")) {
+				flag = true;
+				existedDetails.setFlag(true);
+				existedDetails.setUserId(details.getUserID());
+				existedDetails.setUserName(details.getUserName());
+				existedDetails.setRole(details.getRole());
+				existedDetails.setPassword(details.getPassword());
+				break;
+			}
+		}
+
+		return existedDetails;
 	}
 
 	@GetMapping("/showUsers")
@@ -75,6 +133,7 @@ public class UserController {
 
 	@PostMapping("/createUser")
 	public ModelAndView createUser(@ModelAttribute("medicine") UserDetails userDetails) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		UserDetails details = new UserDetails();
 		details.setCity(userDetails.getCity());
 		details.setEmail(userDetails.getEmail());
@@ -83,12 +142,18 @@ public class UserController {
 		details.setRole(userDetails.getRole());
 		details.setStatus(userDetails.getStatus());
 		details.setUserName(userDetails.getUserName());
+		details.setApp_create_flag("N");
+		details.setApp_update_flag("N");
+		details.setApp_delete_flag("N");
+		details.setApp_show_flag("N");
+		details.setAccessCode("#" + userDetails.getName() + userDetails.getRole());
 
 		try {
 			userRepo.save(details);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
 		}
 		ModelAndView mav = new ModelAndView("UsersList");
 		mav.addObject("empList", userRepo.findAll());
@@ -97,7 +162,14 @@ public class UserController {
 
 	@PostMapping("/updateUser")
 	public ModelAndView updateUser(@ModelAttribute("user") UserDetails userDetails, Object medicineService) {
-		userRepo.save(userDetails);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			userRepo.save(userDetails);
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 
 		ModelAndView mav = new ModelAndView("UsersList");
 		mav.addObject("empList", userRepo.findAll());
@@ -106,8 +178,17 @@ public class UserController {
 
 	@GetMapping("/getUser/{id}")
 	public ModelAndView getMedicineByID(@PathVariable("id") Integer id) {
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("UsersList");
-		UserDetails medicinerDetailsByID = userRepo.findById(id).get();
+		UserDetails medicinerDetailsByID = null;
+
+		try {
+			medicinerDetailsByID = userRepo.findById(id).get();
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 		mav.addObject("user", medicinerDetailsByID);
 		mav.addObject("rolesList", Arrays.asList("ADMIN", "USER"));
 		mav.setViewName("UpdateUser");
@@ -123,7 +204,14 @@ public class UserController {
 
 	@GetMapping("/deleteUser/{id}")
 	public ModelAndView deleteUser(@PathVariable("id") Integer id) {
-		userRepo.deleteById(id);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			userRepo.deleteById(id);
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 		ModelAndView mav = new ModelAndView("UsersList");
 		mav.addObject("empList", userRepo.findAll());
 
@@ -138,8 +226,11 @@ public class UserController {
 	}
 
 	@GetMapping("/AppointmentDashboard")
-	public ModelAndView AppointmentDashboard() {
+	public ModelAndView AppointmentDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("AppointmentDashboard");
+		String attribute = (String) request.getSession().getAttribute("app_show_flag");
+		request.getSession().setAttribute("app_show_flag", "Y");
+		attributesCollector.getAllAttribute(request, 1);
 		return modelAndView;
 	}
 
@@ -195,7 +286,14 @@ public class UserController {
 
 	@PostMapping("/createFeedback")
 	public ModelAndView createFeedback(@ModelAttribute("doc") FeedbackDetails details) {
-		feedbackRepo.save(details);
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+		try {
+			feedbackRepo.save(details);
+		} catch (Exception e) {
+			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
+					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
+			throw new MyRuntimeException(message);
+		}
 		ModelAndView modelAndView = new ModelAndView("FeedbackList");
 		modelAndView.addObject("empList", feedbackRepo.findAll());
 		return modelAndView;
@@ -206,6 +304,69 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView("FeedbackList");
 		modelAndView.addObject("empList", feedbackRepo.findAll());
 		return modelAndView;
+	}
+
+}
+
+class LoginResponse {
+	private Integer userId;
+	private String userName;
+	private String role;
+	private String password;
+	private boolean flag;
+
+	public LoginResponse() {
+		super();
+		this.userName = userName;
+		this.role = role;
+		this.password = password;
+		this.flag = flag;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+
+	@Override
+	public String toString() {
+		return "LoginResponse [userId=" + userId + ", userName=" + userName + ", role=" + role + ", password="
+				+ password + ", flag=" + flag + "]";
 	}
 
 }

@@ -60,11 +60,11 @@
 				
 					
 
-				<script>
+			<!-- 	<script>
 					$(document).ready(function() {
 						$("#exampleModalCenter").modal();
 					});
-				</script>
+				</script> -->
 
 
 			</c:when>
@@ -84,8 +84,8 @@
 									<td>${emp.medicineID}</td>
 									<td>${emp.medicineName}</td>
 									<td>${emp.stock}</td>
-									<td><a href="getMedicineByID/${emp.medicineID}">Edit</a></td>
-									<td><a href="deleteMedicine/${emp.medicineID}">Delete</a></td>
+									<td><a href="/getMedicineByID/${emp.medicineID}">Edit</a></td>
+									<td><a href="/deleteMedicine/${emp.medicineID}">Delete</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
