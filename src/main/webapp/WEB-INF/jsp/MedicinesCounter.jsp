@@ -8,9 +8,9 @@
 <title>E-Care App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script> -->
+	crossorigin="anonymous"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -112,8 +112,9 @@
 		</div>
 	</div>
 	<jsp:include page="FooterPage.jsp" />
-
-	<script type="text/javascript">
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		type="text/javascript"></script>
+	<script>
 		$(document)
 				.ready(
 						function() {
