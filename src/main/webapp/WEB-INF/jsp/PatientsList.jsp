@@ -80,6 +80,7 @@
 								<th>Name</th>
 								<th>Age</th>
 								<th>Contact</th>
+								<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 							</tr>
 						</thead>
 						<tbody>

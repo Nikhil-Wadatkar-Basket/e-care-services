@@ -76,6 +76,7 @@
 								<th>ID</th>
 								<th>Medicine Name</th>
 								<th>Stock</th>
+								<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 							</tr>
 						</thead>
 						<tbody>

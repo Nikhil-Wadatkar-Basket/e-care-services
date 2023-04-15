@@ -71,7 +71,7 @@ public class AppointmentService {
 
 		Integer patientID = findAppointmentDetailsByAppTime.getUserID();
 		// delete patient while deleting his appointment
-		patientService.deletePatientDetailsByID(patientID);
+//		patientService.deletePatientDetailsByID(patientID);
 
 		AppointmentDetails appointmentDetails = new AppointmentDetails();
 		appointmentDetails.setAppTimeStatue("Free");

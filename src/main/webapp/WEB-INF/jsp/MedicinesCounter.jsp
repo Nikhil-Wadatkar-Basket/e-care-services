@@ -8,9 +8,9 @@
 <title>E-Care App</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous"></script> -->
 <script
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -19,6 +19,18 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+
+
+<!-- ajax related -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	
+	
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 </head>
 <body>
 	<jsp:include page="Navbar.jsp" />
@@ -26,44 +38,43 @@
 		<h2 align="center">E-Care Medicine Counter</h2>
 		<div class="form-group">
 			<form name="add_name" id="add_name">
-				<div>
-					
-				</div>
+				<div></div>
 
 				<div></div>
 
 				<div class="row">
-					<div class="col-md-4">PatientName: <input type="text" name="patientName"
-						placeholder="Enter your Name" class="form-control name_list"
-						required="" /></div>
 					<div class="col-md-4">
-						Doctors Name<input type="text" name="doctorName"
-						placeholder="Enter your Name" class="form-control name_list"
-						required="" />
+						PatientName: <input type="text" name="patientName"
+							placeholder="Enter your Name" class="form-control name_list"
+							required="" />
 					</div>
 					<div class="col-md-4">
-					Date: <input type="date" name="date"
-						placeholder="Enter your Name" class="form-control name_list"
-						required="" />
+						Doctors Name<input type="text" name="doctorName"
+							placeholder="Enter your Name" class="form-control name_list"
+							required="" />
+					</div>
+					<div class="col-md-4">
+						Date: <input type="date" name="date" placeholder="Enter your Name"
+							class="form-control name_list" required="" />
 					</div>
 				</div>
 				<br></br>
 				<div class="row">
-					<div class="col-md-4">City: <input type="text" name="city"
-						placeholder="Enter City" class="form-control name_list"
-						required="" /></div>
+					<div class="col-md-4">
+						City: <input type="text" name="city" placeholder="Enter City"
+							class="form-control name_list" required="" />
+					</div>
 					<div class="col-md-4">
 						Contact:<input type="text" name="contact"
-						placeholder="Enter Contact" class="form-control name_list"
-						required="" />
+							placeholder="Enter Contact" class="form-control name_list"
+							required="" />
 					</div>
-					<div class="col-md-4">
-					</div>
+					<div class="col-md-4"></div>
 				</div>
 				<br></br>
 
 				<div class="table-responsive">
-				<h3>Please add Medicines below:</h3>
+					<h3>Please add Medicines below:</h3>
 					<table class="table table-bordered" id="dynamic_field">
 						<tr>
 							<td><select name="name" placeholder="Enter your Name"

@@ -37,7 +37,7 @@
 			<div class="col-md-4"></div>
 		</div>
 	</div>
-	</br>
+	
 
 	<div class="container">
 		<div class="row">

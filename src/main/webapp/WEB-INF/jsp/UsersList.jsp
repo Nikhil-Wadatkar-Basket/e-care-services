@@ -77,6 +77,7 @@
 								<th>Username</th>
 								<th>Role</th>
 								<th>Status</th>
+								<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 								
 							</tr>
 						</thead>

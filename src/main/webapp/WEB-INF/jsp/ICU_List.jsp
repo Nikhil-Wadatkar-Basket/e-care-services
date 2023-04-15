@@ -53,8 +53,9 @@
 					<th>Discharge type</th>
 					<th>Fees</th>
 					<th>City</th>
-					
 					<th>Contact</th>
+					<th colspan="3" class="text-center" style="color:Tomato;">Action</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -73,7 +74,7 @@
 						<td>${emp.contact}</td>
 						<td><a href="/freeBed/${emp.bedNumber}">Free It</a></td>
 						<td><a href="/upddateByBedNumber/${emp.bedNumber}">Update Info</a></td>
-						<td><a href="/dischargeByBedNumber/${emp.bedNumber}">Discharge a patient</a></td>
+						<%-- <td><a href="/dischargeByBedNumber/${emp.bedNumber}">Discharge a patient</a></td> --%>
 					</tr>
 				</c:forEach>
 			</tbody>

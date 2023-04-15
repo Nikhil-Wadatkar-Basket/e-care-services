@@ -33,7 +33,6 @@
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
 				<h2 className="text-center">Appointment Dashboard</h2>
-				userID: ${user_id} show flag:${app_show_flag}
 			</div>
 			<div class="col-md-4"></div>
 		</div>

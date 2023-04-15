@@ -61,6 +61,16 @@
 				</script> -->
 			</c:when>
 			<c:otherwise>
+			<div class="container">
+
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<h2 className="text-center">Doctor's List</h2>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>
 
 				<div class="table-responsive">
 					<table class="table table-bordered">
@@ -70,6 +80,7 @@
 								<th>Name</th>
 								<th>Desg.</th>
 								<th>Contact</th>
+								<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 							</tr>
 						</thead>
 						<tbody>

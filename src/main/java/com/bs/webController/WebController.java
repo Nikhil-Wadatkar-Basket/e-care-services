@@ -240,7 +240,7 @@ public class WebController {
 			throw new MyRuntimeException(message1);
 		}
 
-		ModelAndView mav = new ModelAndView("DeleteDoctorPage");
+		ModelAndView mav = new ModelAndView("DoctorList");
 		mav.addObject("empList", docServices.getAllDoctorDetails());
 		return mav;
 	}
