@@ -32,7 +32,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2 className="text-center"> Doctors DASHBOARD</h2>
+				<h2 className="text-center"> Medicine Counter Dashboard</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -45,16 +45,14 @@
 				<div class="card-body">
 					<h5 class="card-title">Medicine List</h5>
 					<p class="card-text">Click below to see All Available Medicines</p>
-					<a class="btn btn-info btn-light" href="/showMedicines">All
-							Doctors</a>
+					<a class="btn btn-info btn-light" href="/showMedicines">Show Medicine</a>
 				</div>
 			</div>
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Donate Medicines</h5>
 					<p class="card-text">Click below to add new medicines for Patients</p>
-					<a class="btn btn-info btn-light" href="/donateMedicine">Create
-							Doctors</a>
+					<a class="btn btn-info btn-light" href="/donateMedicine">Give Medicine</a>
 				</div>
 			</div>
 			<div class="card text-center">

@@ -97,17 +97,6 @@
 					<input type="button" name="submit" id="submit" class="btn btn-info"
 						value="Submit" />
 				</div>
-
-
-
-				<%-- <select name="pets" id="pet-select">
-					<option value="">--Please choose an option888--</option>
-					<c:forEach var="emp" items="${empList}">
-						<option value="${emp}">${emp}</option>
-					</c:forEach>
-				</select> --%>
-
-
 			</form>
 		</div>
 	</div>
