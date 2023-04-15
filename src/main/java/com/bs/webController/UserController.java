@@ -80,11 +80,10 @@ public class UserController {
 			request.getSession().setAttribute("app_update_flag", "N");
 			request.getSession().setAttribute("app_delete_flag", "N");
 			request.getSession().setAttribute("access_code", "");
-			request.getSession().setAttribute("user_id", findByUserNameAndPassword.getUserId());
+			request.getSession().setAttribute("user_id", String.valueOf(findByUserNameAndPassword.getUserId()));
 			request.getSession().setAttribute("MY_ROLE", messages);
 		}
 		messages = findByUserNameAndPassword.getRole();
-	
 
 		if (true == findByUserNameAndPassword.isFlag())
 			modelAndView.setViewName("Dashboard");
@@ -194,13 +193,6 @@ public class UserController {
 		mav.setViewName("UpdateUser");
 		return mav;
 	}
-//
-//	@GetMapping("/DeleteMedicinePage")
-//	public ModelAndView DeleteMedicinePage() {
-//		ModelAndView mav = new ModelAndView("DeleteMedicinesPage");
-//		mav.addObject("empList", medicineService.getAllMedicineDetails());
-//		return mav;
-//	}
 
 	@GetMapping("/deleteUser/{id}")
 	public ModelAndView deleteUser(@PathVariable("id") Integer id) {
@@ -228,9 +220,9 @@ public class UserController {
 	@GetMapping("/AppointmentDashboard")
 	public ModelAndView AppointmentDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("AppointmentDashboard");
-		String attribute = (String) request.getSession().getAttribute("app_show_flag");
-		request.getSession().setAttribute("app_show_flag", "Y");
-		attributesCollector.getAllAttribute(request, 1);
+
+//		Object user_id_attr = request.getSession().getAttribute("user_id");
+////		attributesCollector.getAllAttribute(request, (Integer) user_id_attr);
 		return modelAndView;
 	}
 

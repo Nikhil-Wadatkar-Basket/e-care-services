@@ -37,8 +37,8 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Appointments</h3><br></br>
-		Delete doctor
+		<h3>Delete Doctors</h3><br></br>
+		
 
 		<div class="table-responsive">
 			<table class="table table-bordered">

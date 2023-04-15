@@ -24,6 +24,7 @@ public class AttributesCollector {
 				request.setAttribute("app_update_flag", details.getApp_update_flag());
 				request.setAttribute("app_show_flag", details.getApp_show_flag());
 				request.setAttribute("app_delete_flag", details.getApp_delete_flag());
+				request.setAttribute("user_id", userId);
 				break;
 			}
 

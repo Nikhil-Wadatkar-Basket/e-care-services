@@ -118,7 +118,6 @@ public class MedicinePatientController {
 //			else
 //				return b;
 //		}).getPrice();
-
 		Integer price = 0;
 		List<MedicineDetails> findAll = medicineDetailsRepo.findAll();
 		for (MedicineDetails details : findAll) {

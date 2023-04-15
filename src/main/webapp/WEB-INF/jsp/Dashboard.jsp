@@ -47,7 +47,7 @@
 					<div class="card-header">Header</div>
 					<div class="card-body">
 						<h5 class="card-title">APPOINTMENTS</h5>
-						<p>Click here to see Apoointment related facilities</p>
+						<p>Click here to see Appointment related facilities</p>
 						<a class="btn btn-info btn-light" href="/AppointmentDashboard">All
 							Appointments</a>
 					</div>
@@ -88,62 +88,60 @@
 			</div>
 		</div>
 
-	<br></br>
-	<br></br>
+		<br></br> <br></br>
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-					<div class="card-header">Header</div>
-					<div class="card-body">
-						<h5 class="card-title">MEDICINE COUNTER</h5>
-						<p>Click here to see Medicine facilities</p>
-						<a class="btn btn-info btn-light" href="/MedicineCounterDashboard">Medicine
-							Counter</a>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+						<div class="card-header">Header</div>
+						<div class="card-body">
+							<h5 class="card-title">MEDICINE COUNTER</h5>
+							<p>Click here to see Medicine facilities</p>
+							<a class="btn btn-info btn-light"
+								href="/MedicineCounterDashboard">Medicine Counter</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card text-white bg-success mb-3"
-					style="max-width: 18rem;">
-					<div class="card-header">Header</div>
-					<div class="card-body">
-						<h5 class="card-title">Visiting Doctor's Club</h5>
-						<p>Click here to see visiting doctors info</p>
-						<a class="btn btn-info btn-light" href="/VisitorsDoctorDashboard">Click
-							to see</a>
+				<div class="col-md-3">
+					<div class="card text-white bg-success mb-3"
+						style="max-width: 18rem;">
+						<div class="card-header">Header</div>
+						<div class="card-body">
+							<h5 class="card-title">Visiting Doctor's Club</h5>
+							<p>Click here to see visiting doctors info</p>
+							<a class="btn btn-info btn-light" href="/VisitorsDoctorDashboard">Click
+								to see</a>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="card bg-light mb-3" style="max-width: 18rem;">
-					<div class="card-header">Header</div>
-					<div class="card-body">
-						<h5 class="card-title">Show Feedbacks</h5>
-						<p>Click here to see all provided feedbacks</p>
-						<a class="btn btn-info btn-light" href="/feedbacks">Show
-							Feedbacks</a>
+				<div class="col-md-3">
+					<div class="card bg-light mb-3" style="max-width: 18rem;">
+						<div class="card-header">Header</div>
+						<div class="card-body">
+							<h5 class="card-title">Show Feedbacks</h5>
+							<p>Click here to see all provided feedbacks</p>
+							<a class="btn btn-info btn-light" href="/feedbacks">Show
+								Feedbacks</a>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<div class="col-md-3">
-				<div class="card text-white bg-warning mb-3"
-					style="max-width: 18rem;">
-					<div class="card-header">Header</div>
-					<div class="card-body">
-						<h5 class="card-title">FEEDBACK</h5>
-						<p>Click here to provide your valuable feedback.</p>
-						<a class="btn btn-info btn-light" href="/newFeedbackPage">Give
-							Feedback</a>
+				<div class="col-md-3">
+					<div class="card text-white bg-warning mb-3"
+						style="max-width: 18rem;">
+						<div class="card-header">Header</div>
+						<div class="card-body">
+							<h5 class="card-title">FEEDBACK</h5>
+							<p>Click here to provide your valuable feedback.</p>
+							<a class="btn btn-info btn-light" href="/newFeedbackPage">Give
+								Feedback</a>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<jsp:include page="FooterPage.jsp" />
-
+		<jsp:include page="FooterPage.jsp" />
 </body>
 </html>
