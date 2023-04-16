@@ -68,7 +68,7 @@
 					<div class="col-md-4">
 						Contact:<input type="text" name="contact"
 							placeholder="Enter Contact" class="form-control name_list"
-							required="" id="contact"/><span id="contactAlert"></span>
+							required="" id="contact" maxlength="10"/><span id="contactAlert"></span>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
@@ -97,6 +97,7 @@
 						value="Submit" />
 				</div>
 			</form>
+			   <button id="validate" onclick="">Validate</button>
 		</div>
 	</div>
 	<jsp:include page="FooterPage.jsp" />
@@ -173,12 +174,26 @@
           var count = 0;
           var patientName = $("#patientName").val();
           var city = $("#city").val();
-          var age = $("#age").val();
-          var weight = $("#weight").val();
-          var height = $("#height").val();
-          var bp = $("#bp").val();
-          var sugar = $("#sugar").val();
+          var doctorName = $("#doctorName").val();
+          var date = $("#date").val();
           var contact = $("#contact").val();
+
+ if (doctorName.length == 0) {
+            $("#doctorNameAlert").text("Please fill it.");
+            $("#doctorNameAlert").css("color", "red");
+            $("#doctorNameAlert").show();
+            count = count + 1;
+          } else if (!validateString(doctorName)) {
+            $("#doctorNameAlert").text("Only alphabets.");
+            $("#doctorNameAlert").css("color", "red");
+            $("#doctorNameAlert").show();
+            count = count + 1;
+          } else {
+            $("#doctorNameAlert").text("Correct.");
+            $("#doctorNameAlert").css("color", "green");
+            $("#doctorNameAlert").show();
+          }
+
 
           if (patientName.length == 0) {
             $("#patientNameAlert").text("Please fill it.");
@@ -211,80 +226,7 @@
             $("#cityAlert").css("color", "green");
             $("#cityAlert").show();
           }
-          if (age.length == 0) {
-            $("#ageAlert").text("Please fill it.");
-            $("#ageAlert").css("color", "red");
-            $("#ageAlert").show();
-            count = count + 1;
-          } else if ($.isNumeric(age)) {
-            $("#ageAlert").text("Correct.");
-            $("#ageAlert").css("color", "green");
-            $("#ageAlert").show();
-          } else {
-            $("#ageAlert").text("It should be number.");
-            $("#ageAlert").css("color", "red");
-            $("#ageAlert").show();
-            count = count + 1;
-          }
-
-          if (weight.length == 0) {
-            $("#weightAlert").text("Please fill it.");
-            $("#weightAlert").css("color", "red");
-            $("#weightAlert").show();
-            count = count + 1;
-          } else if ($.isNumeric(weight)) {
-            $("#weightAlert").text("Correct.");
-            $("#weightAlert").css("color", "green");
-            $("#weightAlert").show();
-          } else {
-            $("#weightAlert").text("It should be Number only.");
-            $("#weightAlert").css("color", "red");
-            $("#weightAlert").show();
-          }
-
-          if (height.length == 0) {
-            $("#heightAlert").text("Please fill it.");
-            $("#heightAlert").css("color", "red");
-            $("#heightAlert").show();
-            count = count + 1;
-          } else if ($.isNumeric(height)) {
-            $("#heightAlert").text("Correct.");
-            $("#heightAlert").css("color", "green");
-            $("#heightAlert").show();
-          } else {
-            $("#heightAlert").text("It should be number Only.");
-            $("#heightAlert").css("color", "red");
-            $("#heightAlert").show();
-          }
-          if (bp.length == 0) {
-            $("#bpAlert").text("Please fill it.");
-            $("#bpAlert").css("color", "red");
-            $("#bpAlert").show();
-            count = count + 1;
-          } else if ($.isNumeric(bp)) {
-            $("#bpAlert").text("Correct. Numberic");
-            $("#bpAlert").css("color", "green");
-            $("#bpAlert").show();
-          } else {
-            $("#bpAlert").text("It should be number only.");
-            $("#bpAlert").css("color", "red");
-            $("#bpAlert").show();
-          }
-
-          if (sugar.length == 0) {
-            $("#sugarAlert").text("Please fill it.");
-            $("#sugarAlert").css("color", "red");
-            $("#sugarAlert").show();
-            count = count + 1;
-          } else if ($.isNumeric(sugar)) {
-            $("#sugarAlert").text("correct.");
-            $("#sugarAlert").css("color", "green");
-            $("#sugarAlert").show();
-          } else {
-            $("#sugarAlert").text("It should be number only.");
-            $("#sugarAlert").css("color", "red");
-            $("#sugarAlert").show();
-          }
+          
 
           if (validatePhone("contact")) {
             $("#contactAlert").text("Correct");
