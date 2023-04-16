@@ -41,6 +41,7 @@
 
 	<div class="container">
 		<div class="row">
+			<c:if test="${app_create_flag eq 'Y'}">
 			<div class="col-md-3">
 				<div class="card text-white bg-primary mb-3"
 					style="max-width: 18rem;">
@@ -53,13 +54,14 @@
 					</div>
 				</div>
 			</div>
+			</c:if>
 			<div class="col-md-3">
 				<div class="card bg-warning mb-3" style="max-width: 18rem;">
 					<div class="card-header">Header</div>
 					<div class="card-body">
 						<h5 class="card-title">Pharmacy</h5>
 						<p>Click here to see Pharmacy related facilities</p>
-						<a class="btn btn-info btn-light" href="/MedicineDashboard">Go</a>
+						<a class="btn btn-info btn-light" href="/MedicineDashboard">Check</a>
 					</div>
 				</div>
 			</div>

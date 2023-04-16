@@ -18,6 +18,7 @@ import com.bs.beans.FeedbackDetails;
 import com.bs.beans.UserDetails;
 import com.bs.exception.MyRuntimeException;
 import com.bs.helper.AttributesCollector;
+import com.bs.helper.SessionManager;
 import com.bs.repo.FeedbackRepo;
 import com.bs.repo.MedicinePatientRepo;
 import com.bs.repo.MedicineRepo;
@@ -39,6 +40,8 @@ public class UserController {
 	private MedicinePatientRepo medicinePatientRepo;
 	@Autowired
 	private VisitingDoctorRepo visitingDoctorRepo;
+	@Autowired
+	private SessionManager manager;
 
 	@GetMapping("/login")
 	public ModelAndView login(UserDetails userDetails) {
@@ -70,20 +73,23 @@ public class UserController {
 			throw new MyRuntimeException(message);
 		}
 
-		// code
-		String messages = (String) request.getSession().getAttribute("MY_ROLE");
-		if (messages == null) {
-			messages = "";
-			request.getSession().setAttribute("MY_ROLE", messages);
-			request.getSession().setAttribute("app_create_flag", "N");
-			request.getSession().setAttribute("app_show_flag", "N");
-			request.getSession().setAttribute("app_update_flag", "N");
-			request.getSession().setAttribute("app_delete_flag", "N");
-			request.getSession().setAttribute("access_code", "");
-			request.getSession().setAttribute("user_id", String.valueOf(findByUserNameAndPassword.getUserId()));
-			request.getSession().setAttribute("MY_ROLE", messages);
-		}
-		messages = findByUserNameAndPassword.getRole();
+		// session code
+//		String messages = (String) request.getSession().getAttribute("MY_ROLE");
+//		if (messages == null) {
+//			messages = "";
+//			request.getSession().setAttribute("MY_ROLE", messages);
+//			request.getSession().setAttribute("app_create_flag", "N");
+//			request.getSession().setAttribute("app_show_flag", "N");
+//			request.getSession().setAttribute("app_update_flag", "N");
+//			request.getSession().setAttribute("app_delete_flag", "N");
+//			request.getSession().setAttribute("access_code", "");
+//			request.getSession().setAttribute("user_id", String.valueOf(findByUserNameAndPassword.getUserId()));
+//			request.getSession().setAttribute("MY_ROLE", messages);
+//		}
+		// code to get session and update it in DB
+//		manager.getSessionsByUserID(String.valueOf(findByUserNameAndPassword.getUserId()), request);
+
+//		messages = findByUserNameAndPassword.getRole();
 
 		if (true == findByUserNameAndPassword.isFlag())
 			modelAndView.setViewName("Dashboard");
@@ -219,7 +225,10 @@ public class UserController {
 
 	@GetMapping("/AppointmentDashboard")
 	public ModelAndView AppointmentDashboard(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("AppointmentDashboard");
+		ModelAndView modelAndView = new ModelAndView("NewAppointmentImage");
+
+		// code to get session and update it in DB
+//		manager.getSessionsByUserID((String) request.getSession().getAttribute("user_id"), request);
 
 //		Object user_id_attr = request.getSession().getAttribute("user_id");
 ////		attributesCollector.getAllAttribute(request, (Integer) user_id_attr);

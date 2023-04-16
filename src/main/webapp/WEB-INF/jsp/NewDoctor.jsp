@@ -184,7 +184,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             // count = count + 1;
           }
 		  else if (!validatePhone("contact")) {
-            $("#contactAlert").text("It should contain only digits. Lenght 10 digits");
+            $("#contactAlert").text("It should contain only digits. Length 10 digits");
             $("#contactAlert").css("color", "red");
             $("#contactAlert").show();
             count = count + 1;

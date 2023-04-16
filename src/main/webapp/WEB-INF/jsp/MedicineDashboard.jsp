@@ -65,13 +65,7 @@
 						Medicine</a>
 				</div>
 			</div>
-			<div class="card text-center">
-				<div class="card-body">
-					<h5 class="card-title">Medical Service</h5>
-					<p class="card-text">Click below to add new medicines for Patients</p>
-					<a class="btn btn-info btn-light" href="/donateMedicine">Add medicines</a>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 	<br></br>

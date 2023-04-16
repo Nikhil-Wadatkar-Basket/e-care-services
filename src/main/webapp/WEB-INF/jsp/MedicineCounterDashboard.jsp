@@ -50,16 +50,16 @@
 			</div>
 			<div class="card text-center">
 				<div class="card-body">
-					<h5 class="card-title">Donate Medicines</h5>
+					<h5 class="card-title">Medicine Store</h5>
 					<p class="card-text">Click below to add new medicines for Patients</p>
 					<a class="btn btn-info btn-light" href="/donateMedicine">Give Medicine</a>
 				</div>
 			</div>
 			<div class="card text-center">
 				<div class="card-body">
-					<h5 class="card-title">See All Donated Medicines</h5>
+					<h5 class="card-title">Total Medical Sale</h5>
 					<p class="card-text">Click below to delete Doctors</p>
-					<a class="btn btn-info btn-light" href="/MedicinePatientsList">See All Donated Medicines</a>
+					<a class="btn btn-info btn-light" href="/MedicinePatientsList">Click Here</a>
 				</div>
 			</div>
 		</div>

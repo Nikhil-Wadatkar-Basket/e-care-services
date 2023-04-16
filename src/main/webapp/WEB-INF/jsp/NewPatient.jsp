@@ -432,7 +432,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             $("#cityAlert").show();
             count = count + 1;
           } else if (!validateString(city)) {
-            $("#cityAlert").text("It should containalphabets.");
+            $("#cityAlert").text("It should contain only alphabets.");
             $("#cityAlert").css("color", "red");
             $("#cityAlert").show();
             count = count + 1;

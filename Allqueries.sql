@@ -2,12 +2,32 @@ use mysql;
 
 select * from Patient_Details;
 delete from Patient_Details where patientid=24;
+select * from spring_session;
+select * from spring_session_attributes;
 
 
-delete from Patient_Details;
+delete from spring_session_attributes;
 
 select * from doctor_Details;
 select * from  user_Details;
+update user_details set app_create_flag = 'N' where userid=1;
+
+update user_details set app_create_flag = 'Y' where userid=22;
+
+
+
+
+
+
+
+
+
+
+
+
+
+alter table user_details add access_code varchar(2);
+
 select * from Appointment_Details;
 select * from Medicine_Details;
 
