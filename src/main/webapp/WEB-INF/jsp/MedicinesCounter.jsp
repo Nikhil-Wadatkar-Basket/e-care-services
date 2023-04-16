@@ -46,28 +46,29 @@
 					<div class="col-md-4">
 						PatientName: <input type="text" name="patientName"
 							placeholder="Enter your Name" class="form-control name_list"
-							required="" />
+							required="" id="patientName"/>
+							<span id="patientNameAlert"></span>
 					</div>
 					<div class="col-md-4">
 						Doctors Name<input type="text" name="doctorName"
-							placeholder="Enter your Name" class="form-control name_list"
-							required="" />
+							placeholder="Enter Doctor Name" class="form-control name_list"
+							required="" id="doctorName"/><span id="doctorNameAlert"></span>
 					</div>
 					<div class="col-md-4">
-						Date: <input type="date" name="date" placeholder="Enter your Name"
-							class="form-control name_list" required="" />
+						Date: <input type="date" name="date" placeholder="Enter your date"
+							class="form-control name_list" required="" id="date"/><span id="dateAlert"></span>
 					</div>
 				</div>
 				<br></br>
 				<div class="row">
 					<div class="col-md-4">
 						City: <input type="text" name="city" placeholder="Enter City"
-							class="form-control name_list" required="" />
+							class="form-control name_list" required="" id="city"/><span id="cityAlert"></span>
 					</div>
 					<div class="col-md-4">
 						Contact:<input type="text" name="contact"
 							placeholder="Enter Contact" class="form-control name_list"
-							required="" />
+							required="" id="contact"/><span id="contactAlert"></span>
 					</div>
 					<div class="col-md-4"></div>
 				</div>
@@ -84,9 +85,7 @@
 										<option value="${emp}">${emp}</option>
 									</c:forEach>
 							</select></td>
-							<!-- 							<td><input type="text" name="name"
-								placeholder="Enter your Name" class="form-control name_list"
-								required="" /></td> -->
+							
 							<td><input type="text" name="quantity"
 								placeholder="Enter your Name" class="form-control name_list"
 								required="" /></td>
@@ -161,6 +160,171 @@
 
 						});
 	</script>
+ <script>
+      $(document).ready(function () {
+        $("#doctorNameAlert").hide();
+        $("#patientNameAlert").hide();
+        $("#cityAlert").hide();       
+        $("#dateAlert").hide();        
+        $("#contactAlert").hide();
+
+        $("#submit").prop("disabled", true);
+        $("#validate").click(function () {
+          var count = 0;
+          var patientName = $("#patientName").val();
+          var city = $("#city").val();
+          var age = $("#age").val();
+          var weight = $("#weight").val();
+          var height = $("#height").val();
+          var bp = $("#bp").val();
+          var sugar = $("#sugar").val();
+          var contact = $("#contact").val();
+
+          if (patientName.length == 0) {
+            $("#patientNameAlert").text("Please fill it.");
+            $("#patientNameAlert").css("color", "red");
+            $("#patientNameAlert").show();
+            count = count + 1;
+          } else if (!validateString(patientName)) {
+            $("#patientNameAlert").text("Only alphabets.");
+            $("#patientNameAlert").css("color", "red");
+            $("#patientNameAlert").show();
+            count = count + 1;
+          } else {
+            $("#patientNameAlert").text("Correct.");
+            $("#patientNameAlert").css("color", "green");
+            $("#patientNameAlert").show();
+          }
+
+          if (city.length == 0) {
+            $("#cityAlert").text("Please fill it.");
+            $("#cityAlert").css("color", "red");
+            $("#cityAlert").show();
+            count = count + 1;
+          } else if (!validateString(city)) {
+            $("#cityAlert").text("It should containalphabets.");
+            $("#cityAlert").css("color", "red");
+            $("#cityAlert").show();
+            count = count + 1;
+          } else {
+            $("#cityAlert").text("Correct.");
+            $("#cityAlert").css("color", "green");
+            $("#cityAlert").show();
+          }
+          if (age.length == 0) {
+            $("#ageAlert").text("Please fill it.");
+            $("#ageAlert").css("color", "red");
+            $("#ageAlert").show();
+            count = count + 1;
+          } else if ($.isNumeric(age)) {
+            $("#ageAlert").text("Correct.");
+            $("#ageAlert").css("color", "green");
+            $("#ageAlert").show();
+          } else {
+            $("#ageAlert").text("It should be number.");
+            $("#ageAlert").css("color", "red");
+            $("#ageAlert").show();
+            count = count + 1;
+          }
+
+          if (weight.length == 0) {
+            $("#weightAlert").text("Please fill it.");
+            $("#weightAlert").css("color", "red");
+            $("#weightAlert").show();
+            count = count + 1;
+          } else if ($.isNumeric(weight)) {
+            $("#weightAlert").text("Correct.");
+            $("#weightAlert").css("color", "green");
+            $("#weightAlert").show();
+          } else {
+            $("#weightAlert").text("It should be Number only.");
+            $("#weightAlert").css("color", "red");
+            $("#weightAlert").show();
+          }
+
+          if (height.length == 0) {
+            $("#heightAlert").text("Please fill it.");
+            $("#heightAlert").css("color", "red");
+            $("#heightAlert").show();
+            count = count + 1;
+          } else if ($.isNumeric(height)) {
+            $("#heightAlert").text("Correct.");
+            $("#heightAlert").css("color", "green");
+            $("#heightAlert").show();
+          } else {
+            $("#heightAlert").text("It should be number Only.");
+            $("#heightAlert").css("color", "red");
+            $("#heightAlert").show();
+          }
+          if (bp.length == 0) {
+            $("#bpAlert").text("Please fill it.");
+            $("#bpAlert").css("color", "red");
+            $("#bpAlert").show();
+            count = count + 1;
+          } else if ($.isNumeric(bp)) {
+            $("#bpAlert").text("Correct. Numberic");
+            $("#bpAlert").css("color", "green");
+            $("#bpAlert").show();
+          } else {
+            $("#bpAlert").text("It should be number only.");
+            $("#bpAlert").css("color", "red");
+            $("#bpAlert").show();
+          }
+
+          if (sugar.length == 0) {
+            $("#sugarAlert").text("Please fill it.");
+            $("#sugarAlert").css("color", "red");
+            $("#sugarAlert").show();
+            count = count + 1;
+          } else if ($.isNumeric(sugar)) {
+            $("#sugarAlert").text("correct.");
+            $("#sugarAlert").css("color", "green");
+            $("#sugarAlert").show();
+          } else {
+            $("#sugarAlert").text("It should be number only.");
+            $("#sugarAlert").css("color", "red");
+            $("#sugarAlert").show();
+          }
+
+          if (validatePhone("contact")) {
+            $("#contactAlert").text("Correct");
+            $("#contactAlert").css("color", "green");
+            $("#contactAlert").show();
+            // count = count + 1;
+          } else {
+            $("#contactAlert").text("Incorrect");
+            $("#contactAlert").css("color", "red");
+            $("#contactAlert").show();
+            count = count + 1;
+          }
+
+          if (count == 0) {
+            $("#submit").prop("disabled", false);
+          }
+        });
+      });
+
+      function validatePhone(txtPhone) {
+        var contact = $("#contact").val();
+        var filter =
+          /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
+        if (filter.test(contact)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      function validateString(str) {
+        var filter = /^[A-Za-z\s]*$/;
+        if (filter.test(str)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
+
 </body>
 </html>
 
