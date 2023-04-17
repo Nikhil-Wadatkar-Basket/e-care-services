@@ -46,142 +46,13 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   <body>
     <jsp:include page="Navbar.jsp" />
 
-    <div class="container">
-      <h3>New Appointment</h3>
-
-      <form:form
-        method="POST"
-        action="/createNewAppointment"
-        modelAttribute="app"
-        id="signupForm"
-      >
-        <table>
-          <tr>
-            <td></td>
-            <td><form:hidden path="appID" /></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><form:hidden path="userID" /></td>
-          </tr>
-
-          <tr>
-            <td>Patient Name :</td>
-            <td><form:input path="patientName" id="patientName" /></td>
-            <td ><span  id="patientNameAlert"></span></td>
-          </tr>
-          <tr>
-            <td>City:</td>
-            <td><form:input path="city" id="city" /></td>
-            <td ><span  id="cityAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Age :</td>
-            <td><form:input path="age" id="age" /></td>
-            <td ><span  id="ageAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Doctor Name :</td>
-            <td>
-              <form:select path="doctorName" id="doctorName">
-                <form:options items="${doctorList}" />
-              </form:select>
-            </td>
-            <td ><span  id="doctorAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Date :</td>
-            <td><form:input type="date" path="appDate" /></td>
-            <td ><span  id="dateAlert"></td>
-          </tr>
-
-          <tr>
-            <td>
-              <form:label path="meetingType" id="meetingType"
-                >Meeting Type</form:label
-              >
-            </td>
-            <td>
-              <form:radiobutton path="meetingType" value="New" label="New" />
-              <form:radiobutton path="meetingType" value="Old" label="Old" />
-            </td>
-            <td ><span  id="meetingTypeAlert"></span></td>
-          </tr>
-
-          <tr>
-            <td>
-              <form:label path="patientType" id="patientType"
-                >Patient Type</form:label
-              >
-            </td>
-            <td>
-              <form:radiobutton path="patientType" value="OPD" label="OPD" />
-              <form:radiobutton path="patientType" value="IPD" label="IPD" />
-              <form:radiobutton path="patientType" value="ICU" label="ICU" />
-            </td>
-            <td ><span  id="patientTypeAlert"></span></td>
-          </tr>
-
-          <tr>
-            <td><form:label path="appTime" id="appTime">Time</form:label></td>
-            <td>
-              <form:select path="appTime">
-                <form:option value="NONE" label="Select" />
-                <form:options items="${freeTimeSlots}" />
-              </form:select>
-            </td>
-            <td ><span  id="appTimeAlert"></span></td>
-          </tr>
-          <tr>
-            <td>
-              <form:label path="bloodGroup" id="bloodGroup"
-                >Blood Group</form:label
-              >
-            </td>
-            <td>
-              <form:select path="bloodGroup">
-                <form:option value="NONE" label="Select" />
-                <form:options items="${bloodGroups}" />
-              </form:select>
-            </td>
-            <td ><span  id="bloodGroupAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Weight :</td>
-            <td><form:input path="weight" id="weight" /></td>
-            <td ><span  id="weightAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Height :</td>
-            <td><form:input path="height" id="height" /></td>
-            <td ><span  id="heightAlert"></span></td>
-          </tr>
-          <tr>
-            <td>BP:</td>
-            <td><form:input path="bp" id="bp" /></td>
-            <td ><span  id="bpAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Sugar:</td>
-            <td><form:input path="sugar" id="sugar" /></td>
-            <td ><span  id="sugarAlert"></span></td>
-          </tr>
-          <tr>
-            <td>Contact :</td>
-            <td><form:input path="contact" id="contact" maxlength="10"/></td>
-            <td><span id="contactAlert"></span></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <input type="submit" id="submit" value="Create An Appointment" />
-            </td>
-          </tr>
-        </table>
-      </form:form>
-
-      <button id="validate" onclick="">Validate</button>
+    <div class="row">
+      <div class="col-sm-4">col-sm-4</div>
+      <div class="col-sm-8">
+        <img src="colorful-pills-spoon.jpg" alt="Italian Trulli" />
+      </div>
     </div>
+
     <jsp:include page="FooterPage.jsp" />
 
     <script>
@@ -213,21 +84,17 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
           var sugar = $("#sugar").val();
           var contact = $("#contact").val();
 
-          if (patientName.length == 0 ) {
+          if (patientName.length == 0) {
             $("#patientNameAlert").text("Please fill it.");
             $("#patientNameAlert").css("color", "red");
             $("#patientNameAlert").show();
             count = count + 1;
-          }else if(!validateString(patientName)){
-             $("#patientNameAlert").text("Only alphabets.");
+          } else if (!validateString(patientName)) {
+            $("#patientNameAlert").text("Only alphabets.");
             $("#patientNameAlert").css("color", "red");
             $("#patientNameAlert").show();
             count = count + 1;
-          
-          }
-          
-          
-          else{
+          } else {
             $("#patientNameAlert").text("Correct.");
             $("#patientNameAlert").css("color", "green");
             $("#patientNameAlert").show();
@@ -238,13 +105,12 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             $("#cityAlert").css("color", "red");
             $("#cityAlert").show();
             count = count + 1;
-          }else if(!validateString(city)){
-           $("#cityAlert").text("It should containalphabets.");
+          } else if (!validateString(city)) {
+            $("#cityAlert").text("It should containalphabets.");
             $("#cityAlert").css("color", "red");
             $("#cityAlert").show();
             count = count + 1;
-          }
-          else{
+          } else {
             $("#cityAlert").text("Correct.");
             $("#cityAlert").css("color", "green");
             $("#cityAlert").show();
@@ -254,34 +120,33 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             $("#ageAlert").css("color", "red");
             $("#ageAlert").show();
             count = count + 1;
-          }else if($.isNumeric(age)){
+          } else if ($.isNumeric(age)) {
             $("#ageAlert").text("Correct.");
             $("#ageAlert").css("color", "green");
             $("#ageAlert").show();
-          }else{
+          } else {
             $("#ageAlert").text("It should be number.");
             $("#ageAlert").css("color", "red");
             $("#ageAlert").show();
-             count = count + 1;
+            count = count + 1;
           }
-
 
           if (weight.length == 0) {
             $("#weightAlert").text("Please fill it.");
-             $("#weightAlert").css("color", "red");
+            $("#weightAlert").css("color", "red");
             $("#weightAlert").show();
             count = count + 1;
-          }else if($.isNumeric(weight)){
+          } else if ($.isNumeric(weight)) {
             $("#weightAlert").text("Correct.");
             $("#weightAlert").css("color", "green");
             $("#weightAlert").show();
           }
           if (height.length == 0) {
             $("#heightAlert").text("Please fill it.");
-             $("#heightAlert").css("color", "red");
+            $("#heightAlert").css("color", "red");
             $("#heightAlert").show();
             count = count + 1;
-          }else if($.isNumeric(height)){
+          } else if ($.isNumeric(height)) {
             $("#heightAlert").text("Correct.");
             $("#heightAlert").css("color", "green");
             $("#heightAlert").show();
@@ -291,26 +156,22 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
             $("#bpAlert").css("color", "red");
             $("#bpAlert").show();
             count = count + 1;
-          }else if($.isNumeric(bp)){
+          } else if ($.isNumeric(bp)) {
             $("#bpAlert").text("Correct. Numberic");
             $("#bpAlert").css("color", "green");
             $("#bpAlert").show();
           }
-
 
           if (sugar.length == 0) {
             $("#sugarAlert").text("Please fill it.");
             $("#sugarAlert").css("color", "red");
             $("#sugarAlert").show();
             count = count + 1;
-          }else if($.isNumeric(sugar)){
+          } else if ($.isNumeric(sugar)) {
             $("#sugarAlert").text("correct.");
             $("#sugarAlert").css("color", "green");
             $("#sugarAlert").show();
           }
-
-
-
 
           if (validatePhone("txtPhone")) {
             $("#contactAlert").text("Correct");
@@ -342,15 +203,13 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
       }
 
       function validateString(str) {
-        var filter=/^[A-Za-z\s]*$/;
-if (filter.test(str)) {
+        var filter = /^[A-Za-z\s]*$/;
+        if (filter.test(str)) {
           return true;
         } else {
           return false;
         }
-
-  
-}
+      }
     </script>
   </body>
 </html>
