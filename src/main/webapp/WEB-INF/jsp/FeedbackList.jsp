@@ -66,9 +66,9 @@
 		</c:when>
 		<c:otherwise>
 
-			<h2>FEEDBACKS</h2>
+			<h2 class="text-center">FEEDBACKS</h2>
 
-			<<div class="container">
+			<div class="container">
 
 				<div class="row">
 

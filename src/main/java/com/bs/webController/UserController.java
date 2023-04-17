@@ -186,7 +186,6 @@ public class UserController {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
 		ModelAndView mav = new ModelAndView("UsersList");
 		UserDetails medicinerDetailsByID = null;
-
 		try {
 			medicinerDetailsByID = userRepo.findById(id).get();
 		} catch (Exception e) {
@@ -225,7 +224,7 @@ public class UserController {
 
 	@GetMapping("/AppointmentDashboard")
 	public ModelAndView AppointmentDashboard(HttpServletRequest request) {
-		ModelAndView modelAndView = new ModelAndView("NewAppointmentImage");
+		ModelAndView modelAndView = new ModelAndView("AppointmentDashboard");
 
 		// code to get session and update it in DB
 //		manager.getSessionsByUserID((String) request.getSession().getAttribute("user_id"), request);

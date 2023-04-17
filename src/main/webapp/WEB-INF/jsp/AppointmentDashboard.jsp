@@ -50,7 +50,7 @@
 							Appointments</a>
 					</div>
 				</div>
-				<c:if test="${app_create_flag eq 'Y'}">
+				
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Add New Appointment</h5>
@@ -58,7 +58,7 @@
 					<a class="btn btn-info btn-light" href="/loadNewAppointmentPage">Create
 						Appointments</a>
 				</div>
-			</div></c:if>
+			</div>
 			<div class="card text-center">
 				<div class="card-body">
 					<h5 class="card-title">Delete/Cancel Appointment</h5>

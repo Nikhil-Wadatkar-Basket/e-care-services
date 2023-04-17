@@ -35,7 +35,7 @@
 <body>
 	<jsp:include page="Navbar.jsp" />
 	<div class="container">
-		<h2 align="center">E-Care Medicine Counter</h2>
+		<h2 align="center">E-Care Medical Store</h2>
 		<div class="form-group">
 			<form name="add_name" id="add_name">
 				<div></div>

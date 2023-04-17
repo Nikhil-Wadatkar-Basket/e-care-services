@@ -19,11 +19,13 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
+
+	<!-- glyph -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 
 <body>
 	<jsp:include page="JumboTrane.jsp" />
-
 
 
 
@@ -41,11 +43,11 @@
 
 	<div class="container">
 		<div class="row">
-			<c:if test="${app_create_flag eq 'Y'}">
+			
 			<div class="col-md-3">
 				<div class="card text-white bg-primary mb-3"
 					style="max-width: 18rem;">
-					<div class="card-header">Header</div>
+					<div class="card-header"><i class='far fa-calendar-alt' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">APPOINTMENTS</h5>
 						<p>Click here to see Appointment related facilities</p>
@@ -54,10 +56,10 @@
 					</div>
 				</div>
 			</div>
-			</c:if>
+			
 			<div class="col-md-3">
 				<div class="card bg-warning mb-3" style="max-width: 18rem;">
-					<div class="card-header">Header</div>
+					<div class="card-header"><i class='fas fa-calendar-plus' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">Pharmacy</h5>
 						<p>Click here to see Pharmacy related facilities</p>
@@ -68,7 +70,7 @@
 			<div class="col-md-3">
 				<div class="card text-white bg-danger mb-3"
 					style="max-width: 18rem;">
-					<div class="card-header">Header</div>
+					<div class="card-header"><i class='fas fa-child' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">Doctors</h5>
 						<p>Click here to see Appointment related facilities</p>
@@ -79,7 +81,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="card text-white bg-info mb-3" style="max-width: 18rem;">
-					<div class="card-header">Header</div>
+					<div class="card-header"><i class='fab fa-accessible-icon' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">PATIENTS</h5>
 						<p>Click here to see Patients related facilities</p>
@@ -96,7 +98,9 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-						<div class="card-header">Header</div>
+						<div class="card-header">
+							<i class='fas fa-clinic-medical' style='font-size:36px'></i>
+						</div>
 						<div class="card-body">
 							<h5 class="card-title">MEDICINE COUNTER</h5>
 							<p>Click here to see Medicine facilities</p>
@@ -108,7 +112,7 @@
 				<div class="col-md-3">
 					<div class="card text-white bg-success mb-3"
 						style="max-width: 18rem;">
-						<div class="card-header">Header</div>
+						<div class="card-header"><i class='far fa-id-badge' style='font-size:36px'></i></div>
 						<div class="card-body">
 							<h5 class="card-title">Visiting Doctor's Club</h5>
 							<p>Click here to see visiting doctors info</p>
@@ -117,9 +121,22 @@
 						</div>
 					</div>
 				</div>
+
+				<div class="col-md-3">
+					<div class="card text-white bg-warning mb-3"
+						style="max-width: 18rem;">
+						<div class="card-header"><i class='fas fa-clipboard' style='font-size:36px'></i></div>
+						<div class="card-body">
+							<h5 class="card-title">FEEDBACK</h5>
+							<p>Click here to provide your valuable feedback.</p>
+							<a class="btn btn-info btn-light" href="/newFeedbackPage">Give
+								Feedback</a>
+						</div>
+					</div>
+				</div>
 				<div class="col-md-3">
 					<div class="card bg-light mb-3" style="max-width: 18rem;">
-						<div class="card-header">Header</div>
+						<div class="card-header"><i class='far fa-calendar-check' style='font-size:36px'></i></div>
 						<div class="card-body">
 							<h5 class="card-title">Show Feedbacks</h5>
 							<p>Click here to see all provided feedbacks</p>
@@ -129,18 +146,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-3">
-					<div class="card text-white bg-warning mb-3"
-						style="max-width: 18rem;">
-						<div class="card-header">Header</div>
-						<div class="card-body">
-							<h5 class="card-title">FEEDBACK</h5>
-							<p>Click here to provide your valuable feedback.</p>
-							<a class="btn btn-info btn-light" href="/newFeedbackPage">Give
-								Feedback</a>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 

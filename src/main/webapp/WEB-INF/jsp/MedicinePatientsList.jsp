@@ -64,7 +64,7 @@
 
 			</c:when>
 			<c:otherwise>
-				<h3>Donated Medicines</h3>
+				<h3>Total Sales</h3>
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						<thead>
