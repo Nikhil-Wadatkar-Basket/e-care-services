@@ -31,18 +31,16 @@
 
 	<div class="container">
 
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
-				<h2 className="text-center">DASHBOARD</h2>
-			</div>
-			<div class="col-md-4"></div>
-		</div>
-	</div>
+		
 	
 
 	<div class="container">
+		<div class="row justify-content-center">
+    <h1>Dashboard</h1>
+  </div>
+		
 		<div class="row">
+			
 			
 			<div class="col-md-3">
 				<div class="card text-white bg-primary mb-3"
@@ -50,7 +48,7 @@
 					<div class="card-header"><i class='far fa-calendar-alt' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">APPOINTMENTS</h5>
-						<p>Click here to see Appointment related facilities</p>
+						<p>Click to see Appointment related facilities</p>
 						<a class="btn btn-info btn-light" href="/AppointmentDashboard">All
 							Appointments</a>
 					</div>
@@ -73,7 +71,7 @@
 					<div class="card-header"><i class='fas fa-child' style='font-size:36px'></i></div>
 					<div class="card-body">
 						<h5 class="card-title">Doctors</h5>
-						<p>Click here to see Appointment related facilities</p>
+						<p>Click to see Appointment related facilities</p>
 						<a class="btn btn-info btn-light" href="/DoctorDashboard">Doctors
 							Section</a>
 					</div>
