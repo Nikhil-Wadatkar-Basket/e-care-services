@@ -87,7 +87,7 @@
 							</select></td>
 							
 							<td><input type="text" name="quantity"
-								placeholder="Enter your Name" class="form-control name_list"
+								placeholder="Enter quantity" class="form-control name_list"
 								required="" /></td>
 							<td><button type="button" name="add" id="add"
 									class="btn btn-success">Add More</button></td>

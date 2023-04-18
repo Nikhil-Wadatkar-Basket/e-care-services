@@ -30,21 +30,21 @@
 		<h3>Appointments</h3>
 
 		<!-- <div class="table-responsive"> -->
-			<table class="table table-hover">
+			<table class="table  table-bordered">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Doctor Name</th>
-						<th>Patient Name</th>
-						<th>Date</th>
-						<th>Time</th>
-						<th>Time Status</th>
-						<th>Meeting type</th>
-						<th>Fees</th>
-						<th>City</th>
-						<th>Blood group</th>
-						<th>Age</th>						
-						<th>Contact</th>
+						<th class="col-xs-1">Doctor Name</th>
+						<th class="col-xs-1">Patient Name</th>
+						<th class="col-xs-1">Date</th>
+						<th class="col-xs-1">Time</th>
+						<th class="col-xs-1">Time Status</th>
+						<th style="width:10%">Meeting type</th>
+						<th style="width:10%">Fees</th>
+						<th style="width:10%">City</th>
+						<th style="width:10%">Blood group</th>
+						<th style="width:10%">Age</th>						
+						<th style="width:10%">Contact</th>
 						<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 					</tr>
 				</thead>
