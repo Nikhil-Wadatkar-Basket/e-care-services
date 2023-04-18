@@ -228,18 +228,18 @@
           }
           
 
-          if (validatePhone()) {
-            $("#contactAlert").text("Correct");
-            $("#contactAlert").css("color", "green");
-            $("#contactAlert").show();
-            // count = count + 1;
-          } else if(contact.length<10)
+           if(contact.length<10)
 		 {
             $("#contactAlert").text("Incorrect");
             $("#contactAlert").css("color", "red");
             $("#contactAlert").show();
             count = count + 1;
-          } 
+          }else  if (validatePhone()) {
+            $("#contactAlert").text("Correct");
+            $("#contactAlert").css("color", "green");
+            $("#contactAlert").show();
+            // count = count + 1;
+          }
 		 else
 		  {
             $("#contactAlert").text("Incorrect");
