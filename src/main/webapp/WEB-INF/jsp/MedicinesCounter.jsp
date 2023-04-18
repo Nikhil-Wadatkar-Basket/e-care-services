@@ -228,12 +228,20 @@
           }
           
 
-          if (validatePhone("contact")) {
+          if (validatePhone()) {
             $("#contactAlert").text("Correct");
             $("#contactAlert").css("color", "green");
             $("#contactAlert").show();
             // count = count + 1;
-          } else {
+          } else if(contact.length<10)
+		 {
+            $("#contactAlert").text("Incorrect");
+            $("#contactAlert").css("color", "red");
+            $("#contactAlert").show();
+            count = count + 1;
+          } 
+		 else
+		  {
             $("#contactAlert").text("Incorrect");
             $("#contactAlert").css("color", "red");
             $("#contactAlert").show();
@@ -246,7 +254,7 @@
         });
       });
 
-      function validatePhone(txtPhone) {
+      function validatePhone() {
         var contact = $("#contact").val();
         var filter =
           /^((\+[1-9]{1,4}[ \-]*)|(\([0-9]{2,3}\)[ \-]*)|([0-9]{2,4})[ \-]*)*?[0-9]{3,4}?[ \-]*[0-9]{3,4}?$/;
