@@ -433,7 +433,6 @@ public class WebController {
 		ModelAndView mav = new ModelAndView("MedicinesList");
 
 		try {
-			medicineService = null;
 			medicineService.createMedicineDetails(doctor);
 		} catch (Exception e) {
 			String message1 = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"

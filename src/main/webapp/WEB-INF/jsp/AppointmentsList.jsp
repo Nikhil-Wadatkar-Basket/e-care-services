@@ -43,11 +43,7 @@
 						<th>Fees</th>
 						<th>City</th>
 						<th>Blood group</th>
-						<th>Age</th>
-						<th>Height</th>
-						<th>Weight</th>
-						<th>BP</th>
-						<th>Sugar</th>
+						<th>Age</th>						
 						<th>Contact</th>
 						<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
 					</tr>
@@ -65,11 +61,7 @@
 							<td>${emp.fees}</td>
 							<td>${emp.city}</td>
 							<td>${emp.bloodGroup}</td>
-							<td>${emp.age}</td>
-							<td>${emp.height}</td>
-							<td>${emp.weight}</td>
-							<td>${emp.bp}</td>
-							<td>${emp.sugar}</td>
+							<td>${emp.age}</td>							
 							<td>${emp.contact}</td>
 							<td><a href="/getAppointmentByTime/${emp.appTime}">Edit</a></td>
 							<td><a href="/deleteAppointmentByTime/${emp.appTime}">Delete</a></td>
