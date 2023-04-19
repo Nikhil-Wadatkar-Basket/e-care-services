@@ -33,6 +33,7 @@
 
 </head>
 <body>
+		<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 	<div class="container">
 		<h2 align="center">E-Care Medical Store</h2>

@@ -37,8 +37,15 @@
 style="
         background-image: url('https://thumbs.dreamstime.com/b/medicine-doctor-holding-red-heart-shape-hand-medical-icon-network-connection-modern-virtual-screen-interface-service-mind-99681240.jpg');
       ">
-	<jsp:include page="JumboTrane.jsp" />
+	
+<div
+      class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+     
+    >
+      <h1 class="mb-3 h2">E-Care Health Application</h1>
 
+      <p>Add You content.</p>
+    </div>
 	<div class="container">
 		<div class="row">
 			<div class="col table-bordered">
