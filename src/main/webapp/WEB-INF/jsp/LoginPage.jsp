@@ -33,56 +33,83 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body 
+style="
+        background-image: url('https://thumbs.dreamstime.com/b/medicine-doctor-holding-red-heart-shape-hand-medical-icon-network-connection-modern-virtual-screen-interface-service-mind-99681240.jpg');
+      ">
 	<jsp:include page="JumboTrane.jsp" />
 
 	<div class="container">
 		<div class="row">
-			<div class="col-8">
+			<div class="col table-bordered">
+<h4 class="text-center">Login</h4>
 
-				<div class="container">
-					<div class="row">
-						<div class="col-md-3"></div>
-						<div class="card text-white bg-primary mb-3"
-							style="max-width: 18rem;">
-							<div class="card-header">
-								<h5>Register Yourself.</h5>
-							</div>
-							<div class="card-body">
-								<p class="card-text">If you are facing any issues while
-									login. Please register yourself.</p>
-								<br> <a href="/loadNewUserPage" class="btn btn-info btn-light"
-									role="button">Register Here</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-4 border border-primary">
-				<br></br>
-				<h4 class="text-center">Login</h4>
-				
-				<form:form action="/authenticate" method="post" modelAttribute="userDetails">
+<form:form action="/authenticate" method="post" modelAttribute="userDetails">
 					<div class="form-group ">
-						<label for="exampleInputEmail1">Username:</label>
+						<label for="exampleInputEmail1"> <b>Username:</b></label>
 						<form:input path="userName" class="form-control"
 							aria-describedby="emailHelp" placeholder="Enter username" />
 						<small id="emailHelp" class="form-text text-muted">We'll
 							never share your email with anyone else.</small>
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">Password</label>
-						<form:input path="password" class="form-control" placeholder="Password" />
+						<label for="exampleInputPassword1"><b>Password</b></label>
+						<form:input path="password"  type="password" class="form-control" placeholder="Password" />
 					</div>
 					
-					<button type="submit" class="btn btn-primary">Submit</button>
+					
+					
+				
+				<div class="d-flex justify-content-center ">
+  <button class="btn btn-primary">Login</button>
+</div>
+
 				</form:form>
-				<br></br>
+
+			</br>
+				
+				<div class="d-flex justify-content-center ">
+  <button type="submit" class="btn btn-success " onClick="location.href='/loadNewUserPage'">Register</button>
+</div>
+			<p>Register yourself if you are a new user!!</p>
+
+</div>
+<div class="col">
+
+</div>
+<div class="col">
+
+</div><div class="col">
+
+</div>
+				</div>
 			</div>
-		</div>
+		
+			
+	
 
-	</div>
+	
 
-	<jsp:include page="FooterPage.jsp" />
+
+
+
+<!-- Footer Code-->
+
+    <footer class="text-center text-lg-start text-muted fixed-bottom">
+      <!-- Section: Social media -->
+      <!--  -->
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-4"
+        style="background-color: rgba(0, 0, 0, 0.025)"
+      >
+        @ 2023 Copyright:
+        <a class="text-reset fw-bold" href="#">e-careApplication.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 </body>
 </html>

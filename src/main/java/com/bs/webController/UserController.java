@@ -226,6 +226,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView("AboutUs");
 		return modelAndView;
 	}
+	
 	@GetMapping("/contactUs")
 	public ModelAndView contactUs() {
 		ModelAndView modelAndView = new ModelAndView("ContactUs");

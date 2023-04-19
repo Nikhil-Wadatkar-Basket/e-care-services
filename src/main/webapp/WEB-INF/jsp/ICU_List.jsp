@@ -34,16 +34,16 @@
 </head>
 
 <body>
-
+<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>ICU Details</h3>
+		<h3 class="text-center">ICU Details</h3>
 
 
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class="text-white" style="background-color: rgb(239, 149, 85);">
 					<th>ID</th>
 					<th>Doctor Name</th>
 					<th>Patient Name</th>
@@ -61,7 +61,7 @@
 			<tbody>
 				<c:forEach var="emp" items="${empList}">
 					<tr>
-						<td>${emp.icuID}</td>
+						<td style="background-color: rgb(166, 243, 119);">${emp.icuID}</td>
 						<td>${emp.doctorName}</td>
 						<td>${emp.patientName}</td>
 						<td>${emp.appDate}</td>

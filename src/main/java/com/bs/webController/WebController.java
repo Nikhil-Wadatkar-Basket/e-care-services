@@ -159,7 +159,7 @@ public class WebController {
 	@GetMapping("/loadNewAppointmentPage")
 	public ModelAndView loadNewAppointmentPage() {
 		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		ModelAndView mav = new ModelAndView("NewAppointment");
+		ModelAndView mav = new ModelAndView("NewAppointmentImage");
 		mav.addObject("app", new AppointmentDetails());
 
 		mav.addObject("doctorList", getAvailableDoctors());

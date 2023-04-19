@@ -26,7 +26,7 @@
 </head>
 
 <body>
-
+<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
@@ -75,7 +75,7 @@
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						<thead>
-							<tr>
+							<tr class="text-white" style="background-color: rgb(239, 149, 85);">
 								<th>ID</th>
 								<th>Name</th>
 								<th>Desg.</th>
@@ -86,7 +86,7 @@
 						<tbody>
 							<c:forEach var="emp" items="${empList}">
 								<tr>
-									<td>${emp.docID}</td>
+									<td style="background-color: rgb(166, 243, 119);">${emp.docID}</td>
 									<td>${emp.docName}</td>
 									<td>${emp.designation}</td>
 									<td>${emp.docContact}</td>

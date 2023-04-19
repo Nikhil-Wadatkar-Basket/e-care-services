@@ -68,7 +68,7 @@
 				<div class="table-responsive">
 					<table class="table table-bordered">
 						<thead>
-							<tr>
+							<tr class="text-white" style="background-color: rgb(239, 149, 85);">
 								<th>Name</th>
 								<th>Contact</th>
 								<th>Date</th>
@@ -79,7 +79,7 @@
 						<tbody>
 							<c:forEach var="emp" items="${empList}">
 								<tr>
-									<td>${emp.patrientName}</td>
+									<td style="background-color: rgb(166, 243, 119);">${emp.patrientName}</td>
 									<td>${emp.contact}</td>
 									<td>${emp.receiptDate}</td>
 									<td>${emp.city}</td>

@@ -35,7 +35,7 @@
 </head>
 
 <body>
-
+<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
@@ -71,22 +71,22 @@
 			</c:when>
 			<c:otherwise>
 
-				<h3>Patients</h3>
-				<div class="table-responsive">
+				<h3 class="text-center">Patients</h3>
+				<div class="table-responsive table-striped">
 					<table class="table table-bordered">
 						<thead>
-							<tr>
+							<tr class="text-white" style="background-color: rgb(239, 149, 85);">
 								<th>ID</th>
 								<th>Name</th>
 								<th>Age</th>
 								<th>Contact</th>
-								<th colspan="2" class="text-center" style="color:Tomato;">Action</th>
+								<th colspan="2" class="text-center">Action</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="emp" items="${empList}">
 								<tr>
-									<td>${emp.patientID}</td>
+									<td style="background-color: rgb(166, 243, 119);">${emp.patientID}</td>
 									<td>${emp.patientName}</td>
 									<td>${emp.patientAge}</td>
 									<td>${emp.contact}</td>

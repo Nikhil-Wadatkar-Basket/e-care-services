@@ -40,6 +40,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   </head>
 
   <body>
+    <jsp:include page="JumboTrane.jsp" />
     <jsp:include page="Navbar.jsp" />
 
     <div class="container">
