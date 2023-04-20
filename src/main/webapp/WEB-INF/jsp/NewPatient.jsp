@@ -7,15 +7,6 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <title>E-Care App</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <link rel="stylesheet"
-
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head> -->
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -44,6 +35,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
   </head>
 
   <body>
+    <jsp:include page="JumboTrane.jsp" />
     <jsp:include page="Navbar.jsp" />
 
 <div class="container">

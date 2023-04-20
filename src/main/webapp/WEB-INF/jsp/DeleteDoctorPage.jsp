@@ -32,7 +32,7 @@
 	crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body><jsp:include page="JumboTrane.jsp" />
 
 	<jsp:include page="Navbar.jsp" />
 

@@ -35,7 +35,7 @@
 </head>
 
 <body>
-
+<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
@@ -68,7 +68,7 @@
 				</script>
 			</c:when>
 			<c:otherwise>
-				<h3>Appointments</h3>
+				<h3 class="text-center">Delete Appointments</h3>
 
 				<div class="table-responsive">
 					<table class="table table-bordered">

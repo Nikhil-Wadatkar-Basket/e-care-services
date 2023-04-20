@@ -36,10 +36,7 @@
 
 <body>
 
-	<%--  
-	
-	<%@include file="Navbar.jsp" %>
-	--%>
+<jsp:include page="JumboTrane.jsp" />
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
