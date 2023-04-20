@@ -37,21 +37,22 @@
 	<jsp:include page="Navbar.jsp" />
 
 	<div class="container">
-		<h3>Delete Doctors</h3><br></br>
+		<h3 class="text-center">Delete Doctors</h3><br></br>
 		
 
 		<div class="table-responsive">
 			<table class="table table-bordered">
 				<thead>
-					<tr>
+					<tr class="text-white" style="background-color: rgb(239, 149, 85)">
 						<th>Doctor Name</th>
 						<th>Designation</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="emp" items="${empList}">
 						<tr>
-							<td>${emp.docName}</td>
+							<td style="background-color: rgb(166, 243, 119)">${emp.docName}</td>
 							<td>${emp.designation}</td>
 
 							<td><a href="deleteDoctor/${emp.docID}">Delete</a></td>
