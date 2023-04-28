@@ -42,6 +42,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
     <!-- navbar code end -->
     <div class="container">
       <h3 class="text-center">Appointments</h3>
+      User ID: ${user_id}
 
       <!-- <div class="table-responsive"> -->
       <table class="table table-bordered">

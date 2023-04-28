@@ -16,7 +16,7 @@ public class AttributesCollector {
 	@Autowired
 	private UserRepo userRepo;
 
-	public HttpServletRequest getAllAttribute(HttpServletRequest request, Integer userId) {
+	public HttpServletRequest getAllAttribute(HttpServletRequest request, String userId) {
 		List<UserDetails> findAll = userRepo.findAll();
 		for (UserDetails details : findAll) {
 			if (details.getUserID() == userId) {

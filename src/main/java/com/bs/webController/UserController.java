@@ -2,6 +2,7 @@ package com.bs.webController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,6 +23,7 @@ import com.bs.helper.SessionManager;
 import com.bs.repo.FeedbackRepo;
 import com.bs.repo.MedicinePatientRepo;
 import com.bs.repo.MedicineRepo;
+import com.bs.repo.UserDetailsRepo;
 import com.bs.repo.UserRepo;
 import com.bs.repo.VisitingDoctorRepo;
 
@@ -29,7 +31,7 @@ import com.bs.repo.VisitingDoctorRepo;
 public class UserController {
 
 	@Autowired
-	private UserRepo userRepo;
+	private UserDetailsRepo userDetailsRepo;
 	@Autowired
 	private MedicineRepo medicineRepo;
 	@Autowired
@@ -50,183 +52,26 @@ public class UserController {
 		return modelAndView;
 	}
 
-	@PostMapping("/logout")
-	public String destroySession(HttpServletRequest request, Model model) {
-		request.getSession().invalidate();
+	@GetMapping("/logout")
+	public String destroySession() {
+//		request.getSession().invalidate();
 		return "redirect:/login";
 	}
 
-	@PostMapping("/authenticate")
-	public ModelAndView authenticate(@ModelAttribute("userDetails") UserDetails userDetails,
-			HttpServletRequest request) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-//		userDetails.setRole("User");
-		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(userDetails);
-		LoginResponse findByUserNameAndPassword = null;
-
-		try {
-			findByUserNameAndPassword = checkCredentials(userDetails);
-		} catch (Exception e) {
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
-			throw new MyRuntimeException(message);
-		}
-
-		// session code
-//		String messages = (String) request.getSession().getAttribute("MY_ROLE");
-//		if (messages == null) {
-//			messages = "";
-//			request.getSession().setAttribute("MY_ROLE", messages);
-//			request.getSession().setAttribute("app_create_flag", "N");
-//			request.getSession().setAttribute("app_show_flag", "N");
-//			request.getSession().setAttribute("app_update_flag", "N");
-//			request.getSession().setAttribute("app_delete_flag", "N");
-//			request.getSession().setAttribute("access_code", "");
-//			request.getSession().setAttribute("user_id", String.valueOf(findByUserNameAndPassword.getUserId()));
-//			request.getSession().setAttribute("MY_ROLE", messages);
-//		}
-		// code to get session and update it in DB
-//		manager.getSessionsByUserID(String.valueOf(findByUserNameAndPassword.getUserId()), request);
-
-//		messages = findByUserNameAndPassword.getRole();
-
-		if (true == findByUserNameAndPassword.isFlag())
-			modelAndView.setViewName("Dashboard");
-		else
-			modelAndView.setViewName("ErrorLoginPage");
-
-		return modelAndView;
-	}
-
-	private LoginResponse checkCredentials(UserDetails userDetails) {
-		boolean flag = false;
-		LoginResponse existedDetails = new LoginResponse();
-		List<UserDetails> findAll = userRepo.findAll();
-
-		for (UserDetails details : findAll) {
-			if (details.getPassword().equals(userDetails.getPassword())
-					&& details.getUserName().equals(userDetails.getUserName())
-					&& details.getStatus().equalsIgnoreCase("Active")) {
-				flag = true;
-				existedDetails.setFlag(true);
-				existedDetails.setUserId(details.getUserID());
-				existedDetails.setUserName(details.getUserName());
-				existedDetails.setRole(details.getRole());
-				existedDetails.setPassword(details.getPassword());
-				break;
-			}
-		}
-
-		return existedDetails;
-	}
-
-	@GetMapping("/showUsers")
-	public ModelAndView showMedicines() {
-		ModelAndView mav = new ModelAndView("UsersList");
-		mav.addObject("empList", userRepo.findAll());
-		return mav;
-	}
-
-	@GetMapping("/loadNewUserPage")
-	public ModelAndView loadNewUserPage() {
-		ModelAndView mav = new ModelAndView("NewUserPage");
-		mav.addObject("user", new UserDetails());
-		mav.addObject("rolesList", Arrays.asList("ADMIN", "USER"));
-		return mav;
-	}
-
-	@PostMapping("/createUser")
-	public ModelAndView createUser(@ModelAttribute("medicine") UserDetails userDetails) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		UserDetails details = new UserDetails();
-		details.setCity(userDetails.getCity());
-		details.setEmail(userDetails.getEmail());
-		details.setName(userDetails.getName());
-		details.setPassword(userDetails.getPassword());
-		details.setRole(userDetails.getRole());
-		details.setStatus(userDetails.getStatus());
-		details.setUserName(userDetails.getUserName());
-		details.setApp_create_flag("N");
-		details.setApp_update_flag("N");
-		details.setApp_delete_flag("N");
-		details.setApp_show_flag("N");
-		details.setAccessCode("#" + userDetails.getName() + userDetails.getRole());
-
-		try {
-			userRepo.save(details);
-		} catch (Exception e) {
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
-			throw new MyRuntimeException(message);
-		}
-		ModelAndView mav = new ModelAndView("UsersList");
-		mav.addObject("empList", userRepo.findAll());
-		return mav;
-	}
-
-	@PostMapping("/updateUser")
-	public ModelAndView updateUser(@ModelAttribute("user") UserDetails userDetails, Object medicineService) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		try {
-			userRepo.save(userDetails);
-		} catch (Exception e) {
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
-			throw new MyRuntimeException(message);
-		}
-
-		ModelAndView mav = new ModelAndView("UsersList");
-		mav.addObject("empList", userRepo.findAll());
-		return mav;
-	}
-
-	@GetMapping("/getUser/{id}")
-	public ModelAndView getMedicineByID(@PathVariable("id") Integer id) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		ModelAndView mav = new ModelAndView("UsersList");
-		UserDetails medicinerDetailsByID = null;
-		try {
-			medicinerDetailsByID = userRepo.findById(id).get();
-		} catch (Exception e) {
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
-			throw new MyRuntimeException(message);
-		}
-		mav.addObject("user", medicinerDetailsByID);
-		mav.addObject("rolesList", Arrays.asList("ADMIN", "USER"));
-		mav.setViewName("UpdateUser");
-		return mav;
-	}
-
-	@GetMapping("/deleteUser/{id}")
-	public ModelAndView deleteUser(@PathVariable("id") Integer id) {
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-		try {
-			userRepo.deleteById(id);
-		} catch (Exception e) {
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + e.getMessage();
-			throw new MyRuntimeException(message);
-		}
-		ModelAndView mav = new ModelAndView("UsersList");
-		mav.addObject("empList", userRepo.findAll());
-
-		return mav;
-	}
 //--------------------------------------------------------------
 
 	@GetMapping("/Dashboard")
-	public ModelAndView login() {
+	public ModelAndView dashboard() {
 		ModelAndView modelAndView = new ModelAndView("Dashboard");
 		return modelAndView;
 	}
+
 	@GetMapping("/aboutUs")
 	public ModelAndView aboutUs() {
 		ModelAndView modelAndView = new ModelAndView("AboutUs");
 		return modelAndView;
 	}
-	
+
 	@GetMapping("/contactUs")
 	public ModelAndView contactUs() {
 		ModelAndView modelAndView = new ModelAndView("ContactUs");
@@ -236,53 +81,61 @@ public class UserController {
 	@GetMapping("/AppointmentDashboard")
 	public ModelAndView AppointmentDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("AppointmentDashboard");
-
-		// code to get session and update it in DB
-//		manager.getSessionsByUserID((String) request.getSession().getAttribute("user_id"), request);
-
-//		Object user_id_attr = request.getSession().getAttribute("user_id");
-////		attributesCollector.getAllAttribute(request, (Integer) user_id_attr);
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setAppointmentAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/DoctorDashboard")
-	public ModelAndView DoctorDashboard() {
+	public ModelAndView DoctorDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("DoctorDashboard");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setDoctorAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/PatientDashboard")
-	public ModelAndView PatientDashboard() {
+	public ModelAndView PatientDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("PatientDashboard");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setPatientAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/VisitorsDoctorDashboard")
-	public ModelAndView VisitorsDoctorDashboard() {
+	public ModelAndView VisitorsDoctorDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("VisitorsDoctorDashboard");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setVDoctorAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/MedicineDashboard")
-	public ModelAndView MedicineDashboard() {
+	public ModelAndView MedicineDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("MedicineDashboard");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setMedientAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/PharmacyDashboard")
-	public ModelAndView PharmacyDashboard() {
+	public ModelAndView PharmacyDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("MedicinesList2");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setMedientAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/MedicineCounterDashboard")
-	public ModelAndView MedicineCounterDashboard() {
+	public ModelAndView MedicineCounterDashboard(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("MedicineCounterDashboard");
+		String userID = (String) request.getSession().getAttribute("user_id");
+		setPharmaAttributes(modelAndView, userID);
 		return modelAndView;
 	}
 
 	@GetMapping("/MedicinePatientsList")
-	public ModelAndView MedicinePatientsList() {
+	public ModelAndView MedicinePatientsList(HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView("MedicinePatientsList");
 		modelAndView.addObject("empList", medicinePatientRepo.findAll());
 		return modelAndView;
@@ -317,10 +170,66 @@ public class UserController {
 		return modelAndView;
 	}
 
+	private void setDoctorAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("doc_create_flag", findById.getDoc_create_flag());
+		modelAndView.addObject("doc_show_flag", findById.getDoc_show_flag());
+		modelAndView.addObject("doc_delete_flag", findById.getDoc_delete_flag());
+		modelAndView.addObject("doc_update_flag", findById.getDoc_update_flag());
+	}
+
+	// setAttributes code
+	private void setAppointmentAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("app_create_flag", findById.getApp_create_flag());
+		modelAndView.addObject("app_show_flag", findById.getApp_show_flag());
+		modelAndView.addObject("app_delete_flag", findById.getApp_delete_flag());
+		modelAndView.addObject("app_update_flag", findById.getApp_update_flag());
+	}
+
+	private void setPatientAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("pat_create_flag", findById.getPat_create_flag());
+		modelAndView.addObject("pat_show_flag", findById.getPat_show_flag());
+		modelAndView.addObject("pat_delete_flag", findById.getPat_delete_flag());
+		modelAndView.addObject("pat_update_flag", findById.getPat_update_flag());
+	}
+
+	private void setVDoctorAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("vDoc_create_flag", findById.getvDoc_create_flag());
+		modelAndView.addObject("vDoc_show_flag", findById.getvDoc_show_flag());
+		modelAndView.addObject("vDoc_delete_flag", findById.getvDoc_delete_flag());
+		modelAndView.addObject("vDoc_update_flag", findById.getvDoc_update_flag());
+	}
+
+	private void setICUAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("icu_create_flag", findById.getIcu_create_flag());
+		modelAndView.addObject("icu_show_flag", findById.getIcu_show_flag());
+		modelAndView.addObject("icu_delete_flag", findById.getIcu_delete_flag());
+		modelAndView.addObject("icu_update_flag", findById.getIcu_update_flag());
+	}
+
+	private void setMedientAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("med_create_flag", findById.getMed_create_flag());
+		modelAndView.addObject("med_show_flag", findById.getMed_show_flag());
+		modelAndView.addObject("med_delete_flag", findById.getMed_delete_flag());
+		modelAndView.addObject("med_update_flag", findById.getMed_update_flag());
+	}
+	private void setPharmaAttributes(ModelAndView modelAndView, String userID) {
+		UserDetails findById = userDetailsRepo.findById(userID).get();
+		modelAndView.addObject("pharm_create_flag", findById.getPharm_create_flag());
+		modelAndView.addObject("pharm_show_flag", findById.getPharm_show_flag());
+		modelAndView.addObject("pharm_delete_flag", findById.getPharm_delete_flag());
+		modelAndView.addObject("pharm_update_flag", findById.getPharm_update_flag());
+	}
+
 }
 
 class LoginResponse {
-	private Integer userId;
+	private String userId;
 	private String userName;
 	private String role;
 	private String password;
@@ -334,11 +243,11 @@ class LoginResponse {
 		this.flag = flag;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 

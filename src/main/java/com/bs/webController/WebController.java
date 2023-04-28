@@ -2,18 +2,28 @@ package com.bs.webController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.beans.AppointmentDetails;
+import com.bs.beans.AttributeRequest;
 import com.bs.beans.DoctorDetails;
 import com.bs.beans.ErrorInfo;
 import com.bs.beans.MedicineDetails;
@@ -23,6 +33,7 @@ import com.bs.beans.VisitingDoctorDetails;
 import com.bs.exception.MyRuntimeException;
 import com.bs.helper.AttributesCollector;
 import com.bs.helper.HelperService;
+import com.bs.repo.UserDetailsRepo;
 import com.bs.repo.UserRepo;
 import com.bs.repo.VisitingDoctorRepo;
 import com.bs.service.AppointmentService;
@@ -49,36 +60,9 @@ public class WebController {
 	private HelperService helperService;
 	@Autowired
 	private VisitingDoctorRepo visitingDoctorRepo;
-
 	@Autowired
 	private AttributesCollector attributesCollector;
-
-	@GetMapping("/demo")
-	public ModelAndView demo() {
-		int vad = 1;
-		ModelAndView modelAndView = new ModelAndView("LoginPage");
-
-		String className = this.getClass().getName();
-		System.out.println("className: " + className);
-		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-
-		modelAndView.addObject("userDetails", new UserDetails());
-		if (vad > 0) {
-
-			ErrorInfo errorInfo = new ErrorInfo();
-			errorInfo.setClassName(stackTrace[1].getClassName());
-			errorInfo.setMethodName(stackTrace[1].getMethodName());
-			errorInfo.setLineNUmber(stackTrace[1].getLineNumber());
-			errorInfo.setExceptionMessage("Exception meeage");
-			errorInfo.setFileName(stackTrace[1].getFileName());
-			String message = stackTrace[1].getClassName() + "_" + stackTrace[1].getMethodName() + "_"
-					+ stackTrace[1].getLineNumber() + "_" + "Exception";
-
-			throw new MyRuntimeException(message);
-		}
-
-		return modelAndView;
-	}
+	
 
 	@GetMapping("/getAppointmentsList")
 	public ModelAndView getAppointmentsList() {

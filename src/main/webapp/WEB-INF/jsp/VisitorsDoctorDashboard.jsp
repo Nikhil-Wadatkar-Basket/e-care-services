@@ -41,7 +41,7 @@
 
 	<div class="container">
 		<div class="card-deck">
-			<div class="card text-center">
+			<div class="card text-center" id="vDoc_show_flag">
 				<div class="card-body">
 					<h5 class="card-title">Doctors List</h5>
 					<p class="card-text">Click below to see All Visiting Doctors</p>
@@ -49,7 +49,7 @@
 							Doctors</a>
 				</div>
 			</div>
-			<div class="card text-center">
+			<div class="card text-center" id="vDoc_create_flag">
 				<div class="card-body">
 					<h5 class="card-title">Add New Visiting Doctors</h5>
 					<p class="card-text">Click below to add new Doctors</p>
@@ -57,7 +57,7 @@
 							Doctors</a>
 				</div>
 			</div>
-			<div class="card text-center">
+			<div class="card text-center" id="vDoc_delete_flag">
 				<div class="card-body">
 					<h5 class="card-title">Delete/Cancel Doctors</h5>
 					<p class="card-text">Click below to delete Doctors</p>
@@ -82,6 +82,49 @@
 
 
 	<jsp:include page="FooterPage.jsp" />
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+		type="text/javascript"></script>
+	<script>
+     var myReq={
+    vDoc_create_flag:'',
+    vDoc_show_flag:'',
+    vDoc_delete_flag:'',
+    vDoc_update_flag:''
+  }
+$(document).ready(function(){
 
+  //on page load, take values from mav and set to request
+  myReq.vDoc_create_flag='${vDoc_create_flag}';
+  myReq.vDoc_show_flag='${vDoc_show_flag}';
+  myReq.vDoc_delete_flag='${vDoc_delete_flag}';
+  myReq.vDoc_update_flag='${vDoc_update_flag}';
+ 
+if(myReq.vDoc_create_flag=='Y'){
+ $("#vDoc_create_flag").show();
+}else{
+ $("#vDoc_create_flag").hide();
+}
+
+if(myReq.vDoc_delete_flag=='Y'){
+ $("#vDoc_delete_flag").show();
+}else{
+ $("#vDoc_delete_flag").hide();
+}
+
+if(myReq.vDoc_show_flag=='Y'){
+ $("#vDoc_show_flag").show();
+}else{
+ $("#vDoc_show_flag").hide();
+}
+
+if(myReq.vDoc_update_flag=='Y'){
+ $("#vDoc_update_flag").show();
+}else{
+ $("#vDoc_update_flag").hide();
+}
+
+});
+
+</script>
 </body>
 </html>

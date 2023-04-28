@@ -8,9 +8,16 @@ select * from spring_session_attributes;
 
 delete from spring_session_attributes;
 
-select * from doctor_Details;
-select * from  user_Details;
-update user_details set app_create_flag = 'N' where userid=1;
+select * from user_details_tab;
+select app_create_flag,app_delete_flag,app_update_flag,app_show_flag from  user_Details_tab where userid like 'admin_ADMIN';
+desc user_Details_tab;
+
+update user_Details_tab set app_create_flag = 'N' where userid like 'admin_ADMIN';
+update user_Details_tab set app_delete_flag = 'N' where userid like 'admin_ADMIN';
+update user_Details_tab set app_update_flag = 'N' where userid like 'admin_ADMIN';
+update user_Details_tab set app_show_flag = 'N' where userid like 'admin_ADMIN';
+
+delete from user_details where userid=1;
 
 update user_details set app_create_flag = 'Y' where userid=22;
 

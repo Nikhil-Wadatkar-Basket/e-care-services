@@ -18,14 +18,31 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
 
   <body>
     <div
-      class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+      class="jumbotron jumbotron-fluid"
       style="
         background-image: url(https://media.istockphoto.com/id/1214977678/photo/hand-in-medical-gloves.jpg?s=2048x2048&w=is&k=20&c=Xi0wGKwh_nEdNk08pnVAqjIOzwrjqXimouypRLCQ0KY=);
       "
     >
-      <h1 class="mb-3 h2">E-Care Health Application</h1>
+      <a class="btn btn-danger" style="float: right" href="/logout">Logout</a>
 
-      <p>Add You content.</p>
+      <h1 class="mb-3 h2 text-center">E-Care Health Application</h1>
+
+      <p class="text-center">Add You content.</p>
     </div>
+    <!-- Jumbotron -->
+    <!-- <div class="p-5 text-center rounded-3" style="
+    background-image: url('https://media.istockphoto.com/id/1214977678/photo/hand-in-medical-gloves.jpg?s=2048x2048&w=is&k=20&c=Xi0wGKwh_nEdNk08pnVAqjIOzwrjqXimouypRLCQ0KY=');
+    height: 400px;
+  ">
+  <div >
+    <div class="d-flex justify-content-center align-items-center h-100">
+      <div>
+        <h1 class="mb-3">E-Care Health Care Application</h1>
+        
+      </div>
+    </div>
+  </div>
+</div> -->
+    <!-- Jumbotron -->
   </body>
 </html>

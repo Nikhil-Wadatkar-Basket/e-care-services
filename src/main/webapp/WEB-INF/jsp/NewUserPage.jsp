@@ -94,7 +94,7 @@ uri="http://www.springframework.org/tags/form" prefix="form"%>
 
           <tr>
             <td></td>
-            <td><input type="submit" value="Update User" /></td>
+            <td><input type="submit" value="Create User" /></td>
           </tr>
         </table>
       </form:form>

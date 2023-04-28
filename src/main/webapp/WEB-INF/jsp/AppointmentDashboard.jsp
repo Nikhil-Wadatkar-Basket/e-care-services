@@ -28,60 +28,59 @@
 
 
 	<div class="container">
-		<div class="row justify-content-center">
-    <h1>APPOINTMENT Dashboard</h1>
-  </div>
+		<div class="row justify-content-center">	
+			<h1>APPOINTMENT Dashboard</h1>
 
-		
-	
-	</br>
-
-	<div class="container">
-		<div class="card-deck">
-
-				<div class="card text-center">
-					<div class="card-body">
-						<h5 class="card-title">Appointments List</h5>
-						<p class="card-text">Click below to see All Appointments</p>
-						<a class="btn btn-info btn-light" href="/getAppointmentsList">All
-							Appointments</a>
+			User ID: ${user_id}<br></br>
+		</div><br></br>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4" id="app_show_flag">
+					<div class="card text-center" >
+						<div class="card-body">
+							<h5 class="card-title">Appointments List</h5>
+							<p class="card-text">Click below to see All Appointments</p>
+							<a class="btn btn-info btn-light" href="/getAppointmentsList">All
+								Appointments</a>
+						</div>
 					</div>
 				</div>
+				<div class="col-sm-4" id="app_create_flag">
+					<div class="card text-center" >
+						<div class="card-body">
+							<h5 class="card-title">Add New Appointment</h5>
+							<p class="card-text">Click below to add new appointments</p>
+							<a class="btn btn-info btn-light" href="/loadNewAppointmentPage">Create
+								Appointments</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4"  id="app_delete_flag">
+					<div class="card text-center" >
+						<div class="card-body">
+							<h5 class="card-title">Delete/Cancel Appointment</h5>
+							<p class="card-text">Click below to delete appointments</p>
+							<a class="btn btn-info btn-light" href="/DeleteAppointmentsPage">Delete
+								Appointments</a>
+						</div>
+					</div>
+				</div>
+			</div></div>
+
+
+			</br>
+			<br></br>
+			<div class="container  text-center">
+				<button type="button" class="btn btn-primary"
+					data-dismiss="modal" onClick="location.href='/Dashboard'">Go
+					to Dashboard middle</button>
 				
-			<div class="card text-center">
-				<div class="card-body">
-					<h5 class="card-title">Add New Appointment</h5>
-					<p class="card-text">Click below to add new appointments</p>
-					<a class="btn btn-info btn-light" href="/loadNewAppointmentPage">Create
-						Appointments</a>
-				</div>
 			</div>
-			<div class="card text-center">
-				<div class="card-body">
-					<h5 class="card-title">Delete/Cancel Appointment</h5>
-					<p class="card-text">Click below to delete appointments</p>
-					<a class="btn btn-info btn-light" href="/DeleteAppointmentsPage">Delete
-						Appointments</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br></br>
-	<div class="container">
-		<div class="card-deck">
-			<div class="card-body"></div>
-			<div class="card-body">
-				<button type="button" class="btn btn-primary" data-dismiss="modal"
-					onClick="location.href='/Dashboard'">Go to Dashboard</button>
-			</div>
-			<div class="card-body"></div>
-		</div>
-	</div>
-	<br></br>
+			<br></br>
 
 
 
-	<!-- <div class="row">
+			<!-- <div class="row">
 		<div class="col-6 col-md-4"></div>
 		<div class="col-6 col-md-4">
 			<button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -89,12 +88,55 @@
 		</div>
 		<div class="col-6 col-md-4"></div>
 	</div> -->
-	<br></br>
-	<br></br>
+			<br></br> <br></br>
 
 
 
-	<jsp:include page="FooterPage.jsp" />
+			<jsp:include page="FooterPage.jsp" />
 
+			<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+				type="text/javascript"></script>
+			<script>
+     var myReq={
+    app_create_flag:'',
+    app_show_flag:'',
+    app_delete_flag:'',
+    app_update_flag:''
+  }
+$(document).ready(function(){
+
+  //on page load, take values from mav and set to request
+  myReq.app_create_flag='${app_create_flag}';
+  myReq.app_show_flag='${app_show_flag}';
+  myReq.app_delete_flag='${app_delete_flag}';
+  myReq.app_update_flag='${app_update_flag}';
+ 
+if(myReq.app_create_flag=='Y'){
+ $("#app_create_flag").show();
+}else{
+ $("#app_create_flag").hide();
+}
+
+if(myReq.app_delete_flag=='Y'){
+ $("#app_delete_flag").show();
+}else{
+ $("#app_delete_flag").hide();
+}
+
+if(myReq.app_show_flag=='Y'){
+ $("#app_show_flag").show();
+}else{
+ $("#app_show_flag").hide();
+}
+
+if(myReq.app_update_flag=='Y'){
+ $("#app_update_flag").show();
+}else{
+ $("#app_update_flag").hide();
+}
+
+});
+
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.bs.exception;
 
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +17,6 @@ public class GlobalExceptionHandler {
 
 		System.out.println(exception.getMessage());
 		ErrorInfo errorInfo = getErrorInfo(exception);
-		
-		
 		mav.addObject("className", errorInfo.getClassName());
 		mav.addObject("methodName", errorInfo.getMethodName());
 		mav.addObject("lineNumber", errorInfo.getLineNUmber());
@@ -35,5 +34,26 @@ public class GlobalExceptionHandler {
 		errorInfo.setLineNUmber(Integer.parseInt(message[2]));
 		errorInfo.setExceptionMessage(message[3]);
 		return errorInfo;
+	}
+	
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ModelAndView illigalArgumentException(IllegalArgumentException e) {
+		ModelAndView mav = new ModelAndView("FailureMessage");
+		ErrorInfo errorInfo = getErrorInfo(e);
+		mav.addObject("className", errorInfo.getClassName());
+		mav.addObject("methodName", errorInfo.getMethodName());
+		mav.addObject("lineNumber", errorInfo.getLineNUmber());
+		mav.addObject("exceptionMessage", errorInfo.getExceptionMessage());
+		return mav;
+	}
+	@ExceptionHandler(InvalidDataAccessApiUsageException.class)
+	public ModelAndView invalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e) {
+		ModelAndView mav = new ModelAndView("FailureMessage");
+		ErrorInfo errorInfo = getErrorInfo(e);
+		mav.addObject("className", errorInfo.getClassName());
+		mav.addObject("methodName", errorInfo.getMethodName());
+		mav.addObject("lineNumber", errorInfo.getLineNUmber());
+		mav.addObject("exceptionMessage", errorInfo.getExceptionMessage());
+		return mav;
 	}
 }
